@@ -1,0 +1,18 @@
+Index: Home/Tpl/Yeji/yeji.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Home/Tpl/Yeji/yeji.html	(revision 4abbd044cf1c938e242fdd028f4108fe812cec6c)
++++ Home/Tpl/Yeji/yeji.html	(revision )
+@@ -60,9 +60,7 @@
+         <tr>
+             <td colspan="8">
+                 <button class="_button" id="u_name">职员姓名</button>
+-                —
+                 <button class="_button" id="fksj">放款时间</button>
+-                —
+                 <button class="_button" id="dqsj">到期时间</button>
+             </td>
+         </tr>
+\ No newline at end of file

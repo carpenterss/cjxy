@@ -1,0 +1,31 @@
+<include file="Public:email_header" title="查看内部邮件" /> <!--公共头部样式-->
+     <div class="module_public_main">
+         <table>
+           <tr>
+             <td width="12%" align="right">发送人:</td>
+             <td><{$e_info['em_name']}></td>
+           </tr>
+           <tr>
+             <td width="12%" align="right">邮件标题:</td>
+             <td><{$e_info['em_title']}></td>
+           </tr>
+           <tr>
+             <td width="12%" align="right">发送时间:</td>
+             <td><{$e_info['em_addtime']|date="Y-m-d H:m",###}></td>
+           </tr>
+           <tr>
+             <td width="12%" align="right">邮件内容:</td>
+             <td><span style="background:#F0F0F0;"><{$e_info['em_content']}></span></td>
+           </tr>
+           <tr>
+             <if condition="$e_info['em_filename'] eq ''">
+             <td width="12%" align="right">附件内容:</td>
+             <td><font color=red>无附件</font></td>
+             <else />
+             <td width="12%" align="right">附件内容:</td>
+             <td><{$e_info['em_filename']}>&nbsp;->&nbsp;<a href="__PUBLIC__/Email_attachment/<{$e_info['em_fileUpload']}>">点击下载</a></td>
+             </if>
+           </tr>
+         </table>
+     </div>
+<include file="Public:footer" /> <!--公共尾部样式-->

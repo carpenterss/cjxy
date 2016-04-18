@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>诚金办公管理系统</title>
+	<link href="__PUBLIC__/xw/bootstrap.min.css" rel="stylesheet">
+	<link href="__PUBLIC__/xw/logo.css" rel="stylesheet">
+</head>
+<body>
+	<div id="main">
+		<div class="logo">
+			<img src="__PUBLIC__/img/logo.png" alt="logo"/>
+			<span class="logo-text">诚金办公管理系统</span>
+		</div>
+		<div class="login">
+			<span class="title">用户登录</span>
+			<form action="__URL__/doLogin" method="post">
+				<div class="form-group">
+					<label for="u_username">用户帐号</label>
+					<input type="text" id="u_username" name="u_username" class="form-control text" placeholder="请输入用户帐号" />
+				</div>
+				<div class="form-group">
+					<label for="u_password">用户密码</label>
+					<input type="password" id="u_password" name="u_password" class="form-control text" placeholder="请输入用户密码"/>
+				</div>
+				<div class="form-group">
+					<label for="verify">验证码</label>
+					<input type="text" id="verify" name="verify" size="6" class="form-control code" placeholder="验证码"/>
+					<img src="__APP__/Public/verify" class="vpic" onclick="this.src='__APP__/Public/verify/'+new Date().getTime();"/>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary mybtn" value="用户登录">
+				</div>
+			</form>
+		</div>
+		<div class="footer">
+			<p>吉林省诚金信用管理有限公司版权所有©2015-2018</p>
+		</div>
+	</div>
+</body>
+</html>

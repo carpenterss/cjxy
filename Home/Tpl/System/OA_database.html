@@ -1,0 +1,39 @@
+<include file="Public:system_header" title="OA数据库管理"/>
+     <div class="module_public_main">
+        <table>
+          <tr>
+            <td colspan="6"><a href="__URL__/OA_DATABASES">【查看数据表/字段-注释信息】</a>&nbsp;<a href="__URL__/OA_sql">【SQL语句操作】</a>-><font color=red>技术人员操作</font></td>
+          </tr>
+          <tr>
+            <td align="center" width="8%">编号</td>
+            <td align="center">表名</td>
+            <td align="center">数据量</td>
+            <td align="center">有无备份文件</td>
+            <td align="center">备份文件存放路径</td>
+            <td align="center">操作</td>
+          </tr>
+          <volist name="t_info" id="v" key="k">
+            <tr>
+              <td align="center"><{$k}></td>
+              <td align="center"><{$v.Tables_in_oa}></td>
+              <td align="center"><b style="color:red;"><{$v.sum}></b>条</td>
+              <if condition="$v.is_backup eq '1'">
+              <td align="center"><font color=green>√</font></td>
+              <else />
+              <td align="center"><font color=red>x</font></td>
+              </if>      
+              <td align="center">__PUBLIC__/Backup/<{$v.Tables_in_oa}>.txt</td>    
+              <td align="center">
+                <a href="__URL__/do_backup_table/tname/<{$v.Tables_in_oa}>">单表备份(结构+内容)</a> |
+                <a href="__URL__/do_optimize/tname/<{$v.Tables_in_oa}>">单表优化</a> |
+                <a href="__URL__/OA_look_desc/tname/<{$v.Tables_in_oa}>">查看表结构</a> |
+                <a href="__URL__/do_del_tables/tname/<{$v.Tables_in_oa}>" onclick="if(confirm('确定要清空表数据吗?')){return true;}else{return false};" disabled="">清空表数据</a>
+              </td>
+            </tr>
+          </volist>
+          <tr>
+            <td bgcolor="#F0F0F0"></td>
+          </tr>
+        </table>
+     </div>
+<include file="Public:system_footer" />

@@ -1,0 +1,28 @@
+<include file="Public:notice_header" title="创建公告通知" />
+   <div class="module_public_main">
+     <table>
+       <form action="__URL__/do_Addnotice" method="post">
+       <tr>
+         <td width="12%" align="right">公告标题:</td>
+         <td><input type="text" class="_input" name="n_title"/></td>
+       </tr>
+       <tr>
+         <td width="12%" align="right">发布对象:</td>
+         <td>
+          <input type="radio" name="n_target" value="2" checked="checked"/>公司所有员工<br/>
+         </td>
+       </tr>
+        <tr>
+         <td width="12%" align="right">公告内容:</td>
+         <td>
+           <textarea rows="7" cols="70" class="_input2" name="n_content"></textarea>
+         </td>
+       </tr>
+       <tr>
+         <td>&nbsp;</td>
+         <td><input type="submit" value="发布公告" class="_button"/></td>
+       </tr>
+       </form>
+     </table>
+   </div>
+<include file="Public:notice_footer" />

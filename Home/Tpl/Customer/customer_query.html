@@ -1,0 +1,104 @@
+<!DOCTYPE>
+<html>
+<head>
+    <load file="__PUBLIC__/Css/layout.css" />
+    <load file="__PUBLIC__/Css/module_public.css" />
+    <load file="__PUBLIC__/Js/jquery.js" />
+    <load file="__PUBLIC__/Js/message.js" />
+</head>
+<body>
+<div class="module_public">
+    <div class="module_public_content">
+        <h1> >> 小额贷款查询结果 <a href="__ACTION__">【刷新】</a><a href="__ROOT__/index.php/Customer/customer">【返回】</a></h1>
+
+    </div>
+<div class="module_public_main">
+    <table id="data">
+        <tr>
+            <td align="center">业务流水号</td>
+            <td align="center">客户姓名</td>
+            <td align="center">联系方式</td>
+            <td align="center">资金科目</td>
+            <td align="center">资金科目备注</td>
+            <td align="center">操作</td>
+        </tr>
+        <if condition="$customertype eq p">
+            <volist name="c_info" id="v" key="k">
+                <tr class="tr_info">
+                    <td align="center"><{$v.b_id|str_pad=5,"0",STR_PAD_LEFT}></td>
+                    <td align="center"><{$v.x_p_name}></td>
+                    <td align="center"><{$v.x_p_lxfs}></td>
+                    <if condition="$v['zjkm'] eq 1">
+                        <td align="center">公司资金</td>
+                    </if>
+                    <if condition="$v['zjkm'] eq 2">
+                        <td align="center">其他资金</td>
+                    </if>
+                    <if condition="$v['zjkm'] eq 3">
+                        <td align="center">公司资金及其他资金</td>
+                    </if>
+                    <td align="center"><{$v.zjkmbz}></td>
+
+
+                    <td align="center">
+                        <a href="__URL__/customer_x_p_update/id/<{$v.id}>">查看/更新客户资料</a> |
+                        <a href="__URL__/ywlc_update_by_b_id/id/<{$v.b_id}>">业务信息维护</a> |
+                        <a href="__URL__/del_customer/id/1<{$v.id}>" onclick="return confirmdel()">删除客户</a>
+                    </td>
+                </tr>
+            </volist>
+        </if>
+        <if condition="$customertype eq e">
+            <volist name="c_info" id="m" key="n">
+                <tr class="tr_info">
+                    <td align="center"><{$m.b_id|str_pad=5,"0",STR_PAD_LEFT}></td>
+                    <td align="center"><{$m.x_e_name}></td>
+                    <td align="center"><{$m.x_e_lxfs}></td>
+                    <if condition="$m['zjkm'] eq 1">
+                        <td align="center">公司资金</td>
+                        <elseif condition="$m['zjkm'] eq 2"/>
+                        <td align="center">其他资金</td>
+                        <else/>
+                        <td align="center">公司资金及其他资金</td>
+                    </if>
+                    <td align="center"><{$m.zjkmbz}></td>
+
+                    <!--<if condition="$m.x_e_hkdj eq '0'">-->
+                    <!--<td align="center">暂无业务</td>-->
+                    <!--<elseif condition="$m.x_e_hkdj eq '1'"/>-->
+                    <!--<td align="center">正常还款</td>-->
+                    <!--<elseif condition="$m.x_e_hkdj eq '2'"/>-->
+                    <!--<td align="center">还款不足</td>-->
+                    <!--<elseif condition="$m.x_e_hkdj eq '4'"/>-->
+                    <!--<td align="center">未还款</td>-->
+                    <!--<elseif condition="$m.x_e_hkdj eq '5'"/>-->
+                    <!--<td align="center">已结单</td>-->
+                    <!--<else/>-->
+                    <!--</if>-->
+                    <td align="center">
+                        <a href="__URL__/customer_x_e_update/id/<{$m.id}>">查看/更新客户资料</a> |
+                        <a href="__URL__/ywlc_update_by_b_id/id/<{$m.b_id}>">更改业务信息</a> |
+                        <a href="__URL__/del_customer/id/2<{$m.id}>" onclick="return confirmdel()">删除客户</a>
+                    </td>
+                </tr>
+            </volist>
+        </if>
+        <!--<tr>-->
+            <!--<td colspan="8" align="right" id="data2" style="padding:10px 0;"><{$fpage}></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td align="right" colspan="8"><input type="button" onclick="history.go(-1);" value="返回客户列表" class="_button"-->
+                                                 <!--style="width:150px;"/></td>-->
+        <!--</tr>-->
+    </table>
+
+</div>
+<script>
+    function confirmdel() {
+        if (confirm("确定要删除该客户？若误删除请联系管理员"))
+            return true;
+        else
+            return false;
+    }
+</script>
+<include file="Public:customer_footer"/>

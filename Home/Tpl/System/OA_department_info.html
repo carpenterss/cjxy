@@ -1,0 +1,35 @@
+<include file="Public:system_header" title="公司部门详情"/>
+	<div class="module_public_main">
+       <table>
+         <tr>
+           <td colspan="6">部门详情->员工列表 <a href="#" onclick="history.go(-1);">【返回上一页】</a></td>
+         </tr>
+         <tr>
+           <td width="8%" align="center">编号</td>
+           <td align="center">员工姓名</td>
+           <td align="center">员工手机</td>
+           <td align="center">员工性别</td>
+           <td align="center">员工年龄</td>
+           <td align="center">员工简历</td>
+         </tr>
+         <volist name="e_info" id="v" key="k">
+         <tr>
+           <td width="8%" align="center"><{$k}></td>
+           <td align="center"><{$v.u_name}></td>
+           <td align="center"><{$v.u_phone}></td>
+           <if condition="$v.u_sex eq '1'">
+           <td align="center">男</td>
+           <else />
+           <td align="center">女</td>
+           </if>
+           <td align="center"><{$v.u_age}></td>
+           <if condition="$v.u_resume_url eq ''">
+           <td align="center"><a href="#">【该员工未传简历】</a></td>
+           <else /> 
+           <td align="center"><a href="__PUBLIC__/Resume/<{$v.u_resume_url}>">【查看该员工简历】</a></td>
+           </if>
+         </tr>
+         </volist>
+       </table>
+	</div>
+<include file="Public:system_footer" />

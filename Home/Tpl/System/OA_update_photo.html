@@ -1,0 +1,26 @@
+<include file="Public:system_header" title="更新相片"/>
+     <div class="module_public_main"> 
+        <table>
+        <form action="__URL__/do_updatePhoto" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="p_id" value="<{$p_info.p_id}>" />
+        <input type="hidden" name="p_img" value="<{$p_info.p_img}>" />
+          <tr>
+            <td width="12%" align="right">相片标题:</td>
+            <td><input type="text" class="_input" name="p_title" value="<{$p_info.p_title}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">原相册相片:</td>
+            <td><img src="__PUBLIC__/Photos/<{$p_info.p_thumbs}>" style="border:1px solid #ccc;"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">要更新的相片:</td>
+            <td><input type="file" name="p_img" class="_input"/>&nbsp;<font color=red>(请尽量上传像素在 750 * 500左右的图片,否则可能造成显示效果变低)</font></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">&nbsp;</td>
+            <td><input type="submit" class="_button" value="更新相片"/></td>
+          </tr>
+          </form>
+        </table>
+     </div>
+<include file="Public:system_footer" />

@@ -1,0 +1,28 @@
+<include file="Public:email_header" title="发送外部邮件"/> <!--公共头部样式-->
+     <div class="module_public_main">
+        <table>
+        <form action="__URL__/do_outEmail" method="post">
+           <tr>
+             <td width="12%" align="right">发送源地址:</td>
+             <td><input type="text" name="o_source" class="_input" value="<{$source}>" disabled="true" />&nbsp;<font color=red>(默认为用户资料中所填写的外部电子邮箱地址,如需更改请更改个人资料信息)</font></td>
+           </tr>
+           <tr>
+             <td width="12%" align="right">发送目的地址:</td>
+             <td><input type="text" name="o_purpose" class="_input"/></td>
+           </tr>
+           <tr>
+             <td width="12%" align="right">邮件标题:</td>
+             <td><input type="text" name="o_title" class="_input"/></td>
+           </tr>
+           <tr>
+             <td width="12%" align="right">邮件内容:</td>
+             <td><textarea cols="70" rows="7" class="_input2" name="o_content"></textarea></td>
+           </tr>
+           <tr>
+             <td width="12%" align="right">&nbsp;</td>
+             <td><input type="submit" value="发送邮件" class="_button"/></td>
+           </tr>
+           </form>
+        </table>
+     </div>
+<include file="Public:footer" /> <!--公共尾部样式-->

@@ -1,0 +1,214 @@
+<include file="Public:system_header" title="公司结构图形"/>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery-ui.min.js"></script>
+<style>
+.jiegou ul li{margin-top:20px;}
+.shuxian li{float:left;margin-left:40px;}
+.hengxian{clear:both;margin-top:20px;}
+.jiegou_content{border:1px solid #CCC;}
+.jiegou_content h1{width:auto;height:auto;font-size:18px;padding:10px;}
+.jiegou_content h1 ul{margin-top:10px;}
+.jiegou_content h1 ul li{float:left;font-size:14px;color:#000;margin-left:10px;font-weight:500;width:80px;height:30px;background:#FFC;line-height:30px;text-align:center;margin-top:10px;}
+.bujuqu{width:auto;height:800px;border:1px dashed #999;margin-top:10px;text-align:center;line-height:600px;color:#999}
+</style>
+     <div class="module_public_main">
+        <table>
+           <tr>
+           <td bgcolor="#F0F0F0" colspan="2"><a href="__URL__/OA_structure">【创建公司部门】</a> <a href="__URL__/OA_company_info">【录入公司基本信息】</a> <a href="__URL__/OA_edit_company">【更改公司基本信息】</a> <a href="__URL__/OA_company_graphics">【公司结构图形】</a></td>
+         </tr>
+          <tr>
+             <td width="18%" valign="top">
+             	<div style="height:auto;" class="jiegou">
+                   <ul style="text-align:center;">
+                     <span style="border-bottom:1px dashed #FC6">>><b>创建布局元素</b><<</span>
+                     <li>
+                     创建<b style="color:red;">长方形</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="changfangxing"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">圆角方形</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="yuanjiaoxing"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">椭圆形</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="tuoyuanxing"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">三角形</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="sanjiaoxing"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">横线(大)</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="hengxian_da"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">横线(中)</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="hengxian_zhong"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">横线(小)</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="hengxian_xiao"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">竖线(大)</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="shuxian_da"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">竖线(中)</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="shuxian_zhong"/>
+                     </li>
+                     <li>
+                     创建<b style="color:red;">竖线(小)</b>-数量:
+                     <input type="text" class="_input" style="width:80px;"/>个
+                     <input type="button" value="创建元素" class="_button create_jiegou" id="shuxian_xiao"/>
+                     </li>
+                   </ul>
+                </div>
+             </td>
+             <td valign="top">
+                <div class="jiegou_content">
+                   <h1>※公司现有部门 >>
+                      <ul>
+                         <volist name="d_info" id="v">
+                            <li><{$v.d_name}></li>
+                         </volist>
+                      </ul> 
+                   </h1>
+                   <div style="clear:both;"></div>
+                </div>
+                <div class="bujuqu">
+                  <volist name="l_info" id="v">
+                     <div style="width:<{$v.e_width}>;height:<{$v.e_height}>;top:<{$v.cl_y}>px;left:<{$v.cl_x}>px;z-index:<{$v.cl_z}>;background:url(__PUBLIC__/Images/<{$v.e_path}>);line-height:50px;font-size:16px;color:green;" class="jiegou_img" id="<{$v.cl_id}>" title="<{$v.cl_did}>"><{$v.cl_title}></div>
+                  </volist>
+                </div>
+                
+             </td>
+          </tr>
+        </table>
+     </div>
+     <script type="text/javascript">
+	   //公司结构布局图 主JS程序部分
+	   $(".create_jiegou").click(function(){
+		  var vv = $(this).prev().val(); 
+		  var name = $(this).attr("id");
+		  
+		  if(isNaN(vv)||vv==""){
+			 alert("对不起,请您输入数字");
+			 location.reload();   
+		  }
+		  
+		  $.get("__URL__/create_img",{
+			 num : vv,
+			 e_name : name
+		  },function(data){
+			 if(data==1){
+			    location.reload();
+			 }else{
+				alert("对不起,元素创建失败"); 
+			 }
+		  });
+	   });
+
+	   make_draggable($(".jiegou_img"));  
+	   var zIndex = 0;
+
+       function make_draggable(elements){ 
+	      
+
+      	  elements.draggable({   
+        	opacity: 0.8,   
+        	containment:'document.body',   
+       	    start:function(e,ui){
+		          ui.helper.css('z-index',++zIndex);
+		    },   
+        	stop:function(e,ui){ 
+               $.get('__URL__/save_layout',{   
+                  x        : ui.position.left,   
+                  y        : ui.position.top,   
+                  z        : zIndex,
+				  cl_id    : this.id
+               },function(data){
+				  if(data==2){
+					 alert("对不起,保存失败!!!");  
+				  }
+			   });
+        	}   
+          })  
+	   } 
+	   
+	   //右键展开菜单
+	   var ii = 0;
+	   $(".jiegou_img").mousedown(function(e){
+		 var cl_id = $(this).attr("id");
+		 var did = $(this).attr("title");
+		 switch(e.which){
+			 case 3:
+			 document.oncontextmenu=function(){return false};
+			 
+			 $top = e.pageY;
+		     $left= e.pageX;
+			 
+			 if(ii==0){
+			 var div_menu = $("<ul style='width:300px;height:auto;background:#FFC;position:absolute;top:"+$top+"px;left:"+$left+"px;z-index:9999;line-height:30px;border:1px solid #ccc;'><li style='height:35px;line-height:30px;margin-top:5px;'>※【标记元素】<input type='text' id='e_title'/></li><l style='height:35px;line-height:30px;'i>※【选择部门】<select id='e_did'><option>--请选择部门--</option><volist name='d_info' id='v'><option value='<{$v.d_id}>'><{$v.d_name}></option></volist></select></li><li style='height:35px;line-height:30px;'>※<a href='#' id='del_element'>【删除元素】</a></li><li style='height:35px;line-height:30px;'>※<a href='#' id='look_info'>【查看详细】</a></li><li style='height:35px;line-height:30px;'><input type='button' value='确认提交' id='submit_menu' class='_button' style='margin-left:10px;'/><input type='button' value='关闭菜单' id='close_menu' class='_button' style='margin-left:10px;'/></li></ul>"); 
+			 
+			 $("body").append(div_menu);
+			 
+			 $("#close_menu").click(function(){
+				div_menu.remove();
+				ii = 0;  
+			 });
+			 
+			 //提交设置信息
+			 $("#submit_menu").click(function(){
+				$e_title = $("#e_title").val();
+				$e_did   = $("#e_did").val();
+				$.get("__URL__/save_layout2",{
+					e_title : $e_title,
+					e_did   : $e_did,
+					clid    : cl_id
+				},function(data){
+					if(data==2){
+					   alert("对不起,信息保存失败!!!");
+					   location.reload();	
+					}else{
+					   alert("信息保存成功");
+					   location.reload();	
+					}
+				});
+			 });
+			 
+			 //删除元素
+			 $("#del_element").click(function(){
+				 $.get("__URL__/save_delete",{
+				    clid : cl_id
+			 	 },function(data){
+					if(data==1){
+					   alert("元素删除成功");
+					   location.reload();
+					}else{
+					   alert("对不起,元素删除失败");
+					   location.reload();	
+					}
+				 });
+			 });
+			 
+			 $("#look_info").click(function(){
+				location.href="__URL__/OA_department_info/d_id/"+did; 
+			 });
+			 
+			 ii = 1;
+			 } //IF结束括号
+			 
+			 break;
+		 }
+	   });
+	 </script>
+<include file="Public:system_footer" />

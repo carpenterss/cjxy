@@ -1,0 +1,53 @@
+<include file="Public:employeesInfo_header" title="任务分派"/>
+<script type="text/javascript">
+$(function(){
+//任务下达页面 部门对应员工效果
+	$("#change_department").change(function(){
+		var id = this.value;
+		$.get("__URL__/tasks_ajax",{
+			d_id : id
+		},function(data){
+			$("._remove").remove();
+			$("#change_employees").append(data);
+	    });
+	});
+});
+</script>
+   <div class="module_public_main">
+      <table>
+      <form action="__URL__/do_add_tasks" method="post">
+         <tr>
+           <td width="12%" align="right">请选择部门:</td>
+           <td>
+             <select class="_input" id="change_department">
+                <option value="">--请选择部门--</option>
+                <volist name="d_info" id="v">
+                <option value="<{$v.d_id}>"><{$v.d_name}></option>
+                </volist>
+             </select>
+           </td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">请选择员工:</td>
+           <td>
+             <select name="u_id" class="_input" id="change_employees">
+                <option value="">--请选择员工--</option>
+             </select>
+           </td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">任务内容:</td>
+           <td>
+             <textarea class="_input2" name="t_content"></textarea>
+           </td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">&nbsp;</td>
+           <td>
+            <input type="submit" value="下达任务" class="_button"/>
+           </td>
+         </tr>
+         </form>
+      </table>
+   </div>
+<include file="Public:employeesInfo_footer" />

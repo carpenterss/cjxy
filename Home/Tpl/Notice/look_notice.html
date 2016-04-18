@@ -1,0 +1,22 @@
+<include file="Public:notice_header" title="公告通知详细" />
+   <div class="module_public_main">
+      <table>
+         <tr>
+           <td width="12%" align="right">公告标题:</td>
+           <td><{$n_info.n_title}></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">发布时间:</td>
+           <td><{$n_info.n_addtime|date="Y-m-d H:m",###}></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">发布人:</td>
+           <td><{$n_info.n_rname}></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">公告内容:</td>
+           <td><{$n_info.n_content}></td>
+         </tr>        
+      </table>
+   </div>
+<include file="Public:notice_footer" />

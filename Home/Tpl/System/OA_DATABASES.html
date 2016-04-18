@@ -1,0 +1,968 @@
+<include file="Public:system_header" title="OA数据库表/字段详细解释说明"/>
+     <div class="module_public_main"> 
+     <script type="text/javascript">
+	    $(function(){
+			$("#shaixuan").keyup(function(){
+				$val = $(this).val();
+				$c = $("table tr").hide().filter(":contains('"+$val+"')");
+				$c.show();
+			    $c.next().show();
+			    $c.next().next().show();
+			});
+		});
+	 </script>
+        <p style="margin-bottom:10px;">筛选:&nbsp;<input type="text" id="shaixuan" style="width:200px;height:30px;border:1px solid #ccc;"/><font color=red>&nbsp;(输入要查找的表名)</font></p>
+        <table>
+          <tr>
+            <td><b>表名:</b>oa_addressbook</td>
+            <td><b>作用:</b>记录员工个人通讯簿</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>a_id:</b>主键自增字段<br/>
+               <b>a_uid:</b>关联员工ID<br/>
+               <b>a_name:</b>联系人姓名<br/>
+               <b>a_pname:</b>联系人姓名拼音<br/>
+               <b>a_company:</b>所属公司<br/>
+               <b>a_telephone:</b>固定电话<br/>
+               <b>a_fax:</b>传真号码<br/>
+               <b>a_address:</b>公司地址<br/>
+               <b>a_qq:</b>QQ号码<br/>
+               <b>a_email:</b>邮箱地址<br/>
+               <b>a_note:</b>备注信息<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_chatroom</td>
+            <td><b>作用:</b>公共频道聊天室信息记录</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>c_id:</b>主键自增字段<br/>
+               <b>c_user:</b>发送人的姓名<br/>
+               <b>c_msg:</b>发送内容<br/>
+               <b>c_time:</b>发送的时间<br/>
+               <b>c_expression:</b>发送时的表情(暂未启用)<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_clockin</td>
+            <td><b>作用:</b>员工考勤记录表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>c_id:</b>主键自增字段<br/>
+               <b>c_uid:</b>所属用户ID<br/>
+               <b>c_year:</b>考勤年份记录<br/>
+               <b>c_january:</b>一月份考勤记录<br/>
+               <b>c_february:</b>二月份考勤记录<br/>
+               <b>c_march:</b>三月份考勤记录<br/>
+               <b>c_april:</b>四月份考勤记录<br/>
+               <b>c_may:</b>五月份考勤记录<br/>
+               <b>c_june:</b>六月份考勤记录<br/>
+               <b>c_july:</b>七月份考勤记录<br/>
+               <b>c_august:</b>八月份考勤记录<br/>
+               <b>c_september :</b>九月份考勤记录<br/>
+               <b>c_october:</b>十月份考勤记录<br/>
+               <b>c_november:</b>十一月份考勤记录<br/>
+               <b>c_december:</b>十二月份考勤记录<br/>
+               <b>c_click:</b>点击次数记录(本字段和下面字段主要为防止用户当天多次打卡)<br/>
+               <b>c_nowDay:</b>当天日期<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_compnay</td>
+            <td><b>作用:</b>当前使用OA的公司的信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>c_id:</b>主键自增字段<br/>
+               <b>c_cname:</b>公司名称<br/>
+               <b>c_cphone:</b>公司移动联系方式<br/>
+               <b>c_telephone:</b>公司固定联系方式<br/>
+               <b>c_email:</b>公司邮箱<br/>
+               <b>c_fax:</b>公司传真<br/>
+               <b>c_address:</b>公司地址<br/>
+               <b>c_city:</b>公司所在城市<br/>
+               <b>c_qq:</b>公司QQ<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_customer</td>
+            <td><b>作用:</b>客户基础信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>c_id:</b>主键自增字段<br/>
+               <b>c_uid:</b>客户所属的员工ID<br/>
+               <b>c_name:</b>客户姓名<br/>
+               <b>c_phone:</b>客户手机<br/>
+               <b>c_spots:</b>是否为热点客户(1-是 2-否)<br/>
+               <b>c_hots:</b>客户热度(1-低热 2-中热 3-高热)<br/>
+               <b>c_hots_info:</b>热点说明<br/>
+               <b>c_sex:</b>客户性别<br/>
+               <b>c_type:</b>客户类型(1-潜在客户 2-普通客户 3-VIP客户 4-合作伙伴 5-失效客户)<br/>
+               <b>c_phase:</b>客户阶段(1-售前跟踪 2-合同执行 3-售后服务 4-合同期满)<br/>
+               <b>c_status:</b>客户状态(1-已沟通 2-已报价 3-已做方案 4-已签合同 5-已成交)<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_customermore</td>
+            <td><b>作用:</b>客户详细信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>m_cid:</b>关联客户基本信息表中的-主键<br/>
+               <b>m_telephone:</b>固定电话<br/>
+               <b>m_email:</b>邮箱地址<br/>
+               <b>m_fax:</b>传真号码<br/>
+               <b>m_qq:</b>QQ号码<br/>
+               <b>m_zip:</b>邮政编码<br/>
+               <b>m_address:</b>家庭住址<br/>
+               <b>m_company:</b>所在公司名称<br/>
+               <b>m_companyAddress:</b>公司地址<br/>
+               <b>m_business:</b>负责业务<br/>
+               <b>m_appellation:</b>公司称谓<br/>
+               <b>m_position:</b>担任职务<br/>
+               <b>m_source:</b>客户来源(1-电话咨询 2-网站咨询 3-上门来访 4-好友介绍)<br/>
+               <b>m_credit:</b>信用等级(1-高 2-中 3-低)<br/>
+               <b>m_relation:</b>关系等级(1-密切 2-较好 3-一般 4-较差)<br/>
+               <b>m_jiazhi:</b>客户价值(1-高 2-中 3-低)<br/>
+               <b>m_contact:</b>联系人分类(1-特别重要 2-重要 3-普通 4-不重要)<br/>
+               <b>m_papers_type:</b>证件类型(1-身份证 2-驾驶证 3-军官证)<br/>
+               <b>m_papers_num:</b>证件号码<br/>
+               <b>m_note:</b>客户备注<br/>
+               <b>m_addtime:</b>添加时间<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_department</td>
+            <td><b>作用:</b>公司部门信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>d_id:</b>主键自增字段<br/>
+               <b>d_name:</b>部门名称<br/>
+               <b>d_description:</b>部门描述<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_email</td>
+            <td><b>作用:</b>公司内部邮件发送接收信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>em_id:</b>主键自增字段<br/>
+               <b>em_title:</b>邮件标题<br/>
+               <b>em_content:</b>邮件内容<br/>
+               <b>em_filename:</b>附件上传时的原名称<br/>
+               <b>em_fileUpload:</b>附件保存在服务器上的名称<br/>
+               <b>em_uid:</b>邮件所属人<br/>
+               <b>em_name:</b>发送人<br/>
+               <b>em_sname:</b>接收人<br/>
+               <b>em_source:</b>发送地址(公司内部地址)<br/>
+               <b>em_purpose:</b>接收地址(公司内部地址)<br/>
+               <b>em_status:</b>发送状态(1-成功 2-失败)<br/>
+               <b>em_addtime:</b>发送时间<br/>
+               <b>em_look_is:</b>是否查看<br/>
+               <b>em_type:</b>所属类型(1-接收邮件 0-发送邮件)<br/>
+               <b>em_receive_is:</b>对方是否接收(1-已接收 0-未接收)<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_emailconfig</td>
+            <td><b>作用:</b>外部邮件发送配置信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>ec_id:</b>主键自增字段<br/>
+               <b>ec_uid:</b>邮件所属人ID<br/>
+               <b>ec_type:</b>邮件类型（默认HTML）<br/>
+               <b>ec_smtpserver:</b>邮件服务器地址<br/>
+               <b>ec_smtppost:</b>端口号（默认25）<br/>
+               <b>ec_smtpuser:</b>验证账户<br/>
+               <b>ec_smtppass:</b>验证密码<br/>
+               <b>ec_sendtime:</b>发送时间<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_outemail</td>
+            <td><b>作用:</b>外部邮件发送记录</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>o_id:</b>主键自增字段<br/>
+               <b>o_source:</b>发送源地址<br/>
+               <b>o_purpose:</b>发送目的地址<br/>
+               <b>o_title:</b>邮件标题<br/>
+               <b>o_content:</b>邮件内容<br/>
+               <b>o_addtime:</b>发送时间<br/>
+               <b>o_uid:</b>所属用户ID<br/>
+               <b>o_status:</b>发送状态(1-成功 2-失败)<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_employees</td>
+            <td><b>作用:</b>用户/员工信息表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>u_id:</b>主键自增字段<br/>
+               <b>u_username:</b>用户账号<br/>
+               <b>u_password:</b>用户密码<br/>
+               <b>u_name:</b>用户姓名<br/>
+               <b>u_phone:</b>用户电话<br/>
+               <b>u_email:</b>用户外部邮箱地址<br/>
+               <b>u_email_in:</b>用户内部邮箱地址<br/>
+               <b>u_sex:</b>性别<br/>
+               <b>u_age:</b>年龄<br/>
+               <b>u_position:</b>职位<br/>
+               <b>u_department:</b>所在部门<br/>
+               <b>u_enable:</b>是否允许登入OA<br/>
+               <b>u_lasttime:</b>最后一次登陆时间<br/>
+               <b>u_status:</b>当前在线状态(1-在线 2-不在线)<br/>
+               <b>u_resume_url:</b>简历-文件名称<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_filecabinet</td>
+            <td><b>作用:</b>个人文件柜信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>f_id:</b>主键自增字段<br/>
+               <b>f_uid:</b>所属用户ID<br/>
+               <b>f_path:</b>存放路径<br/>
+               <b>f_filename:</b>服务器上的文件名<br/>
+               <b>f_newname:</b>自定义的文件名<br/>
+               <b>f_addtime:</b>上传时间<br/>
+               <b>f_size:</b>文件大小<br/>
+               <b>f_type:</b>文件类型<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+           <tr>
+            <td><b>表名:</b>oa_jinji</td>
+            <td><b>作用:</b>紧急通知信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>j_id:</b>主键自增字段<br/>
+               <b>j_title:</b>紧急通告标题<br/>
+               <b>j_content:</b>紧急通告内容<br/>
+               <b>j_starttime:</b>紧急通告发布时间<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_joblog</td>
+            <td><b>作用:</b>工作日志信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>j_id:</b>主键自增字段<br/>
+               <b>j_uid:</b>工作日志所属用户ID<br/>
+               <b>j_date:</b>工作日志创建时间<br/>
+               <b>j_content:</b>工作内容<br/>
+               <b>j_result:</b>工作结果<br/>
+               <b>j_note:</b>工作备注<br/>
+               <b>j_boss_review:</b>上司回复<br/>
+               <b>j_rname:</b>回复上司姓名<br/>
+               <b>j_look_review:</b>是否查看上司回复(1-查看 0-未查看)<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_meetingroom</td>
+            <td><b>作用:</b>会议室信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>r_id:</b>主键自增字段<br/>
+               <b>r_name:</b>会议室名称<br/>
+               <b>r_renshu:</b>容纳人数<br/>
+               <b>r_is_open:</b>是否开放会议室<br/>
+               <b>r_is_appointment:</b>是否预约<br/>
+               <b>r_is_clean:</b>是否打扫<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_meetingroom</td>
+            <td><b>作用:</b>会议室信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>r_id:</b>主键自增字段<br/>
+               <b>r_name:</b>会议室名称<br/>
+               <b>r_renshu:</b>容纳人数<br/>
+               <b>r_is_open:</b>是否开放会议室<br/>
+               <b>r_is_appointment:</b>是否预约<br/>
+               <b>r_is_clean:</b>是否打扫<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_meeting</td>
+            <td><b>作用:</b>会议安排信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>m_id:</b>主键自增字段<br/>
+               <b>m_title:</b>会议主题<br/>
+               <b>m_starttime:</b>会议开始时间<br/>
+               <b>m_name:</b>会议发起人<br/>
+               <b>m_yuyue_id:</b>预约ID号<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_meetingnotice</td>
+            <td><b>作用:</b>会议通知信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>n_id:</b>主键自增字段<br/>
+               <b>n_department:</b>通知的部门ID<br/>
+               <b>n_uid:</b>通知的个人ID<br/>
+               <b>n_mid:</b>关联会议安排表-主键<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_yuyuemeeting</td>
+            <td><b>作用:</b>预约会议室信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>y_id:</b>自增主键ID<br/>
+               <b>y_uid:</b>所属用户ID<br/>
+               <b>y_uname:</b>预约人姓名<br/>
+               <b>y_yuyue_starttime:</b>预约开始时间<br/>
+               <b>y_yuyue_endtime:</b>预约结束时间<br/>
+               <b>y_room_id:</b>会议室ID<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_memo</td>
+            <td><b>作用:</b>备忘录信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>m_id:</b>主键自增字段<br/>
+               <b>m_uid:</b>所属用户的ID<br/>
+               <b>m_time:</b>备忘录时间<br/>
+               <b>m_msg:</b>备忘录内容<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+           <tr>
+            <td><b>表名:</b>oa_message</td>
+            <td><b>作用:</b>短信息记录</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>m_id:</b>主键自增字段<br/>
+               <b>m_content:</b>短息内容<br/>
+               <b>m_addtime:</b>短信发送时间<br/>
+               <b>m_sendname:</b>发送人<br/>
+               <b>m_sendUid:</b>发送人的ID<br/>
+               <b>m_rename:</b>接收人<br/>
+               <b>m_reUid:</b>接收人的ID<br/>
+               <b>m_looks_is:</b>是否查看<br/>
+               <b>m_reply_is:</b>是否回复<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_notice</td>
+            <td><b>作用:</b>公告信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>n_id:</b>主键自增字段<br/>
+               <b>n_title:</b>公告标题<br/>
+               <b>n_content:</b>公告内容<br/>
+               <b>n_addtime:</b>公告添加发布时间<br/>
+               <b>n_rUid:</b>发布人ID<br/>
+               <b>n_target:</b>发布类型(1-部门所有员工 2-公司所有员工)<br/>
+               <b>n_rname:</b>公告发送人姓名<br/>
+               <b>n_department:</b>公告所属部门<br/>
+               <b>n_audit:</b>上司审核（暂未使用）<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+           <tr>
+            <td><b>表名:</b>oa_permissions</td>
+            <td><b>作用:</b>权限信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>p_uid:</b>关联用户ID<br/>
+               <b>p_column_name:</b>主栏目名称<br/>
+               <b>p_column_id:</b>主栏目ID<br/>
+               <b>p_column_enable:</b>是否开启<br/>
+               <b>p_column_sonName:</b>子栏目名称<br/>
+               <b>p_column_son:</b>子栏目权限(对应栏目名称 1-开启 0-关闭)<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+           <tr>
+            <td><b>表名:</b>oa_photos</td>
+            <td><b>作用:</b>相册信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>p_id:</b>自增主键ID<br/>
+               <b>p_thumbs:</b>缩略图存放名称<br/>
+               <b>p_img:</b>原图存放名称<br/>
+               <b>p_title:</b>图片标题<br/>
+               <b>p_position:</b>坐标（主要针对布局-不用更改）<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+           <tr>
+            <td><b>表名:</b>oa_position</td>
+            <td><b>作用:</b>职位信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>p_id:</b>自增主键ID<br/>
+               <b>p_name:</b>职位名称<br/>
+               <b>p_description:</b>职位描述<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_quickbooks</td>
+            <td><b>作用:</b>快速电话本信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>q_id:</b>自增主键ID<br/>
+               <b>q_name:</b>员工姓名<br/>
+               <b>q_department:</b>所属部门<br/>
+               <b>q_position:</b>职位<br/>
+               <b>q_phone:</b>联系电话<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_schehule</td>
+            <td><b>作用:</b>日程安排信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>s_id:</b>自增主键ID<br/>
+               <b>s_uid:</b>所属用户ID<br/>
+               <b>s_day:</b>几号<br/>
+               <b>s_month:</b>几月<br/>
+               <b>s_content:</b>内容<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_space</td>
+            <td><b>作用:</b>个人文件柜空间信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>s_id:</b>自增主键ID<br/>
+               <b>s_uid:</b>所属用户ID<br/>
+               <b>s_space:</b>总空间大小KB<br/>
+               <b>s_free_space:</b>剩余空间大小<br/>
+               <b>s_upload_is:</b>是否允许使用个人文件柜<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_tasks</td>
+            <td><b>作用:</b>任务安排信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>t_id:</b>自增主键ID<br/>
+               <b>t_uid:</b>任务下达目标ID<br/>
+               <b>t_addtime:</b>任务下达时间<br/>
+               <b>t_name:</b>任务下达人<br/>
+               <b>t_content:</b>任务内容<br/>
+               <b>t_isOK:</b>是否完成<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_url</td>
+            <td><b>作用:</b>用户常用网址信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>u_id:</b>自增主键ID<br/>
+               <b>u_uid:</b>所属用户ID<br/>
+               <b>u_number:</b>编号<br/>
+               <b>u_url:</b>地址<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_voteinfo</td>
+            <td><b>作用:</b>投票信息表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>v_id:</b>自增主键ID<br/>
+               <b>v_title:</b>投票调查标题<br/>
+               <b>v_starttime:投票开始时间</b><br/>
+               <b>v_endtime:</b>投票结束时间<br/>
+               <b>v_type:</b>投票类型(1-单选 2-多选)<br/>
+               <b>v_display:</b>是否开启<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_iteminfo</td>
+            <td><b>作用:</b>投票选项表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>i_id:</b>自增主键ID<br/>
+               <b>i_vid:</b>关联投票信息主键<br/>
+               <b>i_title:</b>选项名称<br/>
+               <b>i_count:</b>选项票数统计<br/>
+               <b>i_order:</b>选项排序<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_voteuser</td>
+            <td><b>作用:</b>投票选项表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>u_id:</b>自增主键ID<br/>
+               <b>u_vid:</b>关联投票信息主键<br/>
+               <b>u_uid:</b>投票人的ID<br/>
+               <b>u_name:</b>投票人姓名<br/>
+               <b>u_addtime:</b>投票时间<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_section</td>
+            <td><b>作用:</b>办公桌版块表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>s_id:</b>自增主键ID<br/>
+               <b>s_name:</b>办公桌版块名称<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_absolute</td>
+            <td><b>作用:</b>自由办公桌布局位置保存</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>a_id:</b>自增主键ID<br/>
+               <b>a_sid:</b>关联办公桌版块名称ID<br/>
+               <b>a_uid:</b>所属的用户ID<br/>
+               <b>a_left:</b>位置的LEFT值<br/>
+               <b>a_top:</b>位置的TOP值<br/>
+               <b>a_zIndex:</b>位置的Z值<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_apply</td>
+            <td><b>作用:</b>考勤申请信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>a_id:</b>自增主键ID<br/>
+               <b>a_uid:</b>申请人的ID<br/>
+               <b>a_mudi_uid:</b>审批人的ID<br/>
+               <b>a_type:</b>申请类型(1-请假申请 2-外出申请)<br/>
+               <b>a_content:</b>申请内容<br/>
+               <b>a_is_approval:</b>是否批准(1-批准 2-驳回 3-未批阅)<br/>
+               <b>a_is_look:</b>审批人是否查看<br/>
+               <b>a_is_reply:</b>审批人回复<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_config</td>
+            <td><b>作用:</b>OA基本配置表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>c_id:</b>自增主键ID<br/>
+               <b>c_switch:</b>是否开启OA平台(1-开启 0-关闭)<br/>
+               <b>c_is_loginTime:</b>是否限制登陆时间(1-限制 2-自由)<br/>
+               <b>c_logTime:</b>限制登陆的时间段<br/>
+               <b>c_is_loginWarning:</b>是否开启登陆报警<br/>
+               <b>c_warningNum:</b>密码输错锁定次数<br/>
+               <b>c_is_log:</b>是否开启日志记录<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_element</td>
+            <td><b>作用:</b>公司结构图形化所创建的元素图形</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>e_id:</b>自增主键ID<br/>
+               <b>e_path:</b>元素图片的名称<br/>
+               <b>e_name:</b>元素图片的名称<br/>
+               <b>e_width:</b>元素图片的宽<br/>
+               <b>e_height:</b>元素图片的高<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+           <tr>
+            <td><b>表名:</b>oa_layout</td>
+            <td><b>作用:</b>公司部门图形化创建的元素信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>cl_id:</b>自增主键ID<br/>
+               <b>cl_eid:</b>关联元素图形的ID<br/>
+               <b>cl_x:</b>LEFT位置<br/>
+               <b>cl_y:</b>TOP位置<br/>
+               <b>cl_z:</b>Z轴位置<br/>
+               <b>cl_title:</b>元素标题<br/>
+               <b>cl_did:</b>关联的部门ID<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_goods</td>
+            <td><b>作用:</b>公司物品库存信息</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>g_id:</b>自增主键ID<br/>
+               <b>g_name:</b>物品名称<br/>
+               <b>g_jiage:</b>物品价格<br/>
+               <b>g_sum:</b>物品库存量<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_goodsmanage</td>
+            <td><b>作用:</b>公司物品领取记录</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>gm_id:</b>自增主键ID<br/>
+               <b>gm_gid:</b>关联公司物品ID<br/>
+               <b>gm_gname:</b>领取物品名称<br/>
+               <b>gm_uid:</b>领取人的ID<br/>
+               <b>gm_uname:</b>领取人的姓名<br/>
+               <b>gm_gtime:</b>领取时间<br/>
+               <b>gm_gsum:</b>领取数量<br/>
+               <b>gm_givename:</b>发放人姓名<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_log</td>
+            <td><b>作用:</b>日志记录表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>l_id:</b>自增主键ID<br/>
+               <b>l_uid:</b>日志操作人的ID<br/>
+               <b>l_time:</b>操作时间<br/>
+               <b>l_content:</b>操作内容<br/>
+               <b>l_status:</b>操作状态<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_online</td>
+            <td><b>作用:</b>用户在线计算表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>o_id:</b>自增主键ID<br/>
+               <b>o_uid:</b>用户ID<br/>
+               <b>o_time:</b>最后一次刷新时间<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_project</td>
+            <td><b>作用:</b>项目信息表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>p_id:</b>自增主键ID<br/>
+               <b>p_title:</b>项目名称<br/>
+               <b>p_starttime:</b>项目开始时间<br/>
+               <b>p_endtime:</b>项目结束时间<br/>
+               <b>p_employees:</b>项目组员ID<br/>
+               <b>p_manage:</b>项目经理ID和名字<br/>
+               <b>p_audit:</b>项目审核人ID和名字<br/>
+               <b>p_content:</b>项目描述<br/>
+               <b>p_progress:</b>项目完成进度<br/>
+               <b>p_document:</b>项目文档名称<br/>
+               <b>p_is_over:</b>是否完成<br/>
+            </td>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          <tr>
+            <td><b>表名:</b>oa_projectlog</td>
+            <td><b>作用:</b>项目日志信息表</td>
+          </tr>
+            <td colspan="2">各字段解释说明>></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <b>pl_id:</b>自增主键ID<br/>
+               <b>pl_pid:</b>关联项目ID<br/>
+               <b>pl_time:</b>日志创建时间<br/>
+               <b>p_content:</b>日志内容<br/>
+          </tr>
+          <tr>
+           <td colspan="2" bgcolor="#FFFFCC"></td>
+          </tr>
+          
+          
+           
+          
+        </table>
+     </div>
+<include file="Public:system_footer" />

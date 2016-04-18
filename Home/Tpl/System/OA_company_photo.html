@@ -1,0 +1,30 @@
+<include file="Public:system_header" title="OA-公司相册管理"/>
+     <div class="module_public_main"> 
+        <table>
+           <tr>
+             <td align="center">编号</td>
+             <td align="center">相片标题</td>
+             <td align="center">缩略图</td>
+             <td align="center">操作</td>
+           </tr>
+           <volist name="p_info" id="v" key="k">
+           <tr>
+             <td align="center"><{$v.p_id}></td>
+             <if condition="$v.p_title eq ''">
+             <td align="center"><font color=red>无标题</font></td>
+             <else />
+             <td align="center"><{$v.p_title}></td>
+             </if>
+             <td align="center"><img src="__PUBLIC__/Photos/<{$v.p_thumbs}>"  style="border:1px solid #ccc;"/></td>
+             <td align="center">
+               <a href="__URL__/OA_update_photo/p_id/<{$v.p_id}>">更新相片</a>
+               
+             </td>
+           </tr>
+           </volist>
+           <tr>
+             <td colspan="4" align="right"><{$fpage}></td>
+           </tr>
+        </table> 
+     </div>
+<include file="Public:system_footer" />

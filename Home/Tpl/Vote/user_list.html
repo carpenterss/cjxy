@@ -1,0 +1,18 @@
+<include file="Public:vote_header" title="用户投票信息" />
+     <div class="module_public_main">
+        <table>
+          <tr>
+            <td width="8%" align="center">编号</td>
+            <td align="center">员工姓名</td>
+            <td align="center">投票时间</td>
+          </tr>
+          <volist name="v_info" id="v" key="k">
+           <tr>
+            <td width="8%" align="center"><{$k}></td>
+            <td align="center"><{$v.u_name}></td>
+            <td align="center"><{$v.u_addtime|date="Y-m-d H:m",###}></td>
+          </tr> 
+          </volist>
+        </table>
+     </div>
+<include file="Public:vote_footer" />

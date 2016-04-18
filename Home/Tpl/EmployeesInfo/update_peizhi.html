@@ -1,0 +1,27 @@
+<include file="Public:employeesInfo_header" title="用户个人配置"/>
+   <div class="module_public_main">
+      <table>
+      <tr>
+        <td colspan="2" style="background:#F0F0F0"><font color=green>☆修改个人密码☆</font></td>
+      </tr>
+      <form action="__URL__/do_update_mima" method="post">
+        <tr>
+          <td width="12%" align="right">请输入原始密码:</td>
+          <td><input type="password" class="_input" name="e_pwd" /></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">请输入新密码:</td>
+          <td><input type="password" class="_input" name="e_pwd2" /></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">请再次输入新密码:</td>
+          <td><input type="password" class="_input" name="e_pwd3" /></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">&nbsp;</td>
+          <td><input type="submit" class="_button" value="修改密码" /></td>
+        </tr>
+        </form>
+      </table>
+   </div>
+<include file="Public:employeesInfo_footer" />

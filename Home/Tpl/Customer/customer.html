@@ -1,0 +1,855 @@
+<include file="Public:customer_header" title="小额贷款贷后管理"/>
+<script language="javascript" type="text/javascript"
+        src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+<!-- jQuery -->
+<script src="__PUBLIC__/pager/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jq.css">
+<link href="__PUBLIC__/pager/prettify.css" rel="stylesheet">
+<script src="__PUBLIC__/pager/prettify.js"></script>
+<script src="__PUBLIC__/pager/docs.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/theme.blue.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.js"></script>
+<script src="__PUBLIC__/pager/jquery.tablesorter.widgets.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jquery.tablesorter.pager.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.pager.js"></script>
+<link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    table.tablesorter tbody tr.normal-row td {
+        background: #f4f5f6;
+        /*color: #ffffff;*/
+    }
+    table.tablesorter tbody tr.alt-row td {
+        background: #dfdfdf;
+        /*color: #ffffff;*/
+    }
+    .tablesorter-filter-row{
+        background-color: #f0f0f0;
+    }
+    .tablesorter-filter-row{
+        text-align: center;
+    }
+	.form-control {
+		height: 24px;
+	}
+</style>
+<script language="javascript">
+    function confirmdel() {
+        if (confirm("确定要删除该客户？若误删除请联系管理员"))
+            return true;
+        else
+            return false;
+    }
+	function confirmdelyw(){
+		if (confirm("确定要删除该业务？"))
+            return true;
+        else
+            return false;
+	}
+    var targetColumn = 4;
+    $(function () {
+        $.tablesorter.themes.bootstrap = {
+            // these classes are added to the table. To see other table classes available,
+            // look here: http://getbootstrap.com/css/#tables
+            table: 'table table-bordered table-striped',
+            caption: 'caption',
+            // header class names
+            header: 'bootstrap-header', // give the header a gradient background (theme.bootstrap_2.css)
+            sortNone: '',
+            sortAsc: '',
+            sortDesc: '',
+            active: '', // applied when column is sorted
+            hover: '', // custom css required - a defined bootstrap style may not override other classes
+            // icon class names
+            icons: '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+            iconSortNone: 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted
+            iconSortAsc: 'glyphicon glyphicon-chevron-up', // class name added to icon when column has ascending sort
+            iconSortDesc: 'glyphicon glyphicon-chevron-down', // class name added to icon when column has descending sort
+            filterRow: '', // filter row class; use widgetOptions.filter_cssFilter for the input/select element
+            footerRow: '',
+            footerCells: '',
+            even: '', // even row zebra striping
+            odd: ''  // odd row zebra striping
+        };
+        $("#xptable").tablesorter({
+            theme: "bootstrap",
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: [ "normal-row", "alt-row" ],
+                filter_reset: ".reset",
+                filter_cssFilter: "form-control",
+                filter_columnFilters: true
+            },
+            initialized: function (xptable) {
+                var opts = $.tablesorter.filter.getOptionSource(xptable, targetColumn);
+                $('.search')
+//                        .append('<option>' + opts.join('</option><option>') + '</option>')
+                        .on('change', function () {
+                            var filters = [];
+                            filters[1] = $(this).find(':selected').map(function () {
+                                if(this.value === '已成交业务'){
+                                    this.value = '!暂无业务';
+                                }else if(this.value === '未成交业务'){
+                                    this.value = '暂无业务';
+                                }else if(this.value === '显示全部'){
+                                    this.value = '';
+                                }
+                                return this.value;
+                            }).get().join('|');
+                            $.tablesorter.setFilters(xptable, filters, true);
+                        });
+            }
+        }).tablesorterPager({
+                    container: $(".ts-pager1"),
+                    cssGoto: ".pagenum",
+                    removeRows: false,
+                    output: '{page} / {totalPages}'
+                });
+
+
+
+    $("#xetable").tablesorter({
+            theme: "bootstrap",
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: [ "normal-row", "alt-row" ],
+                filter_reset: ".reset",
+                filter_cssFilter: "form-control",
+            },
+        initialized: function (xetable) {
+            var opts = $.tablesorter.filter.getOptionSource(xetable, targetColumn);
+            $('.search1')
+//                        .append('<option>' + opts.join('</option><option>') + '</option>')
+                    .on('change', function () {
+                        var filters = [];
+                        filters[1] = $(this).find(':selected').map(function () {
+                            if(this.value === '已成交业务'){
+                                this.value = '!暂无业务';
+                            }else if(this.value === '未成交业务'){
+                                this.value = '暂无业务';
+                            }else if(this.value === '显示全部'){
+                                this.value = '';
+                            }
+                            return this.value;
+                        }).get().join('|');
+                        $.tablesorter.setFilters(xetable, filters, true);
+                    });
+        }
+        }).tablesorterPager({
+                    container: $(".ts-pager2"),
+                    cssGoto: ".pagenum",
+                    removeRows: false,
+                    output: '{page} / {totalPages}'
+                });
+    });
+
+    $(document).ready(function () {
+        /* jQuery v1.11.1 */
+        $("table.tablesorter tbody tr").click(function () {
+            $(this).toggleClass("selected");
+        });
+    });
+
+    $('.tablesorter-filter-row').append("<td>321312321</td>")
+</script>
+<div class="module_public_main">
+	<div style="width: 100%; height: 36px; background-color:#337ab7; margin: 10px 0; padding: 0 0 0 10px; color:#fff; line-height:36px;">
+		<span style="font-size:14px;font-family:'黑体','宋体'">小额贷款个人信息查询</span></div>
+    <table>
+        <tr>
+            <td colspan="8"><strong>请选择查询条件 >></strong></td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <button class="_button" id="x_p_name">客户姓名</button>
+                
+                <button class="_button" id="x_p_idcard">客户身份证</button>
+                
+                <button class="_button" id="x_p_dkzt">贷款状态</button>
+                
+                <button class="_button" id="x_p_dkdqr">贷款到期日</button>
+                
+                <button class="_button" id="x_p_dkffr">贷款发放日</button>
+                
+                <button class="_button" id="x_p_zjkm">资金科目</button>
+                
+                <button class="_button" id="x_p_hmd">黑名单(本公司)</button>
+
+                <!--<select class="search"><option>显示全部</option><option>已成交业务</option><option>未成交业务</option></select>-->
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <table id="xptable">
+        <thead>
+        <tr style="background-color: #f0f0f0">
+            <td align="center">客户编号</td>
+            <td align="center">业务流水号</td>
+            <td align="center">客户姓名</td>
+            <td align="center">联系方式</td>
+            <td align="center">资金科目</td>
+            <td align="center">资金科目备注</td>
+            <td align="center">操作</td>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr style="background-color: #f0f0f0">
+            <th colspan="5" class="ts-pager1 form-horizontal">
+                <button type="button" class="btn first">第一页</button>
+                <button type="button" class="btn prev">上一页</button>
+                <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+                <button type="button" class="btn next">下一页</button>
+                <button type="button" class="btn last">最后一页</button>
+                <select class="pagesize input-mini" title="Select page size">
+                <option selected="selected" value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+            </select>
+                <select class="pagenum input-mini" title="Select page number"></select>
+            </th>
+            <td></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <volist name="c_info_x_p_customer" id="v" key="k">
+            <tr>
+                <td align="center"><{$v.c_id|str_pad=4,"0",STR_PAD_LEFT}></td>
+                <if condition="$v.b_id eq 0">
+                    <td align="center"><font color="red">暂无业务</font></td>
+                    <else/>
+                    <td align="center"><{$v.b_id|str_pad=5,"0",STR_PAD_LEFT}></td>
+                </if>
+                <td align="center"><{$v.xm}></td>
+                <td align="center"><{$v.lxfs}></td>
+                <if condition="$v['zjkm'] eq '1'">
+                    <td align="center">公司资金</td>
+                    <elseif condition="$v['zjkm'] eq '2'"/>
+                    <td align="center">其他资金</td>
+                    <elseif condition="$v['zjkm'] eq '3'"/>
+                    <td align="center">公司资金及其他资金</td>
+                    <else/>
+                    <td align="center"><font color="red">资金科目未设定</font></td>
+                </if>
+                <td align="center"><{$v.zjkmbz}></td>
+
+
+
+                <td align="center">
+                    <a href="__URL__/customer_x_p_update/id/<{$v.c_id}>">查看/更新客户资料</a> |
+                    <if condition="$v.b_id eq 0">
+                        <font color="#ff0000">暂无业务</font> |
+                        <else/>
+                        <a href="__URL__/ywlc_update_by_b_id/id/<{$v.b_id}>/enter1">业务信息维护</a> |
+                    </if>
+                    <a href="__URL__/del_p_customer/id/<{$v.c_id}>" onclick="return confirmdel()">删除客户</a> |
+                    <if condition="$v.b_id eq 0">
+                        <font color="#ff0000">暂无业务</font>
+                        <else/>
+                        <a href="__URL__/del_yw/id/<{$v.b_id}>" onclick="return confirmdelyw()">删除业务</a>
+                    </if>
+                </td>
+            </tr>
+        </volist>
+
+        </tbody>
+    </table>
+    <br/>
+	<div style="width: 100%; height: 36px; background-color:#337ab7; margin: 10px 0; padding: 0 0 0 10px; color:#fff; line-height:36px;">
+		<span style="font-size:14px;font-family:'黑体','宋体'">小额贷款企业信息查询</span></div>
+    <table>
+        <tr>
+            <td colspan="8"><strong>请选择查询条件 >></strong></td>
+        </tr>
+        <tr >
+            <td colspan="8">
+                <button class="_button" id="x_e_name">企业名称</button>
+                
+                <button class="_button" id="x_e_frsfzh">法人身份证</button>
+                
+                <button class="_button" id="x_e_dkzt">贷款状态</button>
+                
+                <button class="_button" id="x_e_dkdqr">贷款到期日</button>
+                
+                <button class="_button" id="x_e_dkffr">贷款发放日</button>
+                
+                <button class="_button" id="x_e_zjkm">资金科目</button>
+                
+                <button class="_button" id="x_e_hmd">黑名单(本公司)</button>
+
+                <!--<select class="search1"><option>显示全部</option><option>已成交业务</option><option>未成交业务</option></select>-->
+
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <table id="xetable" >
+        <thead>
+        <tr style="background-color: #f0f0f0">
+            <td align="center">客户编号</td>
+            <td align="center">业务流水号</td>
+            <td align="center">企业名称</td>
+            <td align="center">法人联系方式</td>
+            <td align="center">资金科目</td>
+            <td align="center">资金科目备注</td>
+            <td align="center">操作</td>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr style="background-color: #f0f0f0">
+            <th colspan="6" class="ts-pager2 form-horizontal">
+                <button type="button" class="btn first">第一页</button>
+                <button type="button" class="btn prev">上一页</button>
+                <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+                <button type="button" class="btn next">下一页</button>
+                <button type="button" class="btn last">最后一页</button>
+                <select class="pagesize input-mini" title="Select page size">
+                    <option selected="selected" value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                </select>
+
+                <select class="pagenum input-mini" title="Select page number"></select>
+
+            </th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <volist name="c_info_x_e_customer" id="m" key="n">
+            <tr>
+                <td align="center"><{$m.c_id|str_pad=4,"0",STR_PAD_LEFT}></td>
+                <if condition="$m.b_id eq 0">
+                    <td align="center"><font color="red">暂无业务</font></td>
+                    <else/>
+                    <td align="center"><{$m.b_id|str_pad=5,"0",STR_PAD_LEFT}></td>
+                </if>
+                <td align="center"><{$m.xm}></td>
+                <td align="center"><{$m.lxfs}></td>
+                <if condition="$m['zjkm'] eq 1">
+                    <td align="center">公司资金</td>
+                    <elseif condition="$m['zjkm'] eq 2"/>
+                    <td align="center">其他资金</td>
+                    <elseif condition="$m['zjkm'] eq 3"/>
+                    <td align="center">公司资金及其他资金</td>
+                    <else/>
+                    <td align="center"><font color="red">资金科目未设定</font></td>
+                </if>
+                <td align="center"><{$m.zjkmbz}></td>
+
+                <td align="center">
+                    <a href="__URL__/customer_x_e_update/id/<{$m.c_id}>">查看/更新客户资料</a> |
+                    <if condition="$m.b_id eq 0">
+                        <font color="#ff0000">暂无业务</font> |
+                        <else/>
+                        <a href="__URL__/ywlc_update_by_b_id/id/<{$m.b_id}>/enter/1">业务信息维护</a> |
+                    </if>
+                    <a href="__URL__/del_e_customer/id/<{$m.c_id}>" onclick="return confirmdel()">删除客户</a> |
+                    <if condition="$m.b_id eq 0">
+                        <font color="#ff0000">暂无业务</font> |
+                        <else/>
+                        <a href="__URL__/del_yw/id/<{$m.b_id}>" onclick="return confirmdelyw()">删除业务</a>
+                    </if>
+                </td>
+            </tr>
+        </volist>
+    </table>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        i = 0;
+        var div_query = $("<input type='button' value='查询' style='width:80px;height:24px;border:1px solid #ccc;margin-left:10px;border-radius:4px;' id='query_value'/><input type='button' value='取消' style='width:80px;height:24px;border:1px solid #ccc;margin-left:10px;border-radius:4px;' id='quxiao'/>");
+
+        //客户姓名
+        $("#x_p_name").click(function () {
+            if (i == 0) {
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input type='text' style='width:120px;height:24px;border:1px solid #ccc;margin-left:10px;text-indent:4px;' class='_input' id='value' />");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+                i = 0;
+            });
+        });
+
+
+        //客户身份证
+        $("#x_p_idcard").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input type='text' style='width:120px;height:24px;border:1px solid #ccc;margin-left:10px;' class='_input' id='value' />");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+
+        });
+
+
+        //贷款状态
+        $("#x_p_dkzt").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<select id='value' style='width:120px;height:24px;border:1px solid #ccc;margin-left:10px;'>" +
+                "<option value='1'>正常</option>" +
+                "<option value='4'>逾期</option>" +
+                "<option value='2'>已结清</option>" +
+                "<option value='5'>违约</option></select>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+        });
+
+        //贷款到期日
+        $("#x_p_dkdqr").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input id='startdate' class='_input Wdate' readonly type='text' style='height:24px;margin: 0 5px' onClick='WdatePicker()'><input id='enddate' class='_input Wdate' readonly type='text' style='height:24px;' onClick='WdatePicker()'>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                var s = $("#startdate").val();
+                var e = $("#enddate").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    startdate:s,
+                    enddate:e,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().prev().remove();
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+        });
+
+        //贷款发放日
+        $("#x_p_dkffr").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input id='startdate' class='_input Wdate' readonly type='text' style='height:24px;margin: 0 5px' onClick='WdatePicker()'><input id='enddate' class='_input Wdate' readonly type='text' style='height:24px;' onClick='WdatePicker()'>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                var s = $("#startdate").val();
+                var e = $("#enddate").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    startdate:s,
+                    enddate:e,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().prev().remove();
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+        });
+
+        //资金科目
+        $("#x_p_zjkm").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<select id='value' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;'>" +
+                        "<option value='1'>公司资金</option>" +
+                        "<option value='2'>其他资金</option>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+        });
+
+        //黑名单
+        $("#x_p_hmd").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $(" ");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+//                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+
+        });
+
+        //黑名单
+        $("#x_e_hmd").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+//                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+
+        });
+
+
+
+        //客户姓名
+        $("#x_e_name").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input type='text' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;' class='_input' id='value' />");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+
+        });
+
+
+        //客户身份证
+        $("#x_e_frsfzh").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input type='text' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;' class='_input' id='value' />");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+
+        });
+
+
+        //贷款状态
+        $("#x_e_dkzt").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<select id='value' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;'>" +
+                "<option value='1'>正常</option>" +
+                "<option value='4'>逾期</option>" +
+                "<option value='2'>已结清</option>" +
+                "<option value='5'>违约</option></select>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+        });
+
+        //贷款到期日
+        $("#x_e_dkdqr").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input id='startdate' class='_input Wdate' type='text' onClick='WdatePicker()' style='height:24px;margin: 0 5px'><input id='enddate' style='height:24px;' class='_input Wdate' type='text' onClick='WdatePicker()'>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                var s = $("#startdate").val();
+                var e = $("#enddate").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    startdate:s,
+                    enddate:e,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().prev().remove();
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+        });
+
+        //贷款发放日
+        $("#x_e_dkffr").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input id='startdate' class='_input Wdate' style='height:24px;margin: 0 5px' type='text' onClick='WdatePicker()'><input id='enddate' class='_input Wdate' style='height:24px;' type='text' onClick='WdatePicker()'>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                var s = $("#startdate").val();
+                var e = $("#enddate").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    startdate:s,
+                    enddate:e,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().prev().remove();
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+        });
+        //资金科目
+        $("#x_e_zjkm").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<select id='value' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;'>" +
+                        "<option value='1'>公司资金</option>" +
+                        "<option value='2'>其他资金</option>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/customer_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $("._button").prop("disabled", "");
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                i = 0;
+            });
+        });
+    })
+</script>
+<include file="Public:customer_footer"/>

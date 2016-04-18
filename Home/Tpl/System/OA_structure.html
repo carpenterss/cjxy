@@ -1,0 +1,40 @@
+<include file="Public:system_header" title="OA公司结构"/>
+     <div class="module_public_main">
+       <table>
+       <form action="__URL__/add_department" method="post">
+         <tr>
+           <td bgcolor="#F0F0F0" colspan="2"><a href="__URL__/OA_structure">【创建公司部门】</a> <a href="__URL__/OA_company_info">【录入公司基本信息】</a> <a href="__URL__/OA_edit_company">【更改公司基本信息】</a> <a href="__URL__/OA_company_graphics">【公司结构图形】</a></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">部门名称:</td>
+           <td><input type="text" name="department" class="_input" />&nbsp;<font color=red>（例如:管理部/技术部/接待部/企划部等等）</font></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">部门描述:</td>
+           <td><textarea name="department_info" class="_input2"></textarea></td>
+         </tr>
+         <tr>
+           <td>&nbsp;</td>
+           <td><input type="submit" value="添加部门" class="_button"/></td>
+         </tr>
+         </form>
+         <form action="__URL__/add_position" method="post">
+         <tr>
+           <td bgcolor="#F0F0F0" colspan="2">创建公司职位 >></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">职位名称:</td>
+           <td><input type="text" name="position" class="_input" />&nbsp;<font color=red>（例如:总经理/技术部员工/技术部经理/前台接待等等）</font></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">职位描述:</td>
+           <td><textarea name="position_info" class="_input2"></textarea></td>
+         </tr>
+         <tr>
+           <td>&nbsp;</td>
+           <td><input type="submit" value="添加职位" class="_button"/></td>
+         </tr>
+         </form>
+       </table>
+     </div>
+<include file="Public:system_footer" />

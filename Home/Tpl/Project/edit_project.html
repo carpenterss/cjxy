@@ -1,0 +1,169 @@
+<include file="Public:system_header" title="修改项目信息"/>
+<style>
+div.centent {float:left;text-align: center;margin: 10px;}
+span { display:block; margin:2px 2px;padding:4px 10px; background:#898989;cursor:pointer;font-size:12px;color:white;
+}
+</style>
+     <div class="module_public_main">
+        <table>
+         <form action="__URL__/do_edit_project" method="post">
+         <input type="hidden" name="pid" value="<{$p_info.p_id}>" />
+         <input type="hidden" name="p_old_employees" value="<{$old_employees}>"/>
+         <input type="hidden" name="p_old_manage" value="<{$old_manage}>"/>
+         <input type="hidden" name="p_old_audit" value="<{$old_audit}>"/>
+          <tr>
+            <td width="12%" align="right">项目名称:</td>
+            <td><input type="text" name="p_title" class="_input"  value="<{$p_info.p_title}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">开始时间:</td>
+            <td><input type="text" name="p_starttime" class="_input" onClick="WdatePicker()" value="<{$p_info.p_starttime}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">结束时间:</td>
+            <td><input type="text" name="p_endtime" class="_input" onClick="WdatePicker()" value="<{$p_info.p_endtime}>" /></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">项目组员:</td>
+            <td><b><{$employees_list}></b></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right" bgcolor="#FFFFCC">是否更改组员:</td>
+            <td><input type="radio" name="is_update_employees" value="1" /><font color=green>是</font>&nbsp;&nbsp;<input type="radio" name="is_update_employees" value="0" checked=""/><font color=red>否</font></td>
+          </tr>
+          <tr id="update_employees" style="display:none;">
+            <td width="12%" align="right">更新组员:</td>
+            <td>
+              <div class="centent">
+		<select multiple="multiple" id="select1" style="width:100px;height:160px;">
+            
+            <volist name="e_info" id="v">
+              <option value="<{$v.u_id}>"><{$v.u_name}></option>
+            </volist>
+			
+		</select>
+		<div>
+			<span id="add">选中添加到右边&gt;&gt;</span>
+			<span id="add_all" >全部添加到右边&gt;&gt;</span>
+		</div>
+	</div>
+
+	<div class="centent">
+		<select multiple="multiple" id="select2" style="width: 100px;height:160px;" name="employees_arr[]">
+			
+		</select>
+		<div>
+			<span id="remove">&lt;&lt;选中删除到左边</span>
+			<span id="remove_all">&lt;&lt;全部删除到左边</span>
+		</div>
+	</div>
+            </td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">项目经理(负责人):</td>
+            <td><b><{$p_info.p_manage}></b></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right" bgcolor="#FFFFCC">是否更改负责人:</td>
+            <td><input type="radio" name="is_update_manage" value="1" /><font color=green>是</font>&nbsp;&nbsp;<input type="radio" name="is_update_manage" value="0" checked=""/><font color=red>否</font></td>
+          </tr>
+          <tr id="update_manage" style="display:none;">
+            <td width="12%" align="right">项目经理(负责人):</td>
+            <td>
+              <select name="p_manage" class="_input">
+                <option disabled="disabled"  selected="">--请选择项目经理--</option>
+                <volist name="e_info" id="v">
+                   <option value="<{$v.u_id}>|<{$v.u_name}>"><{$v.u_name}></option>
+                 </volist>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">项目审核人:</td>
+            <td><b><{$p_info.p_manage}></b></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right" bgcolor="#FFFFCC">是否更改审核人:</td>
+            <td><input type="radio" name="is_update_audit" value="1" /><font color=green>是</font>&nbsp;&nbsp;<input type="radio" name="is_update_audit" value="0" checked=""/><font color=red>否</font></td>
+          </tr>
+          <tr id="update_audit" style="display:none;">
+            <td width="12%" align="right">项目审核人:</td>
+            <td>
+              <select name="p_audit" class="_input">
+                <option disabled="disabled" selected="">--请选择项目审核人--</option>
+                <volist name="e_info" id="v">
+                   <option value="<{$v.u_id}>|<{$v.u_name}>"><{$v.u_name}></option>
+                 </volist>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>项目简单描述:</td>
+            <td><textarea name="p_content" class="_input2"><{$p_info.p_content}></textarea></td>
+          </tr>
+          <tr>
+            <td>完成进度:</td>
+            <td><input type="text" name="p_progress" class="_input" style="width:50px;" value="<{$p_info.p_progress}>"/>%&nbsp;&nbsp;<font color=red>(由项目经理根据项目进度估算来填写,0-100)</font></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="新建项目" class="_button" /></td>
+          </tr>
+          </form>
+        </table>
+     </div>
+     <script type="text/javascript">
+	//移到右边
+	$('#add').click(function() {
+	//获取选中的选项，删除并追加给对方
+		$('#select1 option:selected').appendTo('#select2');
+	});
+	//移到左边
+	$('#remove').click(function() {
+		$('#select2 option:selected').appendTo('#select1');
+	});
+	//全部移到右边
+	$('#add_all').click(function() {
+		//获取全部的选项,删除并追加给对方
+		$('#select1 option').appendTo('#select2');
+	});
+	//全部移到左边
+	$('#remove_all').click(function() {
+		$('#select2 option').appendTo('#select1');
+	});
+	//双击选项
+	$('#select1').dblclick(function(){ //绑定双击事件
+		//获取全部的选项,删除并追加给对方
+		$("option:selected",this).appendTo('#select2'); //追加给对方
+	});
+	//双击选项
+	$('#select2').dblclick(function(){
+	   $("option:selected",this).appendTo('#select1');
+	});
+	
+	//显示隐藏
+	$("input[name='is_update_employees']").click(function(){
+		if(this.value==1){
+		   $("#update_employees").show();
+		}else{
+		   $("#update_employees").hide();
+		}
+	});
+	
+	$("input[name='is_update_manage']").click(function(){
+		if(this.value==1){
+		   $("#update_manage").show();
+		}else{
+		   $("#update_manage").hide();
+		}
+	});
+	
+	$("input[name='is_update_audit']").click(function(){
+		if(this.value==1){
+		   $("#update_audit").show();
+		}else{
+		   $("#update_audit").hide();
+		}
+	});
+	</script>
+<include file="Public:system_footer" />

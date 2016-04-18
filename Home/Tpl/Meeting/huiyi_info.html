@@ -1,0 +1,22 @@
+<include file="Public:meeting_header" title="查看会议详细"/>
+     <div class="module_public_main">
+        <table>
+          <tr>
+            <td width="12%" align="right">会议发布人:</td>
+            <td><{$m_info[0]['m_name']}></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议主题:</td>
+            <td><{$m_info[0]['m_title']}></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议开始时间:</td>
+            <td><{$m_info[0]['m_starttime']|date="Y-m-d H:m",###}></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议室名称:</td>
+            <td><{$r_info}></td>
+          </tr>
+        </table>
+     </div>
+<include file="Public:meeting_footer" />

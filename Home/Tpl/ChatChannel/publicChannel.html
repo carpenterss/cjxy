@@ -1,0 +1,77 @@
+<include file="Public:chatChannel_header" title="公共频道-交流室"/>
+     <div class="module_public_main">
+        <div id="wrapper" style="width:900px;height:450px;margin:0px auto;border:1px solid #999;margin-bottom:5px;background:#CCC;margin-top:30px;">
+            <p id="messagewindow" style="width:860px;height:320px;border:1px solid #F0F0F0;margin:0px auto;background:#FFF;border-bottom:3px solid #eeeeee;overflow-y:scroll;"><span id="loading">内容加载中...</span></p>
+            <form id="chatform">
+               <table>
+                 <tr>
+                   <td width="12%" align="right">姓名:</td>
+                   <td><input type="text" id="author" size="50" class="_input" value="<{$u_name}>"/></td>
+                 </tr>
+                 <tr>
+                   <td width="12%" align="right">内容:</td>
+                   <td><input type="text" id="msg" size="50" class="_input" style="width:700px;"/></td>
+                 </tr>
+                 <tr>
+                   <td width="12%" align="right">&nbsp;</td>
+                   <td><input type="submit" value="发送信息" class="_button"/></td>
+                 </tr>
+               </table>
+            </form>
+        </div>
+     </div>
+<script type="text/javascript">
+  $(function(){
+	timestamp = 0;
+	updateMsg();
+	$("#chatform").submit(function(){
+				var m = $("#msg").val();
+				if(m==""){
+				   alert("对不起,聊天信息不能为空.");
+				   return false;	
+				}
+		
+				$.post("__URL__/backend",{
+							message: $("#msg").val(),
+							name: $("#author").val(),
+							action: "postmsg",
+							time: timestamp
+						}, function(xml) {
+							
+					//清空信息文本框内容
+					$("#msg").val("");
+					//调用解析xml的函数
+					addMessages(xml);
+				});
+				return false; //阻止表单提交
+	});
+	
+	function updateMsg(){
+			$.post("__URL__/backend",{ time: timestamp }, function(xml) {
+				//移除掉 等待提示	
+				$("#loading").remove();
+				//调用解析xml的函数
+				addMessages(xml);
+			});
+			 //每隔4秒，读取一次.
+			setTimeout(updateMsg, 4000);
+			
+		}
+	 
+	 function addMessages(xml) {
+		    //如果状态为2，则终止
+			if($("status",xml).text() == "2") return;
+			//更新时间戳
+			timestamp = $("time",xml).text();
+			//$.each循环数据
+			$("message",xml).each(function() {
+			    var author = $("author",this).text(); //发布者
+				var content = $("text",this).text();  //内容
+				var times = $("times",this).text();  //内容
+				//var htmlcode = "<strong>"+author+"</strong>: "+content+"<br />";
+				$("#messagewindow").prepend("<p style='width:200px;height:15px;color:blue'>"+author+"&nbsp;&nbsp;"+times+"</p><p style='border-bottom:1px solid #ccc;'>"+content+"</p>"); //添加到文档中
+			});
+		}
+  });
+</script>
+<include file="Public:chatChannel_footer" />

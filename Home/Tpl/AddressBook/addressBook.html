@@ -1,0 +1,60 @@
+<include file="Public:addressBook_header" title="所有通讯录联系人" />
+<script type="text/javascript">
+$(function(){
+	$(".look_nameInfo").click(function(){
+		var name_id = $(this).attr("title");
+		$.get("__URL__/do_lookName",{
+			a_id : name_id
+		},function(data){
+			if(data){
+			   var name_info = data.split("|");
+			   $(".name_infos").each(function(i){
+				  $("#look_name_show").hide();
+				  $("#look_name_show").slideDown(1500);
+				  $(this).html(name_info[i+2]);
+			   });
+			}else{
+			   alert("对不起,没有获取到相应联系人信息!!!");	
+			}
+		});
+	});
+});
+</script>
+   <div class="module_public_main">
+     <table class="addressbook_table" style="width:500px;float:left;">
+     <form action="__URL__/addressBook/action/query_name" method="post">
+        <tr>
+          <td>快速查询用户->请输入用户姓名:&nbsp;<input type="text" class="_input" name="query_content" />&nbsp;&nbsp;<input type="submit" value="查询"  style="width:60px;height:26px;background:#F0f0f0;border:1px solid #CCC;cursor:pointer;"/>
+          </td>
+        </tr>
+        <tr>
+        </form>
+          <td>&nbsp;友情提示:<font color=red>(如需查看联系人详细信息,请直接点击联系人姓名)</font></td>
+        </tr>
+        <volist name="a_info" id="v">
+        <tr>
+          <td width="20%"><a href="#" class="look_nameInfo" title="<{$v.a_id}>">【<{$v.a_name}>】</a><span style="float:right;color:green"><a href="__URL__/del_addressbook/a_id/<{$v.a_id}>">[删除信息]</a></span><span style="float:right;color:green;"><a href="__URL__/edit_addressbook/a_id/<{$v.a_id}>">[修改信息]</a></span></td>          
+        </tr>
+        </volist>
+     </table>
+     <div class="addressbook_div"  style="display:none;" id="look_name_show">
+        <ul>
+          <li>
+          <img src="__PUBLIC__/Images/photos.jpg" />
+          <span>
+          <b>姓名</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>姓名拼音</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>所在公司</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>移动电话</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>固定电话</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>传真电话</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>地址</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>联系QQ</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>邮箱地址</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em><br/>
+          <b>备注</b>:&nbsp;&nbsp;<em class="name_infos">XXX</em>
+          </span>
+          </li>
+        </ul>  
+     </div>
+   </div>
+<include file="Public:addressBook_footer" />

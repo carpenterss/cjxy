@@ -1,0 +1,42 @@
+<include file="Public:message_header" title="批量发送短信" />
+	<div class="module_public_main">
+       <table>
+         <form action="__URL__/do_batch_message" method="post">
+          <tr>
+            <td width="12%" align="right">请选择接收人:</td>
+            <td>
+               <div class="centent">
+                  <select multiple="multiple" id="select1" style="width:100px;height:160px;">
+                    <volist name="e_info" id="v">
+                       <option value="<{$v.u_id}>|<{$v.u_name}>"><{$v.u_name}></option>
+                    </volist>
+                  </select>
+                  <div>
+					<span id="add" class="batch_span">选中添加到右边&gt;&gt;</span>
+					<span id="add_all" class="batch_span">全部添加到右边&gt;&gt;</span>
+				  </div>
+               </div>
+               
+               <div class="centent">
+				  <select multiple="multiple" id="select2" style="width: 100px;height:160px;" name="selected_name[]">
+			      	
+		          </select>
+			   <div>
+				  <span id="remove" class="batch_span">&lt;&lt;选中删除到左边</span>
+				  <span id="remove_all" class="batch_span">&lt;&lt;全部删除到左边</span>
+			   </div>
+			 </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">短信内容:</td>
+            <td><textarea rows="7" cols="70" name="contents" class="_input2"></textarea></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="批量发送信息" class="_button"/></td>
+          </tr>
+          </form> 
+       </table>
+    </div>
+<include file="Public:message_footer" />

@@ -1,0 +1,101 @@
+﻿html,body,div,ul,li{
+	margin:0;
+	padding:0;
+}
+htmll,body {
+	font-size:14px;
+	font-family:'微软雅黑','宋体';
+}
+ul,li{
+	list-style:none;
+}
+#main {
+	width:976px;
+	margin:0 auto;
+	height: 575px;
+	background:url(../img/bg01.png) no-repeat 0px 120px;
+}
+.logo{
+	width: 100%;
+	margin:0 auto;
+	height: 106px;
+	padding: 20px 0 10px 0;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.logo-text{
+	font-family:'隶书','宋体';
+	font-size: 60px;
+	display:block;
+	height: 80px;
+	position: relative;
+	top: -78px;
+	left: 100px;
+}
+
+.login {
+	width: 312px;
+	height: 380px;
+	position: relative;
+	top:64px;
+	left: 574px;
+}
+
+.login .title{
+	font-size:24px;
+	letter-spacing: 2px;
+	position:relative;
+	top:12px;
+	left:56px;
+}
+
+.login form{
+	width: 300px;
+	position: relative;
+	top: 48px;
+	left: 12px;
+}
+
+.login label {
+	font-size: 16px;
+}
+
+.login .text{
+	width: 280px;
+}
+
+.login .code {
+	width: 180px;
+}
+
+.login .vpic {
+	position: relative;
+	top: -32px;
+	left: 190px;
+	height: 30px;
+	width: 90px;
+}
+
+.login .mybtn {
+	width: 200px;
+	position: relative;
+	top: -14px;
+	left: 46px;
+	height: 40px;
+}
+
+.footer {
+	width: 100%;
+	border-top: 1px solid #e0e0e0;
+	position: relative;
+	top:100px;
+	left:0;
+}
+
+.footer p{
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+	color: #c0c0c0;
+	padding: 10px 0 0 0;
+}

@@ -1,0 +1,26 @@
+<include file="Public:system_header" title="修改项目详细"/>
+     <div class="module_public_main">
+         <table>
+          <tr style="background:#F0F0F0;">
+            <td colspan="3"><a href="__URL__/add_projectLog/pid/<{$p_id}>">【创建项目日志】</a><a href="__URL__/project_log/pid/<{$p_id}>">【管理项目日志】</a></td>
+          </tr>
+         <form action="__URL__/do_edit_log" method="post">
+         <input type="hidden" name="pl_id" value="<{$l_info.pl_id}>" />
+           <tr>
+             <td width="12%" align="right">创建时间:</td>
+             <td><{$l_info.pl_time|date="Y年m月d日",###}></td>
+           </tr>
+           <tr>
+             <td width="12%" align="right">日志内容:</td>
+             <td>
+             <textarea name="pl_content" class="_input2"><{$l_info.pl_content}></textarea>
+             </td>
+           </tr>
+           <tr>
+             <td>&nbsp;</td>
+             <td><input type="submit" value="修改日志" class="_button"/></td>
+           </tr>
+           </form>
+         </table>
+     </div>
+<include file="Public:system_footer" />

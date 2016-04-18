@@ -1,0 +1,50 @@
+<include file="Public:email_header" title="发送内部邮件"/> <!--公共头部样式-->
+     <div class="module_public_main">
+        <table>
+        <form action="__URL__/doSend" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="em_uid" value="<{$Think.session.UserId}>" />
+           <tr>
+             <td align="right" width="12%">邮件发送人:</td>
+             <td><input type="text" name="em_name" class="_input" value="<{$email_info[0]['u_name']}>"/><span></span>&nbsp;<font color=red>(邮件发送后将记录您的姓名)</font></td>
+           </tr>
+           <tr>
+             <td align="right" >邮件源地址:</td>
+             <td><input type="text" name="em_source" class="_input" value="<{$email_info[0]['em_source']}>"/><span></span>&nbsp;<font color=red>(邮件发送后将记录您的源地址)</font></td>
+           </tr>
+           <tr>
+             <td align="right" >邮件目的地址:</td>
+             <td><input type="text" name="em_purpose" class="_input" value="<{$purpose}>"/><span></span>&nbsp;&nbsp;
+             <select name="purpose">
+                <option>--请选择邮件接收人--</option>
+                <volist name="e_info" id="v">
+                   <option value="<{$v.u_email_in}>|<{$v.u_name}>"><{$v.u_name}></option>
+                </volist>
+             </select>
+             </td>
+           </tr>
+           <tr>
+             <td align="right" >邮件标题:</td>
+             <td><input type="text" name="em_title" class="_input"/><span></span></td>
+           </tr>
+           <tr>
+             <td align="right" >是否增加附件:</td>
+             <td>
+             <input type="radio" value="1" name="attachment"/>&nbsp;<font color=green>是</font>&nbsp;&nbsp;
+             <input type="radio" value="2" name="attachment" checked="true"/>&nbsp;<font color=red>否</font></td>
+           </tr>
+           <tr id="attachment_is" style="display:none;">
+             <td align="right" >邮件附件:</td>
+             <td><input type="file" name="em_filename"/><font color=red>&nbsp;(如果没有附件请直接留空)</font></td>
+           </tr>
+           <tr>
+             <td align="right" >邮件内容:</td>
+             <td><textarea cols="50" rows="7" class="_input2" name="em_content"></textarea></td>
+           </tr>
+           <tr>
+             <td align="right">&nbsp;</td>
+             <td><input type="submit" value="发送邮件" class="_button"/></td>
+           </tr>
+        </form>
+        </table>
+     </div>
+<include file="Public:footer" /> <!--公共尾部样式-->

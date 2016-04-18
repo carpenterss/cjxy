@@ -1,0 +1,60 @@
+<include file="Public:system_header" title="OA日志管理"/>
+     <div class="module_public_main">
+       <table>
+       <tr style="background:#FFC;">    
+         <form action="__URL__/OA_query_uname" method="post">  
+         <td colspan="7">&nbsp;&nbsp;<b>※根据人员筛选:</b>
+         
+           <select name="u_id" class="_input">
+             <volist name="e_info" id="v">
+               <option value="<{$v.u_id}>"><{$v.u_name}></option>
+             </volist>
+           </select>&nbsp;&nbsp;
+           <input type="submit" value="查询" class="_button"/>
+         </td>
+         </form>
+       </tr>
+       <form action="__URL__/batch_del" method="post">
+         <tr>
+           <td width="8%" align="center">编号</td>
+           <td align="center">操作人姓名</td>
+           <td align="center">操作时间</td>
+           <td align="center">操作内容</td>
+           <td align="center">操作状态</td>
+           <td align="center">操作</td>
+           <td align="center"><a href="#" id="all_check">全选/<a href="#" id="no_check">全不选</a></td>
+         </tr>
+         <volist name="l_info" id="v" key="k">
+         <tr>
+           <td width="8%" align="center"><{$k}></td>
+           <td align="center"><{$v.u_name}></td>
+           <td align="center"><{$v.l_time|date="Y-m-d H:m",###}></td>
+           <td align="center"><{$v.l_content}></td>
+           <if condition="$v.l_status eq '1'"> 
+           <td align="center"><font color=green>√</font></td>
+           <else />
+           <td align="center"><font color=red>x</font></td> 
+           </if>
+           <td align="center">
+              <a href="__URL__/del_log/l_id/<{$v.l_id}>">删除日志记录</a>
+           </td>
+           <td align="center"><input type="checkbox" class="check_is" value="<{$v.l_id}>" name="check_is[]"/></td>
+         </tr>
+         </volist>
+         <tr>
+           <td colspan="6" align="right"><{$fpage}></td>
+           <td align="center"><input type="submit" value="删除选中项" class="_button"/></td>
+         </tr>
+         </form>
+       </table>
+      </div>
+      <script type="text/javascript">
+	   //全选/全不选
+  		 $("#all_check").click(function(){
+	 		 $(".check_is").attr("checked",true);
+   			 });
+  			 $("#no_check").click(function(){
+		 $(".check_is").attr("checked",false);
+   			 });
+	  </script>
+<include file="Public:system_footer" />

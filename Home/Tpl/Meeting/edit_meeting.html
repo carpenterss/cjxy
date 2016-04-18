@@ -1,0 +1,40 @@
+<include file="Public:meeting_header" title="查看已通知的员工"/>
+     <div class="module_public_main"> 
+      <table>
+        <form action="__URL__/do_edit_meetingArrange" method="post">
+        <input type="hidden" name="m_id" value="<{$m_info.m_id}>" />
+        <input type="hidden" name="shi_fen" value="<{$m_info.m_starttime|date='H:m',###}>" />
+          <tr>
+            <td align="right" width="12%">会议主办人:</td>
+            <td><input type="text" name="m_name" class="_input" value="<{$m_info.m_name}>" disabled="true" /></td>
+          </tr>
+          <tr>
+            <td align="right" width="12%">预定会议室号码:</td>
+            <td>
+             <input type="text" name="m_yuyue_id" class="_input" value="<{$m_info.m_yuyue_id}>" />&nbsp;<font color=green>(如需更改,请直接填写相应的预约ID)</font>
+            </td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议主题:</td>
+            <td><input type="text" name="m_title" class="_input" value="<{$m_info.m_title}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议开始日期:</td>
+            <td><input type="text" name="m_start_day" class="_input" value="<{$m_info.m_starttime|date='Y-m-d',###}>" />&nbsp;&nbsp;<font color=red>(备注:请根据格式:2012-12-02)</font></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议开始时间:</td>
+            <td>
+            <font color=red><{$m_info.m_starttime|date='H:m',###}></font>&nbsp;&nbsp;如需更改请直接输入新的时间段:
+              <input type="text" name="start_shi_fen" class="_input"/><font color=red>&nbsp;(格式:02:22)</font>
+            </td>
+          </tr>         
+          
+           <tr>
+           <td>&nbsp;</td>
+           <td><input type="submit" value="更新安排" class="_button"/></td>
+          </tr>
+          </form> 
+        </table>
+     </div>
+<include file="Public:meeting_footer" />

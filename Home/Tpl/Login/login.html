@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>诚金办公管理系统</title>
+	<link href="__PUBLIC__/xw/bootstrap.min.css" rel="stylesheet">
+	<link href="__PUBLIC__/xw/logo1.css" rel="stylesheet">
+</head>
+<body>
+	<div id="main">
+		<div class="login">
+			<div class="logo">
+				<div class="logo-pic">
+					<img alt='' src="__PUBLIC__/img/logo.png" />
+					<span>诚金</span>
+				</div>
+				<div class='logo-text'>办公管理系统</div>
+			</div>
+			<div class="right">
+			<span class="title">用户登录</span>
+			<form action="__URL__/doLogin" method="post" class="form-horizontal">
+				<div class="form-group">
+					<label for="u_username" class="col-sm-3 control-label">帐&nbsp;&nbsp;号</label>
+					<div class="col-sm-9">
+						<input type="text" id="u_username" name="u_username" class="form-control text" placeholder="请输入用户帐号" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="u_password" class="col-sm-3 control-label">密&nbsp;&nbsp;码</label>
+					<div class="col-sm-9">
+						<input type="password" id="u_password" name="u_password" class="form-control text" placeholder="请输入用户密码"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="verify" class="col-sm-3 control-label">验证码</label>
+					<div class="col-sm-9">
+						<input type="text" id="verify" name="verify" size="6" class="form-control code" placeholder="验证码"/>
+						<img src="__APP__/Public/verify" class="vpic" onclick="this.src='__APP__/Public/verify/'+new Date().getTime();"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary mybtn" value="用户登录">
+				</div>
+			</form>
+			</div>
+		</div>
+		<div class="footer">
+			<p>吉林省诚金信用管理有限公司版权所有&nbsp;2015-2018</p>
+		</div>
+	</div>
+</body>
+</html>

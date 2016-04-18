@@ -1,0 +1,48 @@
+<include file="Public:customer_header" title="业绩统计"/>
+<script src="__PUBLIC__/calculator/Scripts/jquery-1.7.2.js" type="text/javascript"></script>
+<script src="__PUBLIC__/jquery.tableToExcel.js" type="text/javascript"></script>
+<script>
+    var dkjezj = 0;
+    var count = 0;
+</script>
+<div class="module_public_main">
+    <table id="table">
+        <tr>
+            <td align="center">职员姓名</td>
+            <td align="center">客户姓名</td>
+            <td align="center">贷款金额</td>
+            <td align="center">放款时间</td>
+            <td align="center">到期时间</td>
+        </tr>
+        <volist name="data" id="v" key="k">
+            <tr>
+                <td align="center"><{$v.employeename}></td>
+                <td align="center"><{$v.customername}></td>
+                <td align="center"><{$v.dkje}></td>
+                <td align="center"><{$v.fkrq}></td>
+                <td align="center"><{$v.dqsj}></td>
+                <script>dkjezj = dkjezj + <{$v.dkje}></script>
+                <script>count = <{$k}></script>
+            </tr>
+        </volist>
+        <tr>
+            <td align="cneter"></td>
+            <td id="countzj" align="cneter" style="text-align: center"></td>
+            <td id="dkjezj" align="cneter" style="text-align: center">贷款金额总计<{$zj}></td>
+            <td align="cneter"></td>
+            <td align="cneter"></td>
+        </tr>
+
+    </table>
+    <button style="align-self: center" type="button" id="send-btn" class="submit" value="导出"
+            onclick="$('table').tableToExcel()"/>导出
+
+</div>
+<script>
+    window.onload = zj();
+    function zj(){
+        document.getElementById("countzj").innerHTML = "客户数: " + count;
+        document.getElementById("dkjezj").innerHTML = "贷款金额总计: " + dkjezj + "元";
+    }
+</script>
+<include file="Public:customer_footer"/>

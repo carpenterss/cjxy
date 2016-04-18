@@ -1,0 +1,774 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+<!-- Bootstrap -->
+<!-- 引入uploadify样式 -->
+<link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<script src="__PUBLIC__/js/jquery/jquery-1.11.3.js"></script>
+
+<link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<!-- 引入uploadify样式 -->
+<script src="__PUBLIC__/validate/js/cd.js"></script>
+<script src="__PUBLIC__/processbar/nprogress.js"></script>
+<link href="__PUBLIC__/processbar/nprogress.css" rel="stylesheet">
+<script> var handleUrl = '<{:U("Customer/do_customer_x_p_add")}>';</script>
+<style>
+    .t-bg {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .t-color {
+        border-bottom: 4px solid #4499ee;
+
+    }
+
+    .uploadify {
+        position: relative;
+        margin-bottom: 1em;
+    }
+
+    .uploadify-button {
+        background-color: #505050;
+        background-image: linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -o-linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -moz-linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -webkit-linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -ms-linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -webkit-gradient(
+                linear,
+                left bottom,
+                left top,
+                color-stop(0, #505050),
+                color-stop(1, #707070)
+        );
+        background-position: center top;
+        background-repeat: no-repeat;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 30px;
+        border: 2px solid #808080;
+        color: #FFF;
+        font: bold 12px Arial, Helvetica, sans-serif;
+        text-align: center;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        width: 100%;
+    }
+
+    .uploadify:hover .uploadify-button {
+        background-color: #606060;
+        background-image: linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -o-linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -moz-linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -webkit-linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -ms-linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -webkit-gradient(
+                linear,
+                left bottom,
+                left top,
+                color-stop(0, #606060),
+                color-stop(1, #808080)
+        );
+        background-position: center bottom;
+    }
+
+    .uploadify-button.disabled {
+        background-color: #D0D0D0;
+        color: #808080;
+    }
+
+    .uploadify-queue {
+        margin-bottom: 1em;
+    }
+
+    .uploadify-queue-item {
+        background-color: #F5F5F5;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        font: 11px Verdana, Geneva, sans-serif;
+        margin-top: 5px;
+        max-width: 350px;
+        padding: 10px;
+    }
+
+    .uploadify-error {
+        background-color: #FDE5DD !important;
+    }
+
+    .uploadify-queue-item .cancel a {
+        background: url('../img/uploadify-cancel.png') 0 0 no-repeat;
+        float: right;
+        height: 16px;
+        text-indent: -9999px;
+        width: 16px;
+    }
+
+    .uploadify-queue-item.completed {
+        background-color: #E5E5E5;
+    }
+
+    .uploadify-progress {
+        background-color: #E5E5E5;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .uploadify-progress-bar {
+        background-color: #0099FF;
+        height: 3px;
+        width: 1px;
+    }
+
+    .yywj_box {
+        padding: 9px 14px;
+        margin-bottom: 14px;
+        background-color: #f7f7f9;
+        border: 1px solid #e1e1e8;
+        border-radius: 4px;
+        min-height: 200px;
+    }
+
+    .img {
+        text-align: center;
+        display: inline-block;
+        margin: auto;
+        max-width: 150px;
+        max-height: 200px;
+        padding: 4px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .img_ctrl {
+        text-align: center;
+        display: inline-block;
+        /*position: absolute;*/
+        width: 100%;
+        /*height: auto;*/
+        padding: 1px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 4px;
+    }
+
+    .img_name {
+        display: none;
+        position: absolute;
+        z-index: 2;
+    }
+
+    .modal-content {
+        text-align: center;
+    }
+
+    #img_show {
+        max-width: 100%;
+    }
+
+    #fileselect {
+        display: none;
+    }
+
+    #send-btn {
+        cursor: pointer;
+        display: block;
+        margin: 10px;
+        width: 120px;
+    }
+
+    .error {
+        color: #ff0000;
+    }
+
+    .container1 {
+        text-align: center;
+    }
+</style>
+<script>
+    var qpid = 1;
+    function add_qp() {
+        $("#form_array_text").append("<tr id='qpnametr" + qpid + "'><td width='20%' align='right' class='t-bg'>关系人" + qpid + "姓名:</td><td colspan='3'><input onblur='checkqpxm(" + qpid + ")' style='width: 200px' type='text' id='qpxm" + qpid + "' class='_input'/><font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='qpxmnull" + qpid + "'></font></td></tr>");
+        $("#form_array_text").append("<tr id='qpgxtr" + qpid + "'><td width='20%' align='right' class='t-bg'>关系人" + qpid + "关系:</td><td colspan='3'><input onblur='checkqpgx(" + qpid + ")' style='width: 200px' type='text' id='qpgx" + qpid + "' class='_input'/><font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='qpgxnull" + qpid + "'></font></td></tr>");
+        $("#form_array_text").append("<tr id='qplxfstr" + qpid + "'><td width='20%' align='right' class='t-bg'>关系人" + qpid + "联系方式:</td colspan='3'><td><input onblur='checkqplxfs(" + qpid + ")' style='width: 200px' type='text' id='qplxfs" + qpid + "' class='_input'/><font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='qplxfsnull" + qpid + "'></font></td></tr>");
+        qpid++;
+    }
+
+    function del_qp() {
+        if (confirm("确定删除该关系人？")) {
+
+            if (qpid > 1) {
+                qpid = qpid - 1;
+            }
+            $("#qpnametr" + qpid).remove();
+            $("#qpgxtr" + qpid).remove();
+            $("#qplxfstr" + qpid).remove();
+        }
+    }
+    function showPO() {
+        var poxx = document.getElementsByName('poxx');
+        for (var i = 0; i < poxx.length; i++) {
+            poxx[i].style.display = '';
+        }
+    }
+    function hidePO() {
+        var poxx = document.getElementsByName('poxx');
+        for (var i = 0; i < poxx.length; i++) {
+            poxx[i].style.display = 'none';
+        }
+    }
+</script>
+<include file="Public:customer_header" title="车贷客户基础资料录入"/>
+<script src="__PUBLIC__/js/jquery/jquery-1.11.3.js"></script>
+<script> var handleUrl = '<{:U("Customercd/do_customer_cd_add")}>';</script>
+<script>
+    $(document).ready(function () {
+        var menuParent = $('.menu > .ListTitlePanel > div');//获取menu下的父层的DIV
+        var menuList = $('.menuList');
+        var history = 0;
+        $(menuList[history]).show();
+        $('.menu > .menuParent > .ListTitlePanel > .ListTitle').each(function (i) {//获取列表的大标题并遍历
+            $(this).click(function () {
+                if ($(menuList[i]).css('display') == 'none') {
+                    $(menuList[history]).hide();
+                    $(menuList[i]).slideDown(300);
+                    history = i;
+                }
+            });
+        });
+    });
+</script>
+<div class="module_public_main">
+    <div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                <img id="img_show" src="" alt="">
+            </div>
+        </div>
+    </div>
+
+    <form id="d_p_add_form" action="">
+        <div class="menu">
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>基础信息</b></td>
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="jcxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">客户姓名</td>
+                            <td><input style="width: 200px" type="text" name="cd_name" class="_input"
+                                       onblur="checkcd_name()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_name"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">身份证号</td>
+                            <td><input style="width: 200px" type="text" name="cd_idcard" class="_input"
+                                       onblur="checkcd_idcard()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_idcard"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">性别</td>
+                            <td>
+                                <input type="radio" name="cd_sex" value="0" checked="checked"/><font
+                                    color=green>男</font>&nbsp;
+                                <input type="radio" name="cd_sex" value="1"/><font color=green>女</font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">民族</td>
+                            <td><input style="width: 200px" type="text" name="cd_mz" class="_input"
+                                       onblur="checkcd_mz()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_mz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">房屋类型</td>
+                            <td>
+                                <input type="radio" name="cd_fwxz" value="0" checked="checked"/><font
+                                    color=green>类型一</font>&nbsp;
+                                <input type="radio" name="cd_fwxz" value="1"/><font color=green>类型二</font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">工作单位</td>
+                            <td><input style="width: 200px" type="text" name="cd_gzdw" class="_input"
+                                       onblur="checkcd_gzdw()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_gzdw"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">职务</td>
+                            <td><input style="width: 200px" type="text" name="cd_zw" class="_input"
+                                       onblur="checkcd_zw()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_zw"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">户口所在地</td>
+                            <td><input style="width: 200px" type="text" name="cd_hkszd" class="_input"
+                                       onblur="checkcd_hkszd()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_hkszd"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">身份证所在地</td>
+                            <td><input style="width: 200px" type="text" name="cd_sfzszd" class="_input"
+                                       onblur="checkcd_sfzszd()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_sfzszd"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">实际住址</td>
+                            <td><input style="width: 200px" type="text" name="cd_sjzz" class="_input"
+                                       onblur="checkcd_sjzz()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_sjzz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">联系方式</td>
+                            <td><input style="width: 200px" type="text" name="cd_lxfs" class="_input"
+                                       onblur="checkcd_lxfs()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_lxfs"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">备注</td>
+                            <td><input style="width: 200px" type="text" name="cd_bz" class="_input"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_bz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">婚姻状况</td>
+                            <td>
+                                <input type="radio" name="cd_hyzk" value="0" checked="checked"
+                                       onclick="showPO()"/><font
+                                    color=green>已婚</font>&nbsp;
+                                <input type="radio" name="cd_hyzk" value="1"
+                                       onclick="hidePO()"/><font
+                                    color=green>未婚</font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg"></td>
+                            <td></td>
+                        </tr>
+                        <tr name="poxx">
+                            <td width="20%" align="right" class="t-bg">配偶姓名</td>
+                            <td><input style="width: 200px" type="text" name="cd_poxm" class="_input"
+                                       onblur="checkcd_poxm()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_poxm"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">配偶身份证号</td>
+                            <td><input style="width: 200px" type="text" name="cd_posfzh" class="_input"
+                                       onblur="checkcd_posfzh()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_posfzh"></font>
+                            </td>
+                        </tr>
+                        <tr name="poxx">
+                            <td width="20%" align="right" class="t-bg">配偶联系方式</td>
+                            <td><input style="width: 200px" type="text" name="cd_polxfs" class="_input"
+                                       onblur="checkcd_polxfs()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_polxfs"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">配偶年收入</td>
+                            <td><input style="width: 200px" type="text" name="cd_ponsr" class="_input"
+                                       onblur="checkcd_ponsr()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_ponsr"></font></td>
+                        </tr>
+                        <tr name="poxx">
+                            <td width="20%" align="right" class="t-bg">配偶工作单位</td>
+                            <td><input style="width: 200px" type="text" name="cd_pogzdw" class="_input"
+                                       onblur="checkcd_pogzdw()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_pogzdw"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">配偶职务</td>
+                            <td><input style="width: 200px" type="text" name="cd_pozw" class="_input"
+                                       onblur="checkcd_pozw()"/>
+
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="cd_pozw"></font></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>关系人信息</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="gxr">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">关系人</td>
+                            <td>
+                                <input type="button" onclick="add_qp()" value="添加关系人" class="btn btn-primary"/>&nbsp
+                                <input type="button" onclick="del_qp()" value="删除最后一个关系人" class="btn btn-primary"/>
+                            </td>
+                        </tr>
+                        <tbody align="left" id="form_array_text" width="200px">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>其他影印文件</b></td>
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="yywj">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">其他影印文件
+                            </td>
+                            <td>
+                                <div class="container1">
+                                    <div class="row yywj_box" id="yywj_box">
+
+                                    </div>
+                                    <div class="form-group1">
+                                        <button type="button" class="btn btn-primary" id="selsect_yywj">选择文件</button>
+                                        <input type="file" id="fileselect_yywj" hidden="hidden" name="fileselect[]"
+                                               multiple="multiple"/>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <table align="left">
+                <tr>
+                    <td align="center">
+                        <button type="button" class="btn btn-primary" value="确定提交" id="send-btn"/>
+                        确定提交
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <script src="__PUBLIC__/js/jquery/jquery-1.11.3.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="__PUBLIC__/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+
+    <!-- 引入uploadify的js代码 -->
+    <script src="__PUBLIC__/uploadify/jquery.uploadify.min.js"></script>
+
+    <!-- 复制专用插件 -->
+    <script src="__PUBLIC__/js/jquery.zclip/jquery.zclip.js"></script>
+    <!-- 引入livequery 用于新增对象方法绑定 -->
+    <script src="__PUBLIC__/js/jquery.livequery.js"></script>
+    <script src="__PUBLIC__/processbar/spin.min.js"></script>
+    <script>
+        var yywj = new Array();
+        var opts = {
+            lines: 13, // 花瓣数目
+            length: 20, // 花瓣长度
+            width: 10, // 花瓣宽度
+            radius: 30, // 花瓣距中心半径
+            corners: 1, // 花瓣圆滑度 (0-1)
+            rotate: 0, // 花瓣旋转角度
+            direction: 1, // 花瓣旋转方向 1: 顺时针, -1: 逆时针
+            color: '#5882FA', // 花瓣颜色
+            speed: 1, // 花瓣旋转速度
+            trail: 60, // 花瓣旋转时的拖影(百分比)
+            shadow: false, // 花瓣是否显示阴影
+            hwaccel: false, //spinner 是否启用硬件加速及高速旋转
+            className: 'spinner', // spinner css 样式名称
+            zIndex: 2e9, // spinner的z轴 (默认是2000000000)
+            top: 'auto', // spinner 相对父容器Top定位 单位 px
+            left: 'auto'// spinner 相对父容器Left定位 单位 px
+        };
+
+        var spinner = new Spinner(opts);
+        $('#send-btn').click(function () {
+            var cd_name = $('input[name = cd_name]').val();
+            var cd_idcard = $('input[name = cd_idcard]').val();
+            var cd_sex = $('input[name = cd_sex]:checked').val();
+            var cd_mz = $('input[name = cd_mz]').val();
+            var cd_fwxz = $('input[name = cd_fwxz]:checked').val();
+            var cd_gzdw = $('input[name = cd_gzdw]').val();
+            var cd_zw = $('input[name = cd_zw]').val();
+            var cd_hkszd = $('input[name = cd_hkszd]').val();
+            var cd_sfzszd = $('input[name = cd_sfzszd]').val();
+            var cd_sjzz = $('input[name = cd_sjzz]').val();
+            var cd_lxfs = $('input[name = cd_lxfs]').val();
+            var cd_hyzk = $('input[name = cd_hyzk]:checked').val();
+            var cd_poxm = $('input[name = cd_poxm]').val();
+            var cd_posfzh = $('input[name = cd_posfzh]').val();
+            var cd_polxfs = $('input[name = cd_polxfs]').val();
+            var cd_ponsr = $('input[name = cd_ponsr]').val();
+            var cd_pogzdw = $('input[name = cd_pogzdw]').val();
+            var cd_pozw = $('input[name = cd_pozw]').val();
+            var cd_bz = $('input[name = cd_bz]').val();
+            var cd_qpinfoarray = new Array();
+            for (var i = 0; i < qpid; i++) {
+                if ($('#qpxm' + i).val() != null && $('#qpxm' + i).val() != '') {
+                    cd_qpinfoarray.push([$('#qpxm' + i).val(), $('#qpgx' + i).val(), $('#qplxfs' + i).val()]);
+                }
+            }
+            if (checkdata()) {
+                document.getElementById('send-btn').disabled = true;
+                $.post(handleUrl, {
+                    cd_name: cd_name,
+                    cd_idcard: cd_idcard,
+                    cd_sex: cd_sex,
+                    cd_mz: cd_mz,
+                    cd_fwxz: cd_fwxz,
+                    cd_gzdw: cd_gzdw,
+                    cd_zw: cd_zw,
+                    cd_hkszd: cd_hkszd,
+                    cd_sfzszd: cd_sfzszd,
+                    cd_sjzz: cd_sjzz,
+                    cd_lxfs: cd_lxfs,
+                    cd_hyzk: cd_hyzk,
+                    cd_poxm: cd_poxm,
+                    cd_posfzh: cd_posfzh,
+                    cd_polxfs: cd_polxfs,
+                    cd_ponsr: cd_ponsr,
+                    cd_pogzdw: cd_pogzdw,
+                    cd_pozw: cd_pozw,
+                    cd_bz: cd_bz,
+                    cd_qpinfoarray: cd_qpinfoarray,
+                    cd_yywj: yywj
+                }, function (returndata) {
+                    document.getElementById('send-btn').disabled = false;
+                    if (returndata.status) {
+                        alert('于' + returndata.time + '添加成功');
+                        window.location.href = "<{:U('Index/main')}>";
+                    } else {
+                        alert('添加失败，错误：' + returndata.error);
+                    }
+                }, 'json');
+            } else {
+                alert('填写的信息错误或者不完整，请检查');
+                document.getElementById('send-btn').disabled = false;
+            }
+        })
+    </script>
+    <script>
+        $(function () {
+            $('#selsect_yywj').click(function (event) {
+                $('#fileselect_yywj').click();
+            });
+            $('#fileselect_yywj').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "cd_yywj";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+                ;
+            });
+            //上传操作
+            function html5up(file, type) {
+                /* Act on the event */
+                var name = file.name;
+                spinner.spin(document.getElementById('yywj_box'));
+                var size = file.size;
+                var shardSize = 5 * 1024 * 1024;    //以2MB为一个分片
+                var shardCount = Math.ceil(size / shardSize);  //总片数
+                var chunk = 0;
+                if (size > shardSize) {
+                    chunk = 1;
+                }
+                for (var i = 0; i < shardCount; ++i) {
+                    var start = i * shardSize;
+                    var end = Math.min(size, start + shardSize);
+                    var form_data = new FormData();
+                    form_data.append('timestamp', "<{$time}>");
+                    form_data.append('token', '<{:md5("unique_salt".$time)}>');
+                    form_data.append("filetype", type);
+                    form_data.append("data", file.slice(start, end));  //slice方法用于切出文件的一部分
+                    form_data.append("name", name);
+                    form_data.append("total", shardCount);  //总片数
+                    form_data.append("index", i + 1);        //当前是第几片
+                    form_data.append("chunk", chunk);
+                    $.ajax({
+                        url: '__APP__/Upload/upload',
+                        type: 'POST',
+                        // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                        async: false,
+                        processData: false,
+                        contentType: false,
+                        data: form_data
+                    })
+                            .done(function (data) {
+                                // alert(data);
+                                NProgress.done();
+                                if (!data.status) {
+                                    return false;
+                                }
+                                if (type = "cd_yywj") {
+                                    yywj[yywj.length] = data.savepath + data.savename;
+                                }
+                                put_img(data.savepath, data.savename, type);//添加图片到img_box
+                                console.log("success");
+                            })
+                            .fail(function () {
+                                console.log("error");
+                            })
+                            .always(function () {
+                                console.log("complete");
+                                spinner.spin();
+                            });
+                }
+            }
+
+
+            //添加图片到img_box
+            function put_img(savepath, savename, type) {
+                savename = savename.substring(0, savename.length - 1);
+                var path = savepath + savename;
+                var img_url = "__ROOT__" + path.substring(1);
+                var new_img = '<div class="col-md-3">';
+                var extStart = path.lastIndexOf(".");
+                var ext = path.substring(extStart, path.length).toUpperCase();
+                if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    new_img += '<span style="background-color: #838383">' + savename + '</span>'
+                    new_img += '<img style="display:none" src="' + img_url + '" alt="' + savename + '" class="img">';
+                    new_img += '<div class="img_ctrl">';
+                    new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+                    new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+                    new_img += '</div>';
+                    new_img += '<div class="img_name">';
+                    new_img += '<form action="" class="form-inline">';
+                    new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+                    new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+                    new_img += '</form>';
+                    new_img += '</div>';
+                    new_img += '</div>';
+                } else {
+                    new_img += '<img src="' + img_url + '" alt="' + savename + '" class="img">';
+                    new_img += '<div class="img_ctrl">';
+                    new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+                    new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+                    new_img += '</div>';
+                    new_img += '<div class="img_name">';
+                    new_img += '<form action="" class="form-inline">';
+                    new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+                    new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+                    new_img += '</form>';
+                    new_img += '</div>';
+                    new_img += '</div>';
+                }
+
+                if (type == 'cd_yywj') {
+                    $('.yywj_box').append(new_img);
+                }
+
+            }
+
+            //复制图片地址
+            $('.glyphicon-cloud-download').livequery(function () {
+                $(this).zclip({
+                    path: '__PUBLIC__/js/jquery.zclip/ZeroClipboard.swf',
+                    copy: function () {
+
+                        var URL = "http://" + "<{$Think.server.HTTP_HOST}>" + $(this).parents('div.col-md-3').find('.img').attr('src');
+                        window.open(URL);
+                    },
+                    afterCopy: function () {
+                        alert('成功复制图片地址');
+                    },
+                });
+            });
+
+
+            //图片删除
+            $(document).on('click', '.glyphicon-trash', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                var div = $(this).parents('div.col-md-3');
+                var img_url = div.find('.img').attr('src');
+                var len = ("__ROOT__").length;
+                var url = "." + img_url.substring(len, img_url.length);
+                $.ajax({
+                    url: '<{:U("Upload/del",null,false)}>',
+                    type: 'POST',
+                    // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                    data: {url: img_url},
+                    success: function (data) {
+                        if (!data['status']) {
+                            alert(data['info']);
+                            return false;
+                        } else {
+                            alert(data['info']);
+                            yywj.splice($.inArray(url, yywj), 1);
+                            div.fadeOut(2000);
+                            div.remove();
+                        }
+                        ;
+                    }
+                });
+            });
+
+            //图片放大预览
+            $(document).on('click', '.img', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                var img_url = $(this).attr('src');
+                $('#modal').modal('show');
+                $('#img_show').attr('src', img_url);
+            });
+
+            //点击modal自动隐藏
+            $('#modal').click(function (event) {
+                $(this).modal('hide');
+            });
+        });
+    </script>
+</div>
+<include file="Public:customer_footer"/>

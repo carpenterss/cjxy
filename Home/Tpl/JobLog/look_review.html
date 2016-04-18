@@ -1,0 +1,40 @@
+<include file="Public:jobLog_header" title="查看上司评价" />
+    <div class="module_public_main">
+       <table>
+        <tr>
+          <td colspan="2" style="background:#F0F0F0;color:#000;">日志详情</td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">日志日期:</td>
+          <td><{$j_info.j_date|date="Y-m-d",###}></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">工作内容:</td>
+          <td><{$j_info.j_content}></td>
+        </tr> 
+        <tr>
+          <td width="12%" align="right">工作结果:</td>
+          <td><{$j_info.j_result}></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">工作备注:</td>
+          <td><{$j_info.j_note}></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="background:#F0F0F0;color:#000;">上司评价</td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">上司姓名:</td>
+          <td>
+            <{$j_info.j_rname}>
+          </td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">评价内容:</td>
+          <td>
+            <{$j_info.j_boss_review}>
+          </td>
+        </tr>
+      </table>
+    </div>
+<include file="Public:jobLog_footer" />

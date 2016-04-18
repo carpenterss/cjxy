@@ -1,0 +1,114 @@
+<include file="Public:system_header" title="OA用户管理"/>
+<link href="__PUBLIC__/maintable/theme.default.min.css" rel="stylesheet">
+<script src="__PUBLIC__/pager/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jq.css">
+<link href="__PUBLIC__/pager/prettify.css" rel="stylesheet">
+<script src="__PUBLIC__/pager/prettify.js"></script>
+<script src="__PUBLIC__/pager/docs.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/theme.blue.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.js"></script>
+<script src="__PUBLIC__/pager/jquery.tablesorter.widgets.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jquery.tablesorter.pager.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.pager.js"></script>
+<script language="javascript" type="text/javascript"
+        src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+<script>
+    $(function(){
+        $('#table').tablesorter({
+            widgets        : ['zebra', 'columns'],
+            usNumberFormat : false,
+            sortReset      : true,
+            sortRestart    : true,
+//            sortList: [[0,0]], // etc.
+//                theme: "bootstrap",
+//                widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+//                widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+//                    zebra: [ "normal-row", "alt-row" ],
+//                    filter_reset: ".reset",
+//                    filter_cssFilter: "form-control"
+            }
+        })
+                .tablesorterPager({
+                    container: $(".ts-pager1"),
+                    cssGoto: ".pagenum",
+                    removeRows: false,
+                    output: '{page} / {totalPages}'
+                });
+    });
+</script>
+<div class="module_public_main">
+    <table>
+        <tr>
+            <td colspan="2" bgcolor="#F0F0F0"><a href="__URL__/OA_user_add">【创建用户】</a><a href="__URL__/OA_user_manage">【管理用户】</a>
+            </td>
+        </tr>
+    </table>
+    <table id="table">
+        <thead>
+        <tr>
+            <td align="center">编号</td>
+            <td align="center">用户姓名</td>
+            <td align="center">是否允许登入OA</td>
+            <td align="center">权限控制</td>
+            <td align="center">操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="e_info" id="v" key="k">
+            <tr>
+                <td align="center"><{$k}></td>
+                <td align="center"><{$v.u_name}></td>
+                <if condition="$v.u_enable eq '1'">
+                    <td align="center"><font color=green>开启</font></td>
+                    <else/>
+                    <td align="center"><font color=red>禁用</font></td>
+                </if>
+
+                <if condition="$v.permissions eq '1'">
+                    <td align="center"><font color=green>已生成</font></td>
+                    <else/>
+                    <td align="center"><font color=red>未生成</font></td>
+                </if>
+
+                <td align="center">
+                    <if condition="$v.permissions eq '1'">
+                        <a href="__APP__/Permissions/edit_permissions/uid/<{$v.u_id}>/uname/<{$v.u_name}>">修改权限控制</a> |
+                        <else/>
+                        <a href="__APP__/Permissions/add_permissions/uid/<{$v.u_id}>/uname/<{$v.u_name}>">生成权限控制</a> |
+                    </if>
+
+                    <if condition="$v.absolute eq '1'">
+
+                        <a href="__URL__/OA_edit_user/uid/<{$v.u_id}>">修改信息</a> |
+                        <a href="__URL__/do_del_user/uid/<{$v.u_id}>"
+                           onclick="return confirm('确定要删除用户吗?删除用户也会删除用户的其它配置信息.');">删除用户</a> |
+                        <a href="__URL__/set_passwd/uid/<{$v.u_id}>"
+                           onclick="return confirm('是否重置该用户密码?')">密码重置</a>.
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+        <tfoot>
+        <tr style="background-color: #d6e9c6">
+            <th colspan="4" class="ts-pager1 form-horizontal" style="text-align: center">
+                <button type="button" class="btn first">第一页</button>
+                <button type="button" class="btn prev">上一页</button>
+                <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+                <button type="button" class="btn next">下一页</button>
+                <button type="button" class="btn last">最后一页</button>
+                <select style="display: none;" class="pagesize input-mini" title="Select page size">
+                    <option selected="selected" value="13">13</option>
+                </select>
+                <select class="pagenum input-mini" title="Select page number"></select>
+            </th>
+            <td></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<include file="Public:system_footer"/>

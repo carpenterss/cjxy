@@ -1,0 +1,699 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/uploadify/uploadify.css">
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script language="javascript" type="text/javascript"
+            src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/validate/js/dbw.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/validate/css/register.css"/>
+
+    <style>
+        #send-btn {
+            cursor: pointer;
+            display: block;
+            margin: 10px;
+            width: 120px;
+        }
+        .t-bg {
+            background-color: #fafafa;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<include file="Public:customer_header" title="担保物基础资料录入"/>
+<div class="module_public_main">
+    <form id="xdyw_form">
+        <table align="left">
+            <table align="left">
+                <tr style="background:#F0F0F0">
+                    <td width="20%" align="right"><b>担保类型</b></td>
+                    <td>
+                        <input type="radio" name="db_type" value="1" checked="checked" onclick="
+                        document.getElementById('fw').style.display ='';
+                        document.getElementById('gjs').style.display ='none';
+                        document.getElementById('cl').style.display ='none';
+                        document.getElementById('qt').style.display ='none';
+                        document.getElementById('pz').style.display ='none';
+                        document.getElementById('xy').style.display ='none';"/><font
+                            color=green>房屋</font>&nbsp;
+                    </td>
+                    <td>
+                        <input type="radio" name="db_type" value="2" onclick="
+                        document.getElementById('cl').style.display ='';
+                        document.getElementById('gjs').style.display ='none';
+                        document.getElementById('fw').style.display ='none';
+                        document.getElementById('qt').style.display ='none';
+                        document.getElementById('pz').style.display ='none';
+                        document.getElementById('xy').style.display ='none';"/><font
+                            color=green>车辆</font>&nbsp;
+                    </td>
+                    <td>
+                        <input type="radio" name="db_type" value="3" onclick="
+                        document.getElementById('gjs').style.display ='';
+                        document.getElementById('fw').style.display ='none';
+                        document.getElementById('cl').style.display ='none';
+                                                document.getElementById('qt').style.display ='none';
+                        document.getElementById('pz').style.display ='none';
+                        document.getElementById('xy').style.display ='none';"/><font
+                            color=green>贵金属</font>&nbsp;
+                    </td>
+                    <td>
+                        <input type="radio" name="db_type" value="4" onclick="
+                        document.getElementById('gjs').style.display ='none';
+                        document.getElementById('fw').style.display ='none';
+                        document.getElementById('cl').style.display ='none';
+                                                document.getElementById('qt').style.display ='none';
+                        document.getElementById('pz').style.display ='none';
+                        document.getElementById('xy').style.display ='';"/><font
+                            color=green>信用</font>&nbsp;
+                    </td>
+                    <td>
+                        <input type="radio" name="db_type" value="5" onclick="
+                        document.getElementById('gjs').style.display ='none';
+                        document.getElementById('fw').style.display ='none';
+                        document.getElementById('cl').style.display ='none';
+                                                document.getElementById('qt').style.display ='none';
+                        document.getElementById('pz').style.display ='';
+                        document.getElementById('xy').style.display ='none';"/>
+                        <font color=green>凭证</font>&nbsp;
+                    </td>
+                    <td>
+                        <input type="radio" name="db_type" value="6" onclick="
+                        document.getElementById('gjs').style.display ='none';
+                        document.getElementById('fw').style.display ='none';
+                        document.getElementById('cl').style.display ='none';
+                                                document.getElementById('qt').style.display ='';
+                        document.getElementById('pz').style.display ='none';
+                        document.getElementById('xy').style.display ='none';"/><font
+                            color=green>其他</font>&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <table align="left" id="qt" style="display: none">
+                <tr>
+                    <td width="20%" align="right" class="t-bg">其他物品名称:</td>
+                    <td><input style="width: 200px" type="text" name="qt_mc" class="_input"
+                               onblur="checkqtmc()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="qtmc"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">其他物品所有人姓名:</td>
+                    <td><input style="width: 200px" type="text" name="qt_name" class="_input"
+                               onblur="checkqtwpname()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="qitawupin"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">其他物品所有人身份证号:</td>
+                    <td><input style="width: 200px" type="text" name="qt_idcard" class="_input"
+                               value="<{$c_info[0].d_qt_idcard}>" onblur="checkqtidcard()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="qt_idc"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">其他物品所有人联系电话:</td>
+                    <td><input style="width: 200px" type="text" name="qt_lxdh" class="_input"
+                               value="<{$c_info[0].d_qt_lxdh}>" onblur="checkqtlxdh()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="lxdh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">其他物品评估价格:</td>
+                    <td><input style="width: 200px" type="text" name="qt_pgjg" class="_input"
+                               value="<{$c_info[0].d_qt_pgjg}>" onblur="checkqtpgjg()"/>元
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="qt_jiage"></font>
+                    </td>
+                </tr>
+            </table>
+            <table align="left" id="pz" style="display: none">
+                <tr>
+                    <td width="20%" align="right" class="t-bg">凭证所有人姓名:</td>
+                    <td><input style="width: 200px" type="text" name="pz_name" class="_input"
+                               value="<{$c_info[0].d_pz_name}>" onblur="checkpzname()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="pz_mz"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">凭证所有人身份证号:</td>
+                    <td><input style="width: 200px" type="text" name="pz_idcard" class="_input"
+                               value="<{$c_info[0].d_pz_idcard}>" onblur="checkpzidcard()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="pz_sfz"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">凭证所有人联系电话:</td>
+                    <td><input style="width: 200px" type="text" name="pz_lxdh" class="_input"
+                               value="<{$c_info[0].d_pz_lxdh}>" onblur="checkpzlxfs()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="pz_lxfs"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">凭证号码:</td>
+                    <td><input style="width: 200px" type="text" name="pz_hm" class="_input"
+                               value="<{$c_info[0].d_pz_hm}>" onblur="checkpzhm()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="pz_number"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">凭证面值金额:</td>
+                    <td><input style="width: 200px" type="text" name="pz_mzje" class="_input"
+                               value="<{$c_info[0].d_pz_mzje}>" onblur="checkmzje()"/>
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="pz_je"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">凭证可变现日期:</td>
+                    <td><input style="width: 200px" type="text" name="pz_kbxrq" class="_input Wdate" readonly onfocus="WdatePicker()"
+                               value="<{$c_info[0].d_pz_kbxrq}>"/></td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">凭证评估价格:</td>
+                    <td><input style="width: 200px" type="text" name="pz_pgjg" class="_input"
+                               value="<{$c_info[0].d_pz_pgjg}>" onblur="checkpgjg()"/>元
+                        <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                              id="pz_pzpgjg"></font>
+                    </td>
+                </tr>
+            </table>
+            <table align="left" id="gjs" style="display: none">
+                <tr>
+                    <td width="20%" align="right" class="t-bg">贵金属名称:</td>
+                    <td><input style="width: 200px" type="text" name="gjs_mc" class="_input" onblur="checkgjs_mc()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="gjs_mc"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">贵金属所有人姓名:</td>
+                    <td><input style="width: 200px" type="text" name="gjs_name" class="_input"
+                               onblur="checkgjs_name()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="gjs_name"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">贵金属所有人身份证号:</td>
+                    <td><input style="width: 200px" type="text" name="gjs_idcard" class="_input"
+                               onblur="checkgjs_idcard()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="gjs_idcard"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">贵金属所有人联系电话:</td>
+                    <td><input style="width: 200px" type="text" name="gjs_lxdh" class="_input"
+                               onblur="checkgjs_lxdh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="gjs_lxdh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">贵金属评估价格:</td>
+                    <td><input style="width: 200px" type="text" name="gjs_pgjg" class="_input"
+                               onblur="checkgjs_pgjg()"/>元
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="gjs_pgjg"></font>
+                    </td>
+                </tr>
+            </table>
+            <table align="left" id="cl" style="display: none">
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车辆所有权人:</td>
+                    <td><input style="width: 200px" type="text" name="c_syqr" class="_input" onblur="checkc_syqr()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_syqr"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车辆所有权人身份证号:</td>
+                    <td><input style="width: 200px" type="text" name="c_syqrsfzh" class="_input"
+                               onblur="checkc_syqrsfzh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_syqrsfzh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车辆所有权人联系电话:</td>
+                    <td><input style="width: 200px" type="text" name="c_syqrlxdh" class="_input"
+                               onblur="checkc_syqrlxdh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_syqrlxdh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车牌号:</td>
+                    <td><input style="width: 200px" type="text" name="c_ph" class="_input" onblur="checkc_ph()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_ph"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车辆品牌:</td>
+                    <td><input style="width: 200px" type="text" name="c_pp" class="_input" onblur="checkc_pp()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_pp"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车辆型号:</td>
+                    <td><input style="width: 200px" type="text" name="c_xh" class="_input" onblur="checkc_xh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_xh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车辆车架号:</td>
+                    <td><input style="width: 200px" type="text" name="c_djh" class="_input" onblur="checkc_djh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_djh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车辆购置日期:</td>
+                    <td><input style="width: 200px" type="text" name="c_nx" class="_input Wdate" readonly onfocus="WdatePicker()"
+                               onblur="checkc_nx()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_nx"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车辆评估价格:</td>
+                    <td><input style="width: 200px" type="text" name="c_jz" class="_input" onblur="checkc_jz()"/>元
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_jz"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">车有无按揭:</td>
+                    <td>
+                        <input type="radio" name="c_ywaj" value="1" onclick="foldder('clajtr','show')"/><font
+                            color=green>有</font>&nbsp;
+                        <input type="radio" name="c_ywaj" value="2" onclick="foldder('clajtr','')"
+                               checked="checked"/><font color=green>无</font>
+                    </td>
+                </tr>
+                <tr name="clajtr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">已还按揭金额:</td>
+                    <td><input style="width: 200px" type="text" name="c_yhajje" class="_input"/>元
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="c_yhajje"></font>
+                    </td>
+                </tr>
+
+            </table>
+            <table align="left" id="fw">
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋所有权人:</td>
+                    <td><input style="width: 200px" type="text" name="fw_syqr" class="_input" onblur="checkfw_syqr()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_syqr"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋所有权人身份证号:</td>
+                    <td><input style="width: 200px" type="text" name="fw_syqrsfzh" class="_input"
+                               onblur="checkfw_syqrsfzh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_syqrsfzh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋所有权人联系电话:</td>
+                    <td><input style="width: 200px" type="text" name="fw_syqrlxdh" class="_input"
+                               onblur="checkfw_syqrlxdh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_syqrlxdh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋产权证号:</td>
+                    <td><input style="width: 200px" type="text" name="fw_fczh" class="_input" onblur="checkfw_fczh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_fczh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋土地证号:</td>
+                    <td><input style="width: 200px" type="text" name="fw_tdzh" class="_input" onblur="checkfw_tdzh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_tdzh"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋面积:</td>
+                    <td><input style="width: 200px" type="text" name="fw_mj" class="_input" onblur="checkfw_mj()"/>平方米
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_mj"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋地址:</td>
+                    <td><input style="width: 200px" type="text" name="fw_dd" class="_input" onblur="checkfw_dd()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_dd"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋评估价值:</td>
+                    <td><input style="width: 200px" type="text" name="fw_pgjz" class="_input" onblur="checkfw_pgjz()"/>元
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_pgjz"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋有无按揭:</td>
+                    <td><input type="radio" name="fw_ywaj" value="1" onclick="foldder('fwajtr','show')"/><font
+                            color="green">有</font>&nbsp;
+                        <input type="radio" name="fw_ywaj" value="2" onclick="foldder('fwajtr','')"
+                               checked="checked"/><font color="green">无</font>
+                    </td>
+                </tr>
+                <tr name="fwajtr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">已还按揭金额:</td>
+                    <td><input style="width: 200px" type="text" name="fw_yhajje" class="_input"
+                               onblur="checkfw_yhajje()"/>元
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_yhajje"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">有无共有人:</td>
+                    <td><input type="radio" name="fw_ywgyr" value="1" onclick="foldder('gyrtr','show');"/><font
+                            color="green">有</font>&nbsp;
+                        <input type="radio" name="fw_ywgyr" value="2" checked="checked" onclick="foldder('gyrtr','');"/><font
+                                color="green">无</font></td>
+                </tr>
+                <tr name="gyrtr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">房屋共有人姓名:</td>
+                    <td><input style="width: 200px" type="text" name="fw_gyrxm" class="_input"
+                               onblur="checkfw_gyrxm()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_gyrxm"></font>
+                    </td>
+                </tr>
+                <tr name="gyrtr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">房屋共有人身份证号:</td>
+                    <td><input style="width: 200px" type="text" name="fw_gyrsfzh" class="_input"
+                               onblur="checkfw_gyrsfzh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_gyrsfzh"></font>
+                    </td>
+                </tr>
+                <tr name="gyrtr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">房屋共有人联系方式:</td>
+                    <td><input style="width: 200px" type="text" name="fw_gyrlxfs" class="_input"
+                               onblur="checkfw_gyrlxfs()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_gyrlxfs"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">房屋是否租赁:</td>
+                    <td><input type="radio" name="fw_fwsfcgdsr" value="1"
+                               onclick="foldder('zltr','show');"/><font color=green>是</font>&nbsp;
+                        <input type="radio" name="fw_fwsfcgdsr" value="2" checked="checked"
+                               onclick="foldder('zltr','');"/><font
+                                color=green>否</font></td>
+                </tr>
+                <tr name="zltr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">租赁起始日期:</td>
+                    <td><input style="width: 200px" type="text" name="fw_zlqsrq" id="startdate" class="_input Wdate" readonly
+                               onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'enddate\')||\'3020-10-01\'}'})"
+                               onblur="checkfw_zlqsrq()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_zlqsrq"></font>
+                    </td>
+                </tr>
+                <tr name="zltr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">租赁结束日期:</td>
+                    <td><input style="width: 200px" type="text" name="fw_zljsrq" id="enddate" class="_input Wdate" readonly
+                               onfocus="WdatePicker({minDate:'#F{$dp.$D(\'startdate\')}',maxDate:'3020-10-01'})"
+                               onblur="checkfw_zljsrq()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_zljsrq"></font>
+                    </td>
+                </tr>
+                <tr name="zltr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">房屋承租人姓名:</td>
+                    <td><input style="width: 200px" type="text" name="fw_zlrxm" class="_input"
+                               onblur="checkfw_zlrxm()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_zlrxm"></font>
+                    </td>
+                </tr>
+                <tr name="zltr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">房屋租赁人身份证号:</td>
+                    <td><input style="width: 200px" type="text" name="fw_zlrsfzh" class="_input"
+                               onblur="checkfw_zlrsfzh()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_zlrsfzh"></font>
+                    </td>
+                </tr>
+                <tr name="zltr" style="display: none;">
+                    <td width="20%" align="right" class="t-bg">房屋租赁人联系方式:</td>
+                    <td><input style="width: 200px" type="text" name="fw_zlrlxfs" class="_input"
+                               onblur="checkfw_zlrlxfs()"/>
+                        <font
+                                style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                id="fw_zlrlxfs"></font>
+                    </td>
+                </tr>
+            </table>
+            <table align="left" id="xy" style="display: none;">
+                <!--<tr>-->
+                    <!--<td width="20%" align="right">借款人姓名:</td>-->
+                    <!--<td><input style="width: 200px" type="text" name="xy_name" class="_input" onblur="checkxy_name()"/>-->
+                        <!--<font-->
+                                <!--style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"-->
+                                <!--id="xy_name"></font>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="20%" align="right">借款人身份证号:</td>-->
+                    <!--<td><input style="width: 200px" type="text" name="xy_idcard" class="_input"-->
+                               <!--onblur="checkxy_idcard()"/>-->
+                        <!--<font-->
+                                <!--style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"-->
+                                <!--id="xy_idcard"></font>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="20%" align="right">借款人联系电话:</td>-->
+                    <!--<td><input style="width: 200px" type="text" name="xy_lxdh" class="_input" onblur="checkxy_lxdh()"/>-->
+                        <!--<font-->
+                                <!--style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"-->
+                                <!--id="xy_lxdh"></font>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="20%" align="right">借款人身份证所在地址:</td>-->
+                    <!--<td><input style="width: 200px" type="text" name="xy_sfzdz" class="_input"-->
+                               <!--onblur="checkxy_sfzdz()"/>-->
+                        <!--<font-->
+                                <!--style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"-->
+                                <!--id="xy_sfzdz"></font>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="20%" align="right">借款人实际住址:</td>-->
+                    <!--<td><input style="width: 200px" type="text" name="xy_sjzz" class="_input" onblur="checkxy_sjzz()"/>-->
+                        <!--<font-->
+                                <!--style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"-->
+                                <!--id="xy_sjzz"></font>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            </table>
+            <br/>
+            <table align="left">
+                <tr>
+                    <td align="center">
+                        <button type="button" class="btn btn-primary" value="确定提交" id="send-btn"/>
+                        确定提交
+                    </td>
+                </tr>
+            </table>
+        </table>
+    </form>
+    <script>
+        function foldder(name, flag) {
+            var object = document.getElementsByName(name);
+            if (flag == 'show') {
+                for (var i = 0; i < object.length; i++) {
+                    object[i].style.display = '';
+                }
+            } else {
+                for (var i = 0; i < object.length; i++) {
+                    object[i].style.display = 'none';
+                }
+            }
+        }
+        var urlcanshu = window.location.href.split("/");
+        $('#send-btn').click(function () {
+            var gjs_mc = $('input[name = gjs_mc]').val();
+            var gjs_name = $('input[name = gjs_name]').val();
+            var gjs_idcard = $('input[name = gjs_idcard]').val();
+            var gjs_lxdh = $('input[name = gjs_lxdh]').val();
+            var gjs_pgjg = $('input[name = gjs_pgjg]').val();
+            var c_syqr = $('input[name = c_syqr]').val();
+            var c_syqrsfzh = $('input[name = c_syqrsfzh]').val();
+            var c_syqrlxdh = $('input[name = c_syqrlxdh]').val();
+            var c_ph = $('input[name = c_ph]').val();
+            var c_pp = $('input[name = c_pp]').val();
+            var c_xh = $('input[name = c_xh]').val();
+            var c_nx = $('input[name = c_nx]').val();
+            var c_jz = $('input[name = c_jz]').val();
+            var c_ywaj = $('input[name = c_ywaj]').val();
+            var c_yhajje = $('input[name = c_yhajje]').val();
+            var fw_syqr = $('input[name = fw_syqr]').val();
+            var fw_syqrsfzh = $('input[name = fw_syqrsfzh]').val();
+            var fw_syqrlxdh = $('input[name = fw_syqrlxdh]').val();
+            var fw_fczh = $('input[name = fw_fczh]').val();
+            var fw_tdzh = $('input[name = fw_tdzh]').val();
+            var fw_mj = $('input[name = fw_mj]').val();
+            var fw_dd = $('input[name = fw_dd]').val();
+            var fw_pgjz = $('input[name = fw_pgjz]').val();
+            var fw_ywaj = $('input[name = fw_ywaj]:checked').val();
+            var fw_yhajje = $('input[name = fw_yhajje]').val();
+            var fw_ywgyr = $('input[name = fw_ywgyr]:checked').val();
+            var fw_gyrxm = $('input[name = fw_gyrxm]').val();
+            var fw_gyrsfzh = $('input[name = fw_gyrsfzh]').val();
+            var fw_gyrlxfs = $('input[name = fw_gyrlxfs]').val();
+            var fw_fwsfcgdsr = $('input[name = fw_fwsfcgdsr]:checked').val();
+            var fw_zlqsrq = $('input[name = fw_zlqsrq]').val();
+            var fw_zljsrq = $('input[name = fw_zljsrq]').val();
+            var fw_zlrxm = $('input[name = fw_zlrxm]').val();
+            var fw_zlrsfzh = $('input[name = fw_zlrsfzh]').val();
+            var fw_zlrlxfs = $('input[name = fw_zlrlxfs]').val();
+            var qt_mc = $('input[name = qt_mc]').val();
+            var qt_name = $('input[name = qt_name]').val();
+            var qt_idcard = $('input[name = qt_idcard]').val();
+            var qt_lxdh = $('input[name = qt_lxdh   ]').val();
+            var qt_pgjg = $('input[name = qt_pgjg]').val();
+            var pz_name = $('input[name = pz_name]').val();
+            var pz_idcard = $('input[name = pz_idcard]').val();
+            var pz_lxdh = $('input[name = pz_lxdh]').val();
+            var pz_hm = $('input[name = pz_hm]').val();
+            var pz_mzje = $('input[name = pz_mzje]').val();
+            var pz_kbxrq = $('input[name = pz_kbxrq]').val();
+            var pz_pgjg = $('input[name = pz_pgjg]').val();
+            var db_type = $('input[name = db_type]:checked').val();
+            var type = urlcanshu[10];
+            var parentid = urlcanshu[8];
+            var handleurl = '<{:U("Customer/do_add_dbw")}>'
+            if (checkdata()) {
+                document.getElementById('send-btn').disabled = true;
+                $.post(handleurl, {
+                    db_type: db_type,
+                    type: type,
+                    parentid: parentid,
+                    gjs_mc: gjs_mc,
+                    gjs_name: gjs_name,
+                    gjs_idcard: gjs_idcard,
+                    gjs_lxdh: gjs_lxdh,
+                    gjs_pgjg: gjs_pgjg,
+                    c_syqr: c_syqr,
+                    c_syqrsfzh: c_syqrsfzh,
+                    c_syqrlxdh: c_syqrlxdh,
+                    c_ph: c_ph,
+                    c_pp: c_pp,
+                    c_xh: c_xh,
+                    c_nx: c_nx,
+                    c_jz: c_jz,
+                    c_ywaj: c_ywaj,
+                    c_yhajje: c_yhajje,
+                    fw_syqr: fw_syqr,
+                    fw_syqrsfzh: fw_syqrsfzh,
+                    fw_syqrlxdh: fw_syqrlxdh,
+                    fw_fczh: fw_fczh,
+                    fw_tdzh: fw_tdzh,
+                    fw_mj: fw_mj,
+                    fw_dd: fw_dd,
+                    fw_pgjz: fw_pgjz,
+                    fw_ywaj: fw_ywaj,
+                    fw_yhajje: fw_yhajje,
+                    fw_ywgyr: fw_ywgyr,
+                    fw_gyrxm: fw_gyrxm,
+                    fw_gyrsfzh: fw_gyrsfzh,
+                    fw_gyrlxfs: fw_gyrlxfs,
+                    fw_fwsfcgdsr: fw_fwsfcgdsr,
+                    fw_zlqsrq: fw_zlqsrq,
+                    fw_zljsrq: fw_zljsrq,
+                    fw_zlrxm: fw_zlrxm,
+                    fw_zlrsfzh: fw_zlrsfzh,
+                    fw_zlrlxfs: fw_zlrlxfs,
+                    qt_mc: qt_mc,
+                    qt_name: qt_name,
+                    qt_idcard: qt_idcard,
+                    qt_lxdh: qt_lxdh,
+                    qt_pgjg: qt_pgjg,
+                    pz_name: pz_name,
+                    pz_idcard: pz_idcard,
+                    pz_lxdh: pz_lxdh,
+                    pz_hm: pz_hm,
+                    pz_mzje: pz_mzje,
+                    pz_kbxrq: pz_kbxrq,
+                    pz_pgjg: pz_pgjg
+                }, function (returndata) {
+                    document.getElementById('send-btn').disabled = false;
+                    if (returndata.status) {
+                        alert('添加成功');
+                        window.close();
+                    } else {
+                        alert('添加失败，错误：' + returndata.error);
+                    }
+                }, 'json');
+            } else {
+                alert('填写的信息错误或者不完整，请检查');
+                document.getElementById('send-btn').disabled = false;
+            }
+        })
+    </script>
+</div>
+<include file="Public:customer_footer"/>

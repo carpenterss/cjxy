@@ -1,0 +1,53 @@
+<include file="Public:system_header" title="查看项目详细"/>
+     <div class="module_public_main">
+      <table>
+        <tr>
+          <td colspan="2" bgcolor="#EEEEEE">项目基本信息-></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">项目名称:</td>
+          <td><b><{$p_info.p_title}></b></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">项目负责人:</td>
+          <td><b><{$p_info.p_manage}></b></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">项目完成进度:</td>
+          <td>
+             <{$p_info.p_progress}>%
+              <table style="width:<{$p_info.p_progress}>%">
+                  <tr style="background:#F90;">
+                     <td style="color:#FFF;"></td>
+                  </tr>
+              </table>
+          </td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">项目开始时间:</td>
+          <td><b><{$p_info.p_starttime|date="Y年m月d日",###}></b></td>
+        </tr> 
+        <tr>
+          <td width="12%" align="right">项目结束时间:</td>
+          <td><b><{$p_info.p_endtime|date="Y年m月d日",###}></b></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">项目组成员:</td>
+          <td><b><{$employees_list}></b></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">项目审核人:</td>
+          <td><b><{$p_info.p_audit}></b></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">项目内容描述:</td>
+          <td><b><{$p_info.p_content}></b></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">查看项目详细文档:</td>
+          <td><a href="__PUBLIC__/project_doc/<{$p_info.p_document}>">【查看文档】</a></td>
+        </tr>
+
+      </table>
+     </div>
+<include file="Public:system_footer" />

@@ -1,0 +1,1153 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <!-- Bootstrap -->
+    <!-- 引入uploadify样式 -->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/uploadify/uploadify.css">
+    <link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="__PUBLIC__/processbar/nprogress.js"></script>
+    <link href="__PUBLIC__/processbar/nprogress.css" rel="stylesheet">
+    <![endif]-->
+    <script src="__PUBLIC__/processbar/nprogress.js"></script>
+    <link href="__PUBLIC__/processbar/nprogress.css" rel="stylesheet">
+    <style>
+        .t-bg {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .t-color {
+            border-bottom: 4px solid #4499ee;
+
+        }
+
+        .uploadify {
+            position: relative;
+            margin-bottom: 1em;
+        }
+
+        .uploadify-button {
+            background-color: #505050;
+            background-image: linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -o-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -moz-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -webkit-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -ms-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -webkit-gradient(
+                    linear,
+                    left bottom,
+                    left top,
+                    color-stop(0, #505050),
+                    color-stop(1, #707070)
+            );
+            background-position: center top;
+            background-repeat: no-repeat;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+            border: 2px solid #808080;
+            color: #FFF;
+            font: bold 12px Arial, Helvetica, sans-serif;
+            text-align: center;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            width: 100%;
+        }
+
+        .uploadify:hover .uploadify-button {
+            background-color: #606060;
+            background-image: linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -o-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -moz-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -webkit-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -ms-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -webkit-gradient(
+                    linear,
+                    left bottom,
+                    left top,
+                    color-stop(0, #606060),
+                    color-stop(1, #808080)
+            );
+            background-position: center bottom;
+        }
+
+        .uploadify-button.disabled {
+            background-color: #D0D0D0;
+            color: #808080;
+        }
+
+        .uploadify-queue {
+            margin-bottom: 1em;
+        }
+
+        .uploadify-queue-item {
+            background-color: #F5F5F5;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            font: 11px Verdana, Geneva, sans-serif;
+            margin-top: 5px;
+            max-width: 350px;
+            padding: 10px;
+        }
+
+        .uploadify-error {
+            background-color: #FDE5DD !important;
+        }
+
+        .uploadify-queue-item .cancel a {
+            background: url('../img/uploadify-cancel.png') 0 0 no-repeat;
+            float: right;
+            height: 16px;
+            text-indent: -9999px;
+            width: 16px;
+        }
+
+        .uploadify-queue-item.completed {
+            background-color: #E5E5E5;
+        }
+
+        .uploadify-progress {
+            background-color: #E5E5E5;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .uploadify-progress-bar {
+            background-color: #0099FF;
+            height: 3px;
+            width: 1px;
+        }
+
+        .container1 {
+            text-align: center;
+        }
+
+        .img_box {
+            padding: 9px 14px;
+            margin-bottom: 14px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .ht, .sbgswj {
+            padding: 9px 14px;
+            margin-bottom: 14px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .img {
+            text-align: center;
+            display: inline-block;
+            margin: auto;
+            max-width: 150px;
+            max-height: 200px;
+            padding: 4px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .img_ctrl {
+            text-align: center;
+            display: inline-block;
+            /*position: absolute;*/
+            width: 100%;
+            /*height: auto;*/
+            padding: 1px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+
+        .img_name {
+            display: none;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .modal-content {
+            text-align: center;
+        }
+
+        #img_show {
+            max-width: 100%;
+        }
+
+        #fileselect {
+            display: none;
+        }
+
+        #send-btn {
+            cursor: pointer;
+            display: block;
+            margin: 10px;
+            width: 120px;
+        }
+    </style>
+    <script>
+
+
+        function guid() {
+            function S4() {
+                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+            }
+
+            return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+        }
+        var uniquetag = guid();
+
+        var timer;
+        var windowopen;
+        function add_dbr() {
+            var cardid = uniquetag;
+            if (cardid == "") {
+                alert('请先填写个人基础信息再添加担保人');
+            } else {
+                windowopen = window.open('__APP__/Customer/customer_x_p_dbr_add/idcard/' + uniquetag + '/', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+                timer = window.setInterval("IfWindowClosed1()", 100);
+            }
+        }
+
+        function IfWindowClosed1() {
+            if (windowopen.closed == true) {
+                window.clearInterval(timer)
+                $.post("__APP__/Customer/getdbrinfo/cardid/" + uniquetag, {
+                    cardid: uniquetag,
+                    request: 1
+                }, function (returndata) {
+                    if (returndata.status) {
+                        var dbrinfo = eval(returndata.dbrinfo);
+                        var tbody = document.getElementById("dbr_info");
+                        for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                            tbody.removeChild(tbody.childNodes[i]);
+                        }
+                        for (var i = 0; i < dbrinfo.length; i++) {
+                            var tr = document.createElement("tr");
+                            var td = document.createElement("td");
+                            td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbr(" + dbrinfo[i]["id"] + ")'>担保人" + dbrinfo[i]["x_p_name"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbr(" + dbrinfo[i]["id"] + ")'>删除</button>";
+                            var td1 = document.createElement("td");
+                            tr.appendChild(td1);
+                            tr.appendChild(td);
+                            tbody.appendChild(tr)
+                        }
+                    }
+                })
+            }
+        }
+
+        function updatedbr(id) {
+            windowopen = window.open('__APP__/Customer/customer_x_p_dbr_update/id/' + id + '/', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+            timer = window.setInterval("IfWindowClosed1()", 100);
+        }
+
+
+        function del_dbr(id) {
+            if (confirm("确定要删除该担保人？")) {
+                $.post("__APP__/Customer/do_del_dbr", {
+                    id: id,
+                    request: 1,
+                    cardid: uniquetag
+                }, function (returndata) {
+                    if (returndata.status) {
+                        var dbrinfo = eval(returndata.dbrinfo);
+                        var tbody = document.getElementById("dbr_info");
+                        for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                            tbody.removeChild(tbody.childNodes[i]);
+                        }
+                        for (var i = 0; i < dbrinfo.length; i++) {
+                            var tr = document.createElement("tr");
+                            var td = document.createElement("td");
+                            td.innerHTML = "<button type='button' class='btn btn-primary' class='btn btn-primary' onclick='updatedbr(" + dbrinfo[i]["id"] + ")'>担保人" + dbrinfo[i]["x_p_name"] + "</button><button type='button' class='btn btn-primary' class='btn btn-primary' onclick='del_dbr(" + dbrinfo[i]["id"] + ")'>删除</button>";
+                            var td1 = document.createElement("td");
+                            tr.appendChild(td1);
+                            tr.appendChild(td);
+                            tbody.appendChild(tr)
+                        }
+                    }
+                })
+            }
+        }
+
+        var timer;
+        var windowopen;
+        function add_dbw() {
+            var cardid = uniquetag;
+            if (cardid == "") {
+                alert('请先填写个人基础信息再添加担保物');
+            } else {
+                windowopen = window.open('__APP__/Customerdb/customer_dbw_add/idcard/' + uniquetag + '/type/5', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+                timer = window.setInterval("IfWindowClosed()", 100);
+            }
+        }
+
+        function IfWindowClosed() {
+            if (windowopen.closed == true) {
+                window.clearInterval(timer)
+                $.post("__URL__/getdbwinfo/idcard/" + uniquetag, {
+                    cardid: uniquetag,
+                    request: 1,
+                    type: 5
+                }, function (returndata) {
+                    if (returndata.status) {
+                        var dbwinfo = eval(returndata.dbwinfo);
+                        var tbody = document.getElementById("dbw_info");
+                        for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                            tbody.removeChild(tbody.childNodes[i]);
+                        }
+                        for (var i = 0; i < dbwinfo.length; i++) {
+                            var tr = document.createElement("tr");
+                            var td = document.createElement("td");
+                            if (dbwinfo[i]['db_type'] == 1) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>房屋：产权证号" + dbwinfo[i]["fw_fczh"] + "</button><button type='button' class='btn btn-primary' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 2) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>车辆：车牌号" + dbwinfo[i]["c_ph"] + "</button><button type='button' class='btn btn-primary' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 3) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>贵金属：名称" + dbwinfo[i]["gjs_mc"] + "</button><button type='button' class='btn btn-primary' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 4) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>信用</button><button type='button' class='btn btn-primary' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 5) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>凭证：姓名" + dbwinfo[i]["pz_name"] + "</button><button type='button' class='btn btn-primary' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 6) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>其他：名称" + dbwinfo[i]["qt_name"] + "</button><button type='button' class='btn btn-primary' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            }
+                            var td1 = document.createElement("td");
+                            tr.appendChild(td1);
+                            tr.appendChild(td);
+                            tbody.appendChild(tr)
+                        }
+                    }
+                })
+            }
+        }
+
+        function updatedbw(id) {
+            windowopen = window.open('__APP__/Customerdb/customer_dbw_update/id/' + id + '/', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+            timer = window.setInterval("IfWindowClosed()", 100);
+        }
+
+
+        function del_dbw(id) {
+            if (confirm("确定删除该记录？")) {
+
+                $.post("__URL__/do_del_dbw", {
+                    id: id,
+                    request: 1,
+                    cardid: uniquetag,
+                    type: 5
+                }, function (returndata) {
+                    if (returndata.status) {
+                        var dbwinfo = eval(returndata.dbwinfo);
+                        var tbody = document.getElementById("dbw_info");
+                        for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                            tbody.removeChild(tbody.childNodes[i]);
+                        }
+                        for (var i = 0; i < dbwinfo.length; i++) {
+                            var tr = document.createElement("tr");
+                            var td = document.createElement("td");
+                            if (dbwinfo[i]['db_type'] == 1) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>房屋：产权证号" + dbwinfo[i]["fw_fczh"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 2) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>车辆：车牌号" + dbwinfo[i]["c_ph"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 3) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>贵金属：名称" + dbwinfo[i]["gjs_mc"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 4) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>信用</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 5) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>凭证：姓名" + dbwinfo[i]["pz_name"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            } else if (dbwinfo[i]['db_type'] == 6) {
+                                td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>其他：名称" + dbwinfo[i]["qt_name"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                            }
+                            var td1 = document.createElement("td");
+                            tr.appendChild(td1);
+                            tr.appendChild(td);
+                            tbody.appendChild(tr)
+                        }
+                    }
+                })
+            }
+        }
+    </script>
+</head>
+<include file="Public:customer_header" title="担保企业客户业务信息录入"/>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery-1.8.3-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery.metadata.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/CardId.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/dbywqy.js"></script>
+<script language="javascript" type="text/javascript"
+        src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+<script> var handleUrl = '<{:U("Customerdb/do_customer_dbywqy")}>';</script>
+<script>
+    function hascustomer() {
+        if ($('input[name = d_name]').val() != null && $('input[name = d_name]').val() != '' && $('input[name = d_cardid]').val() != null && $('input[name = d_cardid]').val() != '') {
+            $.ajax({
+                url: '<{:U("Customerdb/hascustomer",null,false)}>',
+                type: 'POST',
+                // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                data: {
+                    xm: $('input[name = d_name]').val(),
+                    sfzh: $('input[name = d_cardid]').val(),
+                    khlx: 2
+                },
+                success: function (data) {
+                    var b1 = "<button type='button' class='btn btn-primary' onclick='openbasicinfo(" + data.id + ")'>查看客户基础信息</button>";
+                    if (data['status'] == 0) {
+                        customernull.innerHTML = "该客户基础已录入" + b1;
+                    } else if (data['status'] == 1) {
+                        customernull.innerHTML = "该客户基础信息不存在，请检查信息是否正确";
+                    } else {
+                        customernull.innerHTML = "该客户基础资料已被删除，请联系管理员恢复";
+                    }
+                }
+            });
+        } else {
+            customernull.innerHTML = "请填写客户资料";
+        }
+    }
+
+    function openbasicinfo(id, type) {
+        if (type == 1) {
+            windowopen = window.open('__APP__/Customerdb/customer_d_p_update/id/' + id + '/enter/1', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+        } else {
+            windowopen = window.open('__APP__/Customerdb/customer_d_e_update/id/' + id + '/enter/1', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+        }
+    }
+
+    function recoverycustomer(c_id, type) {
+        $.ajax({
+            url: '<{:U("Customer/recoverycustomer",null,false)}>',
+            type: 'POST',
+            // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+            data: {
+                c_id: c_id,
+                type: 'de'
+            },
+            success: function (data) {
+                if (!data['status']) {
+                    alert("该客户已恢复")
+                } else {
+                    alert("该客户恢复失败，请联系管理员")
+                }
+            }
+        })
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        var menuParent = $('.menu > .ListTitlePanel > div');//获取menu下的父层的DIV
+        var menuList = $('.menuList');
+        var history = 0;
+        $(menuList[history]).show();
+        $('.menu > .menuParent > .ListTitlePanel > .ListTitle').each(function (i) {//获取列表的大标题并遍历
+            $(this).click(function () {
+                if ($(menuList[i]).css('display') == 'none') {
+                    $(menuList[history]).hide();
+                    $(menuList[i]).slideDown(300);
+                    history = i;
+                }
+            });
+        });
+    });
+
+    function callx() {
+        $.post("<{:U('Index/remotecallx')}>", {
+            startdate: $('#d_dkqsrq').val(),
+            money: $('input[name = d_dkje]').val(),
+            lv: $('input[name = d_lv]').val() / 1000,
+            type: $('input[name = d_hkfs]:checked').val(),
+            enddate: $('#d_dkjsrq').val(),
+        }, function (returndata) {
+            if (returndata.status) {
+                document.getElementById('lxze').value = returndata.lxze + "元";
+                document.getElementById('ljhkze').value = returndata.ljhkze + "元";
+            }
+        })
+    }
+</script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/validate/css/register.css"/>
+<div class="module_public_main">
+    <div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                <img id="img_show" src="" alt="">
+            </div>
+        </div>
+    </div>
+    <form id="dbywqy_form">
+        <div class="menu">
+            <table align="left">
+                <tr>
+                    <td width="20%" align="right" class="t-bg">企业名称</td>
+                    <td><input style="width: 200px" type="text" name="d_name" class="_input" onblur="hascustomer()"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" align="right" class="t-bg">组织机构代码证号</td>
+                    <td><input style="width: 200px" type="text" name="d_cardid" class="_input" onblur="hascustomer()"/>
+                    </td>
+                    <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                          id="customernull"></font>
+                </tr>
+            </table>
+            <!--<div class="menuParent">-->
+            <!--<div class="ListTitlePanel">-->
+            <!--<div class="ListTitle">-->
+            <!--<table align="left">-->
+            <!--<tr style="background:url(__PUBLIC__/Images/t-bg.png)">-->
+            <!--<td width="20%" align="center"><b>业务受理（企业贷款）</b></td>-->
+
+            <!--</tr>-->
+            <!--</table>-->
+            <!--<div class="leftbgbt"></div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="menuList" style="display: none;">-->
+            <!--<table align="left" id="ywslqy">-->
+            <!--<tr>-->
+            <!--<td width="20%" align="right" class="t-bg">申报公司文件:</td>-->
+            <!--<td>-->
+            <!--<div class="container1">-->
+            <!--<div class="row img_box" id="sbgswj">-->
+
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<button type="button" class="btn btn-primary" id="selsect_sbgswj">选择文件</button>-->
+            <!--<input hidden="true" type="file" id="fileselect_sbgswj"-->
+            <!--name="fileselect[]"-->
+            <!--multiple="multiple"/>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--</table>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>贷款信息</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="jcxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">合作银行</td>
+                            <td><input style="width: 200px" type="text" name="d_hzyh" class="_input"
+                                       onblur="checkdkyh()"
+                                       onkeypress="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="dkyh"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">贷款金额</td>
+                            <td><input style="width: 200px" type="text" name="d_dkje" class="_input"
+                                       onblur="checkdkje()"
+                                       onkeypress="disbutton()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="dkje"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">贷款月利率</td>
+                            <td><input style="width: 200px" type="text" name="d_lv" class="_input" onblur="checklv()"
+                                       onkeypress="disbutton()"/>&nbsp;‰&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="dklv"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">贷款用途</td>
+                            <td><input type="text" name="d_yt" class="_input" onblur="checkyt()"
+                                       onkeypress="disbutton()" style="width: 200px"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="ytnull"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">贷款起始日期</td>
+                            <td><input id="d_dkqsrq" class="_input Wdate" type="text" id="d_dkqsrq" readonly
+                                       style="width: 200px"
+                                       onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d_dkjsrq\')||\'3020-10-01\'}'})"/>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">贷款结束日期</td>
+                            <td>
+                                <input id="d_dkjsrq" class="_input Wdate" type="text" id="d_dkjsrq" readonly
+                                       style="width: 200px"
+                                       onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d_dkqsrq\')}',maxDate:'3020-10-01'})">
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="qxnull"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">还款方式</td>
+                            <td>
+                                <input type="radio" name="d_hkfs" value="1"/><font color=green>等额本息</font>&nbsp;
+                                <input type="radio" name="d_hkfs" value="2"/><font color=green>等额本金</font>&nbsp;
+                                <input type="radio" name="d_hkfs" value="3"/><font color=green>按月还息到期还本</font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">利息计算</td>
+                            <td>
+                                <button type="button" value="计算" onclick="callx()" style="width: 120px"
+                                        class="btn btn-primary">计算
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">利息总额</td>
+                            <td>
+                                <input style="width: 200px;" type="text" id="lxze" readonly class="_input"/>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">累计还款总额</td>
+                            <td>
+                                <input style="width: 200px;" type="text" id="ljhkze" readonly class="_input"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>担保方式</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="dbwxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">是否有担保人</td>
+                            <td>
+                                <button id="adddbr" type="button" onclick="add_dbr()" class="btn btn-primary">添加担保人
+                                </button>
+                            </td>
+                        </tr>
+                        <tbody align="left" id="dbr_info" width="200px">
+
+                        </tbody>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">担保物信息</td>
+                            <td>
+                                <button id="adddbw" type="button" onclick="add_dbw()" class="btn btn-primary">添加担保物
+                                </button>
+                            </td>
+                        </tr>
+                        <tbody align="left" id="dbw_info" width="200px">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>担保收费</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="dbsf">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">担保利率</td>
+                            <td><input style="width: 200px" type="text" name="d_dblv" class="_input"
+                                       onblur="checkdblv()"
+                                       onkeyup="disbutton()"/>&nbsp;‰&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="dblv"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">担保费</td>
+                            <td><input style="width: 200px" type="text" name="d_dbf" class="_input" onblur="checkdbf()"
+                                       onkeyup="disbutton()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="dbf"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">保证金</td>
+                            <td><input style="width: 200px" type="text" name="d_bzj" class="_input" onblur="checkbzj()"
+                                       onkeyup="disbutton()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="bzj"></font>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <table align="left">
+                <tr>
+                    <td align="center">
+                        <button type="button" value="确定提交" id="send-btn" class="btn btn-primary"/>
+                        确定提交
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="__PUBLIC__/js/jquery/jquery-1.11.3.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="__PUBLIC__/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+
+    <!-- 引入uploadify的js代码 -->
+    <script src="__PUBLIC__/uploadify/jquery.uploadify.min.js"></script>
+
+    <!-- 复制专用插件 -->
+    <script src="__PUBLIC__/js/jquery.zclip/jquery.zclip.js"></script>
+    <!-- 引入livequery 用于新增对象方法绑定 -->
+    <script src="__PUBLIC__/js/jquery.livequery.js"></script>
+    <script src="__PUBLIC__/processbar/spin.min.js"></script>
+    <script> var handleUrl = '<{:U("Customerdb/do_customer_dbywqy")}>';</script>
+    <script>
+        var ht = new Array();
+        var sbgswj = new Array();
+        var opts = {
+            lines: 13, // 花瓣数目
+            length: 20, // 花瓣长度
+            width: 10, // 花瓣宽度
+            radius: 30, // 花瓣距中心半径
+            corners: 1, // 花瓣圆滑度 (0-1)
+            rotate: 0, // 花瓣旋转角度
+            direction: 1, // 花瓣旋转方向 1: 顺时针, -1: 逆时针
+            color: '#5882FA', // 花瓣颜色
+            speed: 1, // 花瓣旋转速度
+            trail: 60, // 花瓣旋转时的拖影(百分比)
+            shadow: false, // 花瓣是否显示阴影
+            hwaccel: false, //spinner 是否启用硬件加速及高速旋转
+            className: 'spinner', // spinner css 样式名称
+            zIndex: 2e9, // spinner的z轴 (默认是2000000000)
+            top: 'auto', // spinner 相对父容器Top定位 单位 px
+            left: 'auto'// spinner 相对父容器Left定位 单位 px
+        };
+
+        var spinner = new Spinner(opts);
+    </script>
+    <script>
+        $('#send-btn').click(function () {
+            var d_name = $('input[name = d_name]').val();
+            var d_cardid = $('input[name = d_cardid]').val();
+            var d_khlx = $('input[name= d_khlx]:checked').val();
+            var d_dbf = $('input[name = d_dbf]').val();
+            var d_bzj = $('input[name = d_bzj]').val();
+            var d_fkrq = $('input[name = d_fkrq]').val();
+            var d_hkgd = $('input[name = d_hkgd]:checked').val();
+            var d_skdc = $('#d_sdkc').val();
+            var d_xy_name = $('input[name = d_xy_name]').val();
+            var d_xy_idcard = $('input[name = d_xy_idcard]').val();
+            var d_xy_lxdh = $('input[name = d_xy_lxdh]').val();
+            var d_xy_sfzdz = $('input[name = d_xy_sfzdz]').val();
+            var d_xy_sjzz = $('input[name = d_xy_sjzz]').val();
+            var d_pz_name = $('input[name = d_pz_name]').val();
+            var d_pz_idcard = $('input[name = d_pz_idcard]').val();
+            var d_pz_lxdh = $('input[name = d_pz_lxdh]').val();
+            var d_pz_hm = $('input[name = d_pz_hm]').val();
+            var d_pz_mzje = $('input[name = d_pz_mzje]').val();
+            var d_pz_kbxrq = $('input[name = d_pz_kbxrq]').val();
+            var d_pz_pgjg = $('input[name = d_pz_pgjg]').val();
+            var d_gjs_name = $('input[name = d_gjs_name]').val();
+            var d_gjs_idcard = $('input[name = d_gjs_idcard]').val();
+            var d_gjs_lxdh = $('input[name = d_gjs_lxdh]').val();
+            var d_gjs_pgjg = $('input[name = d_gjs_pgjg]').val();
+            var d_qt_name = $('input[name = d_qt_name]').val();
+            var d_qt_idcard = $('input[name = d_qt_idcard]').val();
+            var d_qt_lxdh = $('input[name = d_qt_lxdh]').val();
+            var d_qt_pgjg = $('input[name = d_qt_pgjg]').val();
+            var d_c_syqr = $('input[name = d_c_syqr]').val();
+            var d_c_syqrsfzh = $('input[name = d_c_syqrsfzh]').val();
+            var d_c_syqrlxdh = $('input[name = d_c_syqrlxdh]').val();
+            var d_c_ph = $('input[name = d_c_ph]').val();
+            var d_c_pp = $('input[name = d_c_pp]').val();
+            var d_c_xh = $('input[name = d_c_xh]').val();
+            var d_c_nx = $('input[name = d_c_nx]').val();
+            var d_c_jz = $('input[name = d_c_jz]').val();
+            var d_c_ywaj = $('input[name = d_c_ywaj]').val();
+            var d_c_yhajje = $('input[name = d_c_yhajje]').val();
+            var d_fw_syqr = $('input[name = d_fw_syqr]').val();
+            var d_fw_syqrsfzh = $('input[name = d_fw_syqrsfzh]').val();
+            var d_fw_syqrlxdh = $('input[name = d_fw_syqrlxdh]').val();
+            var d_fw_fczh = $('input[name = d_fw_fczh]').val();
+            var d_fw_tdzh = $('input[name = d_fw_tdzh]').val();
+            var d_fw_mj = $('input[name = d_fw_mj]').val();
+            var d_fw_dd = $('input[name = d_fw_dd]').val();
+            var d_fw_pgjz = $('input[name = d_fw_pgjz]').val();
+            var d_fw_ywaj = $('input[name = d_fw_ywaj]').val();
+            var d_fw_yhajje = $('input[name = d_fw_yhajje]').val();
+            var d_fw_ywgyr = $('input[name = d_fw_ywgyr]:checked').val();
+            var d_fw_gyrxm = $('input[name = d_fw_gyrxm]').val();
+            var d_fw_gyrsfzh = $('input[name = d_fw_gyrsfzh]').val();
+            var d_fw_gyrlxfs = $('input[name = d_fw_gyrlxfs]').val();
+            var d_fw_fwsfcgdsr = $('input[name = d_fw_fwsfcgdsr]:checked').val();
+            var d_fw_zlqsrq = $('input[name = d_fw_zlqsrq]').val();
+            var d_fw_zlzzrq = $('input[name = d_fw_zlzzrq]').val();
+            var d_fw_zlrxm = $('input[name = d_fw_zlrxm]').val();
+            var d_fw_zlrsfzh = $('input[name = d_fw_zlrsfzh]').val();
+            var d_fw_zlrlxfs = $('input[name = d_fw_zlrlxfs]').val();
+            var d_fkyh = $('input[name = d_fkyh]').val();
+            var d_dblv = $('input[name = d_dblv]').val();
+            var d_dkyh = $('input[name = d_dkyh]').val();
+            var d_dkje = $('input[name = d_dkje]').val();
+            var d_dkqsrq = $("#d_dkqsrq").val();
+            var d_dkjsrq = $("#d_dkjsrq").val();
+            var d_lv = $('input[name = d_lv]').val();
+            var d_yt = $('input[name = d_yt]').val();
+            var d_hkfs = $('input[name = d_hkfs]:checked').val();
+            var d_hzyh = $('input[name = d_hzyh]').val();
+            if (checkdata()) {
+                document.getElementById('send-btn').disabled = true;
+                $.post(handleUrl, {
+                    d_name: d_name,
+                    d_cardid: d_cardid,
+                    d_khlx: d_khlx,
+                    d_sbgswj: sbgswj,
+                    d_dbf: d_dbf,
+                    d_bzj: d_bzj,
+                    d_fkrq: d_fkrq,
+                    d_sdkc: d_skdc,
+                    d_hkgd: d_hkgd,
+                    d_xy_name: d_xy_name,
+                    d_xy_idcard: d_xy_idcard,
+                    d_xy_lxdh: d_xy_lxdh,
+                    d_xy_sfzdz: d_xy_sfzdz,
+                    d_xy_sjzz: d_xy_sjzz,
+                    d_pz_name: d_pz_name,
+                    d_pz_idcard: d_pz_idcard,
+                    d_pz_lxdh: d_pz_lxdh,
+                    d_pz_hm: d_pz_hm,
+                    d_pz_mzje: d_pz_mzje,
+                    d_pz_kbxrq: d_pz_kbxrq,
+                    d_dblv: d_dblv,
+                    d_pz_pgjg: d_pz_pgjg,
+                    d_gjs_name: d_gjs_name,
+                    d_gjs_idcard: d_gjs_idcard,
+                    d_gjs_lxdh: d_gjs_lxdh,
+                    d_gjs_pgjg: d_gjs_pgjg,
+                    d_qt_name: d_qt_name,
+                    d_qt_idcard: d_qt_idcard,
+                    d_qt_lxdh: d_qt_lxdh,
+                    d_qt_pgjg: d_qt_pgjg,
+                    d_c_syqr: d_c_syqr,
+                    d_c_syqrsfzh: d_c_syqrsfzh,
+                    d_c_syqrlxdh: d_c_syqrlxdh,
+                    d_c_ph: d_c_ph,
+                    d_c_pp: d_c_pp,
+                    d_c_xh: d_c_xh,
+                    d_c_nx: d_c_nx,
+                    d_c_jz: d_c_jz,
+                    d_c_ywaj: d_c_ywaj,
+                    d_c_yhajje: d_c_yhajje,
+                    d_fw_syqr: d_fw_syqr,
+                    d_fw_syqrsfzh: d_fw_syqrsfzh,
+                    d_fw_syqrlxdh: d_fw_syqrlxdh,
+                    d_fw_fczh: d_fw_fczh,
+                    d_fw_tdzh: d_fw_tdzh,
+                    d_fw_mj: d_fw_mj,
+                    d_fw_dd: d_fw_dd,
+                    d_fw_pgjz: d_fw_pgjz,
+                    d_fw_ywaj: d_fw_ywaj,
+                    d_fw_yhajje: d_fw_yhajje,
+                    d_fw_ywgyr: d_fw_ywgyr,
+                    d_fw_gyrxm: d_fw_gyrxm,
+                    d_fw_gyrsfzh: d_fw_gyrsfzh,
+                    d_fw_gyrlxfs: d_fw_gyrlxfs,
+                    d_fw_fwsfcgdsr: d_fw_fwsfcgdsr,
+                    d_fw_zlqsrq: d_fw_zlqsrq,
+                    d_fw_zlzzrq: d_fw_zlzzrq,
+                    d_fw_zlrxm: d_fw_zlrxm,
+                    d_fw_zlrsfzh: d_fw_zlrsfzh,
+                    d_fkyh: d_fkyh,
+                    d_fw_zlrlxfs: d_fw_zlrlxfs,
+                    d_dkyh: d_dkyh,
+                    d_dkje: d_dkje,
+                    d_lv: d_lv,
+                    d_dkqsrq: d_dkqsrq,
+                    d_dkjsrq: d_dkjsrq,
+                    d_yt: d_yt,
+                    d_hkfs: d_hkfs,
+                    d_ht: ht,
+                    d_hzyh: d_hzyh,
+                    uniquetag: uniquetag
+
+                }, function (returndata) {
+                    document.getElementById('send-btn').disabled = false;
+                    if (returndata.status) {
+                        alert('于' + returndata.time + '添加成功');
+                        window.location.href = "<{:U('Index/main')}>";
+                    } else {
+                        alert('添加失败，错误：' + returndata.error);
+                    }
+                }, 'json');
+            } else {
+                alert('填写的信息错误或者不完整，请检查');
+                document.getElementById('send-btn').disabled = false;
+            }
+        })
+    </script>
+    <script>
+        $(function () {
+            $('#selsect_ht').click(function (event) {
+                $('#fileselect_ht').click();
+            });
+            $('#selsect_sbgswj').click(function (event) {
+                $('#fileselect_sbgswj').click();
+            });
+            $('#fileselect_ht').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "d_ht";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+            });
+            $('#fileselect_sbgswj').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = 'd_sbgswj';
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+            });
+            //上传操作
+            function html5up(file, type) {
+                /* Act on the event */
+                var name = file.name;
+                spinner.spin(document.getElementById('yywj_box'));
+                var size = file.size;
+                var shardSize = 5 * 1024 * 1024;    //以2MB为一个分片
+                var shardCount = Math.ceil(size / shardSize);  //总片数
+                var chunk = 0;
+                if (size > shardSize) {
+                    chunk = 1;
+                }
+                for (var i = 0; i < shardCount; ++i) {
+                    var start = i * shardSize;
+                    var end = Math.min(size, start + shardSize);
+                    var form_data = new FormData();
+                    form_data.append('timestamp', "<{$time}>");
+                    form_data.append('token', '<{:md5("unique_salt".$time)}>');
+                    form_data.append("filetype", type);
+                    form_data.append("data", file.slice(start, end));  //slice方法用于切出文件的一部分
+                    form_data.append("name", name);
+                    form_data.append("total", shardCount);  //总片数
+                    form_data.append("index", i + 1);        //当前是第几片
+                    form_data.append("chunk", chunk);
+                    $.ajax({
+                        url: '__APP__/Upload/upload',
+                        type: 'POST',
+                        // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                        async: false,
+                        processData: false,
+                        contentType: false,
+                        data: form_data
+                    })
+                            .done(function (data) {
+                                // alert(data);
+                                NProgress.done();
+                                if (!data.status) {
+                                    return false;
+                                }
+                                if (type == 'd_ht') {
+                                    ht[ht.length] = data.savepath + data.savename;
+                                } else if (type == 'd_sbgswj') {
+                                    sbgswj[sbgswj.length] = data.savepath + data.savename;
+                                }
+                                put_img(data.savepath, data.savename, type);//添加图片到img_box
+                                console.log("success");
+                            })
+                            .fail(function () {
+                                console.log("error");
+                            })
+                            .always(function () {
+                                console.log("complete");
+                                spinner.spin();
+                            });
+                }
+            }
+
+            //uploadify上传操作
+            $('#file_upload').uploadify({
+                'formData': {
+                    'timestamp': "<{$time}>",//当前时间戳由后台传过来的
+                    'token': '<{:md5("unique_salt".$time)}>'//用md5生成token
+                },
+                'swf': '__PUBLIC__/uploadify/uploadify.swf',//引用uploadify.swf
+                'uploader': '__APP__/Upload/upload',//后台上传文件处理方法
+                'buttonText': '选择文件',
+                'multi': true,//允许多文件上传
+                'fileTypeExts': '*.gif; *.jpg; *.png;',//限制文件格式
+                'fileSizeLimit': '5MB',//限制文件大小
+
+                'onUploadSuccess': function (file, data, response) {
+                    var data = $.parseJSON(data);
+                    if (!data['status']) {
+                        alert(data['info']);
+                        return false;
+                    }
+                    put_img(data['savepath'], data['savename']);//添加图片到img_box
+                }
+            });
+
+
+            //添加图片到img_box
+            function put_img(savepath, savename, type) {
+                savename = savename.substring(0, savename.length - 1);
+                var path = savepath + savename;
+                var img_url = "__ROOT__" + path.substring(1);
+                var new_img = '<div class="col-md-3">';
+                var extStart = path.lastIndexOf(".");
+                var ext = path.substring(extStart, path.length).toUpperCase();
+                if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    new_img += '<span style="background-color: #838383">' + savename + '</span>'
+                    new_img += '<img style="display:none" src="' + img_url + '" alt="' + savename + '" class="img">';
+                    new_img += '<div class="img_ctrl">';
+                    new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+                    new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+                    new_img += '</div>';
+                    new_img += '<div class="img_name">';
+                    new_img += '<form action="" class="form-inline">';
+                    new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+                    new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+                    new_img += '</form>';
+                    new_img += '</div>';
+                    new_img += '</div>';
+                } else {
+                    new_img += '<img src="' + img_url + '" alt="' + savename + '" class="img">';
+                    new_img += '<div class="img_ctrl">';
+                    new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+                    new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+                    new_img += '</div>';
+                    new_img += '<div class="img_name">';
+                    new_img += '<form action="" class="form-inline">';
+                    new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+                    new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+                    new_img += '</form>';
+                    new_img += '</div>';
+                    new_img += '</div>';
+                }
+                if (type == "d_ht") {
+                    $('.ht').append(new_img);
+                }
+                if (type == 'd_sbgswj') {
+                    $('.img_box').append(new_img);
+                }
+
+
+            }
+
+            //复制图片地址
+            $('.glyphicon-cloud-download').livequery(function () {
+                $(this).zclip({
+                    path: '__PUBLIC__/js/jquery.zclip/ZeroClipboard.swf',
+                    copy: function () {
+
+                        var URL = "http://" + "<{$Think.server.HTTP_HOST}>" + $(this).parents('div.col-md-3').find('.img').attr('src');
+                        window.open(URL);
+                    },
+                    afterCopy: function () {
+                        alert('成功复制图片地址');
+                    },
+                });
+            });
+
+
+            //调出修改标题input
+            $(document).on('click', '.glyphicon-tag', function (event) {
+                var div = $(this).parents('div.col-md-3');
+                var img_name = div.find('.img_name');
+                img_name.fadeToggle();
+            });
+
+            //图片删除
+            $(document).on('click', '.glyphicon-trash', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                var div = $(this).parents('div.col-md-3');
+                var img_url = div.find('.img').attr('src');
+                var len = ("__ROOT__").length;
+                var url = "." + img_url.substring(len, img_url.length);
+                var imgtype = div.find('.img').attr('value');
+                // alert(img_url);
+                $.ajax({
+                    url: '<{:U("Upload/del",null,false)}>',
+                    type: 'POST',
+                    // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                    data: {url: img_url},
+                    success: function (data) {
+                        if (!data['status']) {
+                            alert(data['info']);
+                            return false;
+                        } else {
+                            alert(data['info']);
+                            if (imgtype == "d_ht") {
+                                ht.splice($.inArray(url, ht), 1);
+                            } else if (imgtype == "d_sbgswj") {
+                                sbgswj.splice($.inArray(url, sbgswj), 1);
+                            }
+                            div.fadeOut(2000);
+                            div.remove();
+                        }
+                        ;
+                    }
+                });
+
+            });
+
+            //图片放大预览
+            $(document).on('click', '.img', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                var img_url = $(this).attr('src');
+                $('#modal').modal('show');
+                $('#img_show').attr('src', img_url);
+            });
+
+            //点击modal自动隐藏
+            $('#modal').click(function (event) {
+                $(this).modal('hide');
+            });
+        });
+    </script>
+
+</div>
+<include file="Public:customer_footer"/>

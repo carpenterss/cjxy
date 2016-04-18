@@ -1,0 +1,25 @@
+<include file="Public:system_header" title="项目日志"/>
+     <div class="module_public_main">
+       <table>
+          <tr style="background:#F0F0F0;">
+            <td colspan="3"><a href="__URL__/add_projectLog/pid/<{$p_id}>">【创建项目日志】</a><a href="__URL__/project_log/pid/<{$p_id}>">【管理项目日志】</a></td>
+          </tr>
+          <tr>
+            <td width="8%" align="center">编号</td>
+            <td align="center">创建时间</td>
+            <td align="center">操作</td>
+          </tr>
+          <volist name="l_info" id="v" key="k">
+          <tr>
+            <td width="8%" align="center"><{$k}></td>
+            <td align="center"><{$v.pl_time|date="Y年m月d日 H点m分",###}></td>
+            <td align="center">
+               <a href="__URL__/log_look/pl_id/<{$v.pl_id}>/pid/<{$p_id}>">查看项目日志</a> | 
+               <a href="__URL__/log_edit/pl_id/<{$v.pl_id}>/pid/<{$p_id}>">修改项目日志</a> |
+               <a href="__URL__/log_del/pl_id/<{$v.pl_id}>/pid/<{$p_id}>">删除项目日志</a>
+            </td>
+          </tr>
+          </volist>
+       </table>
+     </div>
+<include file="Public:system_footer" />

@@ -1,0 +1,55 @@
+<include file="Public:system_header" title="OA用户管理-配置外部邮件服务"/>
+     <div class="module_public_main">
+        <table>
+        <form action="__URL__/do_configEmail" method="post">
+        <input type="hidden" name="ec_uid" value="<{$Think.get.uid}>" />
+          <tr>
+            <td width="12%" align="right">配置用户:</td>
+            <td><{$Think.get.uname}></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">邮件服务器地址:</td>
+            <td><input type="text" class="_input" name="ec_smtpserver" /></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">端口号:</td>
+            <td><input type="text" class="_input" name="ec_smtppost" style="width:50px;"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">验证账号:</td>
+            <td><input type="text" class="_input" name="ec_smtpuser" />&nbsp;<font color=red>注:(请确认该验证账号邮箱已经开启了SMTP服务)</font>->&nbsp;<a href="#">如何开启SMTP服务呢？</a></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">验证密码:</td>
+            <td><input type="password" class="_input" name="ec_smtppass" /></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="创建配置" class="_button"/></td>
+          </tr>
+        </form> 
+        <tr>
+          <td colspan="2" bgcolor="#F0F0F0">测试配置<font color=red>(会使用刚刚创建时所填写的配置进行测试)</font></td>
+        </tr>
+        <form action="__URL__/do_ceshiEmail" method="post">
+        <input type="hidden" name="uid" value="<{$Think.get.uid}>" />
+        <tr>
+          <td width="12%" align="right">测试-发送地址:</td>
+          <td><input type="text" class="_input" name="address" /></td>
+        </tr> 
+        <tr>
+          <td width="12%" align="right">测试-邮件标题:</td>
+          <td><input type="text" class="_input" name="title" /></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">测试-邮件内容:</td>
+          <td><textarea class="_input2" name="content"></textarea></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><input type="submit" class="_button"  value="发送测试"/></td>
+        </tr> 
+        </form>
+        </table>
+     </div>
+<include file="Public:system_footer" />

@@ -1,0 +1,72 @@
+<include file="Public:system_header" title="管理项目"/>
+	<div class="module_public_main">
+       <table>
+         <tr>
+           <td width="8%" align="center">编号</td>
+           <td align="center">项目名称</td>
+           <td align="center">项目负责人</td>
+           <td align="center">开始时间</td>
+           <td align="center">完成进度</td>
+           <td align="center">文档</td>
+           <td align="center">操作</td>
+         </tr>
+         <volist name="p_info" id="v" key="k">
+          <tr>
+           <td width="8%" align="center"><{$k}></td>
+           <td align="center"><{$v.p_title}></td>
+           <td align="center"><{$v.p_manage}></td>
+           <td align="center"><{$v.p_starttime|date="Y年m月d日",###}></td>
+           <td><{$v.p_progress}>%
+              <table style="width:<{$v.p_progress}>%">
+                  <tr style="background:#F90;">
+                     <td style="color:#FFF;"></td>
+                  </tr>
+              </table>
+           </td>
+           <if condition="$v.p_document eq ''">
+           <td align="center"><font color=red>x</font></td>  
+           <else />
+           <td align="center"><font color=green>√</font></td>
+           </if>
+           <td align="center">
+              <a href="#" id="uploads" title="<{$v.p_id}>">上传文档</a> |
+              <if condition="$v.p_document eq ''">
+              <a href="#">暂无文档</a> |
+              <else />
+              <a href="__PUBLIC__/project_doc/<{$v.p_document}>">下载文档</a> |
+              </if>
+              <a href="__URL__/edit_project/pid/<{$v.p_id}>">修改项目信息</a> |
+              <a href="__URL__/look_project/pid/<{$v.p_id}>">查看项目详细</a> |
+              <a href="__URL__/project_log/pid/<{$v.p_id}>">项目日志</a> |
+              <a href="__URL__/project_del/pid/<{$v.p_id}>" onclick="if(confirm('删除项目,也会删除相应的项目日志?')){return true;}else{return false};">删除项目</a>
+           </td>
+         </tr> 
+         </volist>
+       </table>
+       <iframe style="width:0; height:0; border:0;" name="form-target"></iframe>
+       <p id="pp"></p>
+	</div>
+    <script type="text/javascript">
+	   $("#uploads").click(function(){
+		  var pid = $(this).attr("title");
+		  //获取点击元素的坐标
+	  	  var position = $(this).offset();
+	  	  var x = position.left;
+	  	  var y = position.top;  
+		  
+		  var div_upload = $("<div style='width:300px;height:130px;border:1px solid #CCC;display:none;background:#F0F0F0;position:absolute;left:"+x+"px;top:"+y+"px;padding:10px;'><fieldset style='padding:10px;'><legend>上传项目文档</legend><form action='__URL__/do_projectUpload' method='post' enctype='multipart/form-data' target='form-target'><input type='hidden' name='pid' value='"+pid+"' /><p>上传:<input type='file' name='xiangmu_doc' /></p><p style='margin-top:10px;text-align:left;margin-left:20px;'><input type='button' id='on_submit' value='上传' style='margin-left:10px;'/><input type='reset' value='重置' style='margin-left:10px;'/><input type='button' id='close' value='关闭' style='margin-left:10px;'/></p></form><p style='margin-top:10px;'><font color=green>注:如果您需要更改文档,直接上传即可覆盖原先的文档</p></fieldset></div>");
+		  $("body").append(div_upload);
+		  div_upload.slideDown(1000);
+		  
+		  $("#close").click(function(){
+			 div_upload.remove();
+		  });
+		  
+		  $("#on_submit").click(function(){
+			  $("form:first").submit();
+		  });
+	   });
+	   
+
+	</script>
+<include file="Public:system_footer" />

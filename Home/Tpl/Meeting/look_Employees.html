@@ -1,0 +1,26 @@
+<include file="Public:meeting_header" title="查看已通知的员工"/>
+     <div class="module_public_main"> 
+        <table>
+          <tr>
+            <td width="12%" align="right">已通知的部门:</td>
+            <td>
+            <php>
+            foreach($department as $k=>$v){
+                    echo $department[$k].",";
+            }
+            </php>
+            </td>            
+          </tr>
+          <tr>
+            <td width="12%" align="right">已通知的个人:</td>
+            <td>
+            <php>
+            foreach($employees as $k=>$v){
+                    echo $employees[$k]."<br/>";
+            }
+            </php>
+            </td>            
+          </tr>
+        </table>
+     </div>
+<include file="Public:meeting_footer" />

@@ -1,0 +1,496 @@
+<style>
+    #send-btn {
+        /*background: rgba(0, 0, 0, 0) no-repeat scroll 0 0;*/
+        cursor: pointer;
+        display: block;
+        height: 50px;
+        margin: 10px;
+        width: 120px;
+        background:#77A8C9;
+    }
+
+    .error {
+        color: #ff0000;
+    }
+</style>
+<script>
+</script>
+<include file="Public:customer_header" title="担保人基础资料维护"/>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery-1.8.3-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery.metadata.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/CardId.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/x_p_add.js"></script>
+<script> var handleUrl = '<{:U("Customerdb/do_update_dbr")}>';</script>
+<script>
+    $(document).ready(function () {
+        var menuParent = $('.menu > .ListTitlePanel > div');//获取menu下的父层的DIV
+        var menuList = $('.menuList');
+        $('.menu > .menuParent > .ListTitlePanel > .ListTitle').each(function (i) {//获取列表的大标题并遍历
+            $(this).click(function () {
+                if ($(menuList[i]).css('display') == 'none') {
+                    $(menuList[i]).slideDown(300);
+                }
+                else {
+                    $(menuList[i]).slideUp(300);
+                }
+            });
+        });
+    });
+</script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/validate/css/register.css"/>
+<div class="module_public_main">
+
+
+    <form id="x_p_add_form" action="">
+        <div class="menu">
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background: url(__PUBLIC__/Images/OA_headbar.jpg);">
+                                <input type="hidden" name="id" value="<{$c_info[0]->id}>"/>
+                                <td width="20%" align="center"><b>基础信息</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="jcxx">
+                        <tr>
+                            <td width="20%" align="right">客户姓名:</td>
+                            <td><input type="text" name="d_p_name" class="_input" value="<{$c_info[0].d_p_name}>"
+                                       onblur="checkname()"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="namenull"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">身份证号:</td>
+                            <td><input type="text" name="d_p_idcard" class="_input" onblur="checkidcard()"
+                                       value="<{$c_info[0].d_p_idcard}>"/><font style="color: red; font-size: 12px;"
+                                                                                mce_style="color: red; font-size: 12px;"
+                                                                                id="idcard"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">性别:</td>
+                            <if condition="$c_info[0].d_p_sex eq '1'">
+                                <td>
+                                    <input type="radio" name="d_p_sex" value="0"/><font color=green>男</font>&nbsp;
+                                    <input type="radio" name="d_p_sex" value="1" checked="checked"/><font
+                                        color=green>女</font></td>
+                                <else/>
+                                <td>
+                                    <input type="radio" name="d_p_sex" value="0" checked="checked"/><font
+                                        color=green>男</font>&nbsp;
+                                    <input type="radio" name="d_p_sex" value="1"/><font color=green>女</font></td>
+                            </if>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">民族:</td>
+                            <td><input type="text" name="d_p_mz" class="_input" value="<{$c_info[0].d_p_mz}>"
+                                       onblur="checkmz()"/><font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="mz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">健康状况:</td>
+                            <td><input type="text" name="d_p_jkzk" class="_input" value="<{$c_info[0].d_p_jkzk}>"
+                                       onblur="checkjkzk()"/><font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="jkzk"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">工作单位:</td>
+                            <td><input type="text" name="d_p_gzdw" class="_input" value="<{$c_info[0].d_p_gzdw}>"
+                                       onblur="checkgzdw()"/><font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="gzdw"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">职务:</td>
+                            <td><input type="text" name="d_p_zw" class="_input" value="<{$c_info[0].d_p_zw}>"
+                                       onblur="checkzw()"/><font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="zw"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">户口所在地:</td>
+                            <td><input type="text" name="d_p_hkzz" class="_input" value="<{$c_info[0].d_p_hkzz}>"
+                                       onblur="checkhkzz()"/><font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="hkzz"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">身份证所在地:</td>
+                            <td><input type="text" name="d_p_sfzzz" class="_input" onblur="checksfzzz()"
+                                       value="<{$c_info[0].d_p_sfzzz}>"/><font style="color: red; font-size: 12px;"
+                                                                               mce_style="color: red; font-size: 12px;"
+                                                                               id="sfzzz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">实际住址:</td>
+                            <td><input type="text" name="d_p_sjzz" class="_input" value="<{$c_info[0].d_p_sjzz}>"
+                                       onblur="checksjzz()"/><font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="sjzz"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">联系方式:</td>
+                            <td><input type="text" name="d_p_lxfs" class="_input" value="<{$c_info[0].d_p_lxfs}>"
+                                       onblur="checklxfs()"/><font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="lxfs"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">婚姻状况:</td>
+                            <if condition="$c_info[0]['d_p_hyzk'] eq '1'">
+                                <td>
+                                    <input type="radio" name="d_p_hyzk" value="0"
+                                           onclick="javascript:document.getElementById('po').style.display ='';javascript:document.getElementById('po_head').style.display =''"/><font
+                                        color=green>已婚</font>&nbsp;
+                                    <input type="radio" name="d_p_hyzk" value="1" checked="checked"
+                                           onclick="javascript:document.getElementById('po').style.display ='none';javascript:document.getElementById('po_head').style.display ='none'"/><font
+                                        color=green>未婚</font>
+                                </td>
+                                <else/>
+                                <td>
+                                    <input type="radio" name="d_p_hyzk" value="0" checked="checked"
+                                           onclick="javascript:document.getElementById('po').style.display ='';javascript:document.getElementById('po_head').style.display =''"/><font
+                                        color=green>已婚</font>&nbsp;
+                                    <input type="radio" name="d_p_hyzk" value="1"
+                                           onclick="javascript:document.getElementById('po').style.display ='none';javascript:document.getElementById('po_head').style.display ='none'"/><font
+                                        color=green>未婚</font></td>
+                            </if>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left"
+                        <if condition="$c_info[0]['d_p_hyzk'] eq '1'">
+                            style="display:none"
+                        </if>
+                        id="po_head">
+                        <tr style="background: url(__PUBLIC__/Images/OA_headbar.jpg);">
+                            <td width="20%" align="center"><b>配偶信息</b></td>
+
+                        </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="po"
+                    <if condition="$c_info[0]['d_p_hyzk'] eq '1'">
+                        style="display:none"
+                    </if>
+                    >
+                    <tr>
+                        <td width="20%" align="right">配偶姓名:</td>
+                        <td><input style="width: 200px" type="text" name="d_p_poxm" class="_input" onblur="checkpoxm()"
+                                   value="<{$c_info[0].d_p_poxm}>"/><font style="color: red; font-size: 12px;"
+                                                                          mce_style="color: red; font-size: 12px;"
+                                                                          id="poxm"></font></td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="right">配偶身份证号:</td>
+                        <td><input style="width: 200px" type="text" name="d_p_posfzh" class="_input"
+                                   onblur="checkposfzh()"
+                                   value="<{$c_info[0].d_p_posfzh}>"/><font style="color: red; font-size: 12px;"
+                                                                            mce_style="color: red; font-size: 12px;"
+                                                                            id="posfzh"></font></td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="right">配偶联系方式:</td>
+                        <td><input style="width: 200px" type="text" name="d_p_polxfs" class="_input"
+                                   onblur="checkpolxfs()"
+                                   value="<{$c_info[0].d_p_polxfs}>"/><font style="color: red; font-size: 12px;"
+                                                                            mce_style="color: red; font-size: 12px;"
+                                                                            id="polxfs"></font></td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="right">配偶年收入:</td>
+                        <td><input style="width: 200px" type="text" name="d_p_posr" class="_input" onblur="checkposr()"
+                                   value="<{$c_info[0].d_p_posr}>"/>元<font style="color: red; font-size: 12px;"
+                                                                           mce_style="color: red; font-size: 12px;"
+                                                                           id="posr"></font></td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="right">配偶工作情况:</td>
+                        <td><input style="width: 200px" type="text" name="d_p_pogzqk" class="_input"
+                                   onblur="checkpogzqk()"
+                                   value="<{$c_info[0].d_p_pogzqk}>"/><font style="color: red; font-size: 12px;"
+                                                                            mce_style="color: red; font-size: 12px;"
+                                                                            id="pogzqk"></font></td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="right">配偶职务:</td>
+                        <td><input style="width: 200px" type="text" name="d_p_pozw" class="_input" onblur="checkpozw()"
+                                   value="<{$c_info[0].d_p_pozw}>"/><font style="color: red; font-size: 12px;"
+                                                                          mce_style="color: red; font-size: 12px;"
+                                                                          id="pozw"></font></td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background: url(__PUBLIC__/Images/OA_headbar.jpg);">
+                                <td width="20%" align="center"><b>资产信息</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="zcxx">
+                        <tr>
+                            <td width="20%" align="right">家庭综合收入:</td>
+                            <td><input type="text" name="d_p_jtzhnsr" class="_input" value="<{$c_info[0].d_p_jtzhnsr}>"
+                                       onblur="checkjtzhnsr()">元<font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="jtzhnsr"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">名下资产:</td>
+                            <td><input type="text" name="d_p_mxzc" class="_input"
+                                       value="<{$c_info[0].d_p_mxzc}>"/>元<font style="color: red; font-size: 12px;"
+                                                                               mce_style="color: red; font-size: 12px;"
+                                                                               id="mxzc"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">银行存款:</td>
+                            <td><input type="text" name="d_p_yhck" class="_input" onblur="checkyhck()"
+                                       value="<{$c_info[0].d_p_yhck}>"/>元<font style="color: red; font-size: 12px;"
+                                                                               mce_style="color: red; font-size: 12px;"
+                                                                               id="yhck"></font></td>
+
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">房屋性质:</td>
+                            <if condition="$c_info[0]['d_p_fwxz'] eq '1'">
+                                <td>
+                                    <input type="radio" name="d_p_fwxz" value="0"/><font color=green>自有</font>&nbsp;
+                                    <input type="radio" name="d_p_fwxz" value="1" checked="checked"/><font
+                                        color=green>租赁</font>
+                                </td>
+                                <else/>
+                                <td>
+                                    <input type="radio" name="d_p_fwxz" value="0" checked="checked"/><font
+                                        color=green>自有</font>&nbsp;
+                                    <input type="radio" name="d_p_fwxz" value="1"/><font color=green>租赁</font></td>
+                            </if>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">房屋小区价值:</td>
+                            <td><input type="text" name="d_p_fwxqjz" class="_input" value="<{$c_info[0].d_p_fwxqjz}>"
+                                       onblur="checkfwxqjz()"/>元<font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="fwxqjz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">车辆型号及价值:</td>
+                            <td><input type="text" name="d_p_clxhjz" class="_input" onblur="checkclxhjz()"
+                                       value="<{$c_info[0].d_p_clxhjz}>"/><font style="color: red; font-size: 12px;"
+                                                                                mce_style="color: red; font-size: 12px;"
+                                                                                id="clxhjz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">家庭其他收入:</td>
+                            <td><input type="text" name="d_p_jtqtsr" class="_input" value="<{$c_info[0].d_p_jtqtsr}>"
+                                       onblur="checkjtqtsr()"/>元<font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="jtqtsr"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">家庭其他收入备注:</td>
+                            <td><input type="text" name="d_p_jtqtsrbz" class="_input" onblur="checkbzj()"
+                                       value="<{$c_info[0].d_p_jtqtsrbz}>"/><font style="color: red; font-size: 12px;"
+                                                                                  mce_style="color: red; font-size: 12px;"
+                                                                                  id="jtqtsrbz"></font></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background: url(__PUBLIC__/Images/OA_headbar.jpg);">
+                                <td width="20%" align="center"><b>负债信息</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="fzxx">
+                        <tr>
+                            <td width="20%" align="right">信用卡额度:</td>
+                            <td><input type="text" name="d_p_xyked" class="_input" onblur="checkxyked()"
+                                       value="<{$c_info[0].d_p_xyked}>"/>元<font style="color: red; font-size: 12px;"
+                                                                                mce_style="color: red; font-size: 12px;"
+                                                                                id="xyked"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">信用卡负债:</td>
+                            <td><input type="text" name="d_p_xykfz" class="_input" onblur="checkxykfz()"
+                                       value="<{$c_info[0].d_p_xykfz}>"/>元<font style="color: red; font-size: 12px;"
+                                                                                mce_style="color: red; font-size: 12px;"
+                                                                                id="xykfz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">银行按揭余额:</td>
+                            <td><input type="text" name="d_p_yhajdk" class="_input" value="<{$c_info[0].d_p_yhajdk}>"
+                                       onblur="checkyhajdk()"/>元<font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="yhajdk"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">民间借贷余额:</td>
+                            <td><input type="text" name="d_p_mjjd" class="_input" onblur="checkmjjd()"
+                                       value="<{$c_info[0].d_p_mjjd}>"/>元<font style="color: red; font-size: 12px;"
+                                                                               mce_style="color: red; font-size: 12px;"
+                                                                               id="mjjd"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right">对外担保额度:</td>
+                            <td><input type="text" name="d_p_dwdbqk" class="_input" value="<{$c_info[0].d_p_dwdbqk}>"
+                                       onblur="checkdwdbqk()"/>元<font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="dwdbqk"></font>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <table align="left">
+            <tr>
+                <td align="center">
+                    <button type="button" class="submit" value="确定提交" id="send-btn"/>
+                    确定提交
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+    <!--<script>-->
+    <!--function validate(){-->
+    <!--$("#x_p_add_form").validate({-->
+    <!--submitHandler:function(form){-->
+    <!--alert("submitted");-->
+    <!--}-->
+    <!--});-->
+    <!--}-->
+    <!--</script>-->
+
+    <script>
+        $('#send-btn').click(function () {
+            var id = '<{$c_info[0].id}>';
+            var d_p_name = $('input[name = d_p_name]').val();
+            var d_p_idcard = $('input[name = d_p_idcard]').val();
+            var d_p_sex = $('input[name = d_p_sex]').val();
+            var d_p_mz = $('input[name = d_p_mz]').val();
+            var d_p_jkzk = $('input[name = d_p_jkzk]').val();
+            var d_p_gzdw = $('input[name = d_p_gzdw]').val();
+            var d_p_zw = $('input[name = d_p_zw]').val();
+            var d_p_hkzz = $('input[name = d_p_hkzz]').val();
+            var d_p_sfzzz = $('input[name = d_p_sfzzz]').val();
+            var d_p_sjzz = $('input[name = d_p_sjzz]').val();
+            var d_p_lxfs = $('input[name = d_p_lxfs]').val();
+            var d_p_hyzk = $('input[name = d_p_hyzk]:checked').val();
+            var d_p_poxm = $('input[name = d_p_poxm]').val();
+            var d_p_posfzh = $('input[name = d_p_posfzh]').val();
+            var d_p_polxfs = $('input[name = d_p_polxfs]').val();
+            var d_p_posr = $('input[name = d_p_posr]').val();
+            var d_p_pogzqk = $('input[name = d_p_pogzqk]').val();
+            var d_p_pozw = $('input[name = d_p_pozw]').val();
+            var d_p_jtzhnsr = $('input[name = d_p_jtzhnsr]').val();
+            var d_p_mxzc = $('input[name = d_p_mxzc]').val();
+            var d_p_yhck = $('input[name = d_p_yhck]').val();
+            var d_p_fwxz = $('input[name = d_p_fwxz]:checked').val();
+            var d_p_fwxqjz = $('input[name = d_p_fwxqjz]').val();
+            var d_p_clxhjz = $('input[name = d_p_clxhjz]').val();
+            var d_p_jtqtsr = $('input[name = d_p_jtqtsr]').val();
+            var d_p_jtqtsrbz = $('input[name = d_p_jtqtsrbz]').val();
+            var d_p_xyked = $('input[name = d_p_xyked]').val();
+            var d_p_xykfz = $('input[name = d_p_xykfz]').val();
+            var d_p_yhajdk = $('input[name = d_p_yhajdk]').val();
+            var d_p_mjjd = $('input[name = d_p_mjjd]').val();
+            var d_p_dwdbqk = $('input[name = d_p_dwdbqk]').val();
+            if (checkdata()) {
+                document.getElementById('send-btn').disabled = true;
+                $.post(handleUrl, {
+                    id: id,
+                    d_p_name: d_p_name,
+                    d_p_idcard: d_p_idcard,
+                    d_p_sex: d_p_sex,
+                    d_p_mz: d_p_mz,
+                    d_p_jkzk: d_p_jkzk,
+                    d_p_gzdw: d_p_gzdw,
+                    d_p_zw: d_p_zw,
+                    d_p_hkzz: d_p_hkzz,
+                    d_p_sfzzz: d_p_sfzzz,
+                    d_p_sjzz: d_p_sjzz,
+                    d_p_lxfs: d_p_lxfs,
+                    d_p_hyzk: d_p_hyzk,
+                    d_p_poxm: d_p_poxm,
+                    d_p_posfzh: d_p_posfzh,
+                    d_p_pozw: d_p_pozw,
+                    d_p_polxfs: d_p_polxfs,
+                    d_p_posr: d_p_posr,
+                    d_p_pogzqk: d_p_pogzqk,
+                    d_p_jtzhnsr: d_p_jtzhnsr,
+                    d_p_mxzc: d_p_mxzc,
+                    d_p_yhck: d_p_yhck,
+                    d_p_fwxz: d_p_fwxz,
+                    d_p_fwxqjz: d_p_fwxqjz,
+                    d_p_clxhjz: d_p_clxhjz,
+                    d_p_jtqtsr: d_p_jtqtsr,
+                    d_p_jtqtsrbz: d_p_jtqtsrbz,
+                    d_p_xyked: d_p_xyked,
+                    d_p_xykfz: d_p_xykfz,
+                    d_p_yhajdk: d_p_yhajdk,
+                    d_p_mjjd: d_p_mjjd,
+                    d_p_dwdbqk: d_p_dwdbqk,
+                    idcard: urlcanshu[8]
+                }, function (returndata) {
+                    document.getElementById('send-btn').disabled = false;
+                    if (returndata.status) {
+                        alert('更新成功');
+                        window.close();
+                    } else {
+                        alert('更新失败，错误：' + returndata.error);
+                    }
+                }, 'json');
+            } else {
+                alert('填写的信息错误或者不完整，请检查');
+                document.getElementById('send-btn').disabled = false;
+            }
+        })
+    </script>
+</div>
+<include file="Public:customer_footer"/>

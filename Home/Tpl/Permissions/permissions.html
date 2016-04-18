@@ -1,0 +1,22 @@
+<include file="Public:permissions_header" title="OA权限管理"/>
+     <div class="module_public_main">
+        <table>
+          <tr>
+            <td align="center" width="8%">编号</td>
+            <td align="center" width="12%">用户账号</td>
+            <td align="center" width="12%">用户姓名</td>
+            <td align="center">操作</td>
+          </tr>
+          <volist name="e_info" id="v" key="k">
+          <tr>
+            <td align="center" width="8%"><{$k}></td>
+            <td align="center" width="12%"><{$v.u_username}></td>
+            <td align="center" width="12%"><{$v.u_name}></td>
+            <td align="center">
+              <a href="__URL__/action_permissions/uid/<{$v.u_id}>/uname/<{$v.u_name}>">查看/更改用户权限</a>
+            </td>
+          </tr>
+          </volist>
+        </table>
+     </div>
+<include file="Public:permissions_footer" />

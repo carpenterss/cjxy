@@ -1,0 +1,26 @@
+<include file="Public:system_header" title="投票中心" />
+     <div class="module_public_main"> 
+        <table>
+          <php>
+            for($i=0;$i<count($v_info);$i++){ 
+                echo "<form action='__URL__/do_vote' method='post'>";
+                echo "<input type='hidden' name='v_id' value='{$v_info[$i][v_id]}' />";
+                echo "<tr><td><b>";
+                echo ($i+1).".".$v_info[$i]['v_title']."</b><br/>";
+                for($j=0;$j<count($i_info);$j++){
+                    if($v_info[$i]['v_id'] == $i_info[$j]['i_vid']){
+                       if($v_info[$i]['v_type']==1){
+                          echo "<input type='radio' name='v[]' style='margin-top:5px;' value='{$i_info[$j]['i_id']}' />&nbsp;".$i_info[$j]['i_title']."<br/>"; 
+                       }else{
+                          echo "<input type='checkbox' name='v[]' style='margin-top:5px;' value='{$i_info[$j]['i_id']}'  />&nbsp;".$i_info[$j]['i_title']."<br/>";
+                       }
+                    }
+                }
+                echo "<input type='submit' value='投票' class='_button' style='margin-top:5px;'/>";
+                echo "<a href='__URL__/look_vote/v_id/{$v_info[$i][v_id]}/v_title/{$v_info[$i][v_title]}'>&nbsp;&nbsp;>>查看投票结果<<</a>";
+                echo "</td></tr></form>";
+            }
+          </php>
+        </table>
+     </div>
+<include file="Public:system_footer" />

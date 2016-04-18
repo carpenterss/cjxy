@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/uploadify/uploadify.css">
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+
+</head>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/validate/css/register.css"/>
+<body>
+
+<form>
+    <table>
+        <tr>
+            <td><textarea type="text" id="x_dhgzjc" name="dhgzjc" cols="60" rows="10" placeholder="请输入检查信息"></textarea>
+                <font style="color: red; font-size: 12px;" id="dhgzjc"></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <button type="button" class="btn btn-primary" value="确定提交" id="send-btn"/>
+                确定提交
+            </td>        </tr>
+    </table>
+</form>
+</body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="__PUBLIC__/js/jquery/jquery-1.11.3.js"></script>
+
+<script> var handleUrl = '<{:U("Customer/do_customer_dhgzjc")}>';</script>
+<script>
+    var urlcanshu = window.location.href.split("/");
+    //document.getElementById('send-btn').disabled = true;
+    $('#send-btn').click(function () {
+        var dhgzjc = document.getElementById("x_dhgzjc").value;
+        document.getElementById('send-btn').disabled = true;
+        $.post(handleUrl, {
+            dhgzjc:dhgzjc,
+            type:'xd',
+            cardid:urlcanshu[8]
+        }, function (returndata) {
+            document.getElementById('send-btn').disabled = false;
+            if (returndata.status) {
+                alert('添加成功');
+                window.close();
+            } else if(returndata.status == 3) {
+                alert('该月已添加');
+            }
+        }, 'json');
+    })
+</script>
+</html>

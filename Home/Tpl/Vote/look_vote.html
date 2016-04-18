@@ -1,0 +1,26 @@
+<include file="Public:system_header" title="投票结果" />
+     <div class="module_public_main"> 
+        <table>
+          <tr>
+            <td colspan="3"><b>调查标题:&nbsp;<{$v_title}></b>共有:<{$sum}>人参与</td>
+          </tr>
+          <volist name="i_info" id="v">
+          <tr>
+            <td width="12%" align="right">¤&nbsp;<{$v.i_title}></td>
+            <td>
+              <table height="12" cellspacing="1" cellpadding="0" style="width:<{$v.baifenbi}>%" class="tables">
+                <tr>
+                  <td bgcolor="#3399FF">&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+            <td width="12%"><{$v.i_count}>共票&nbsp;/&nbsp;<b>占<{$v.baifenbi}></b>%</td>
+          </tr>
+          </volist>
+        </table>
+     </div>
+     <script type="text/javascript">
+	    $(".tables").hide();
+		$(".tables").show(1500);
+	 </script>
+<include file="Public:system_footer" />

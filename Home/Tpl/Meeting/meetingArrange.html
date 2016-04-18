@@ -1,0 +1,132 @@
+<include file="Public:meeting_header" title="会议安排"/>
+     <div class="module_public_main"> 
+        <table>
+        <form action="__URL__/do_meetingArrange" method="post">
+          <tr>
+            <td width="12%" align="right">会议主办人</td>
+            <td><input type="text" name="m_name" class="_input"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">预定会议室号码:</td>
+            <td>
+             <select class="_input" name="yuyue_id">
+               <option>--会议室的预约号码--</option>
+               <volist name="y_info" id="v">
+               <option value="<{$v.y_id}>"><{$v.y_id}>
+               <php>
+               $time = time();
+               if($v['y_yuyue_endtime'] > $time){
+                  echo "&nbsp;-><font color=green>预约时间(未过期)</font>";
+               }else{
+                  echo "&nbsp;-><font color=red>预约时间(已过期)</font>";
+               }
+               </php>
+               </option>
+               </volist>
+             </select>
+            </td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议主题</td>
+            <td><input type="text" name="m_title" class="_input"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议开始日期</td>
+            <td><input type="text" name="m_start_day" class="_input"/>&nbsp;&nbsp;<font color=red>(备注:请根据格式:2012-12-02)</font></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">会议开始时间</td>
+            <td>
+              <select name="start_shi">
+              <for start="0" end="24">
+              <if condition="$i lt 10">
+              <option>0<{$i}></option>
+              <else />
+              <option><{$i}></option>
+              </if>
+              </for>
+           </select>点&nbsp;
+           <select name="start_fen">
+              <for start="1" end="61">
+              	<if condition="$i lt 10">
+              	<option>0<{$i}></option>
+                <else />
+                <option><{$i}></option>
+                </if>
+              </for>
+           </select>分
+            </td>
+          </tr>         
+          <tr>
+            <td colspan="2" bgcolor="#EBEBEB" align="center">会议参加人员通知</td>
+          </tr>
+          <tr>
+           <td width="12%" align="right">请选择通知类型:</td>
+           <td>
+             <input type="radio" name="notice_type" value="1" />部门通知&nbsp;&nbsp;
+             <input type="radio" name="notice_type" value="2" />个人通知
+           </td>
+          </tr>
+         
+          <tr id="department_status" style="display:none;">
+           <td width="12%" align="right">通知的部门:</td>
+           <td>
+             <div class="centent">
+                  <select multiple="multiple" id="select1" style="width:100px;height:160px;">
+                  <volist name="d_info" id="v">
+					<option value="<{$v.d_id}>"><{$v.d_name}></option>
+                  </volist>
+                  </select>
+                  <div>
+					<span id="add" class="batch_span">选中添加到右边&gt;&gt;</span>
+					<span id="add_all" class="batch_span">全部添加到右边&gt;&gt;</span>
+				  </div>
+               </div>
+               
+               <div class="centent">
+				  <select multiple="multiple" id="select2" style="width: 100px;height:160px;" name="selected_department[]">
+			      	
+		          </select>
+			   <div>
+				  <span id="remove" class="batch_span">&lt;&lt;选中删除到左边</span>
+				  <span id="remove_all" class="batch_span">&lt;&lt;全部删除到左边</span>
+			   </div>
+			 </div>
+           </td>
+          </tr>
+          
+          <tr id="employees_status" style="display:none;">
+           <td width="12%" align="right">通知的员工:</td>
+           <td>
+             <div class="centent">
+                  <select multiple="multiple" id="select11" style="width:100px;height:160px;">
+					<volist name="e_info" id="v">
+					<option value="<{$v.u_id}>"><{$v.u_name}></option>
+                  </volist>
+                  </select>
+                  <div>
+					<span id="add2" class="batch_span">选中添加到右边&gt;&gt;</span>
+					<span id="add_all2" class="batch_span">全部添加到右边&gt;&gt;</span>
+				  </div>
+               </div>
+               
+               <div class="centent">
+				  <select multiple="multiple" id="select22" style="width: 100px;height:160px;" name="selected_name[]">
+			      	
+		          </select>
+			   <div>
+				  <span id="remove2" class="batch_span">&lt;&lt;选中删除到左边</span>
+				  <span id="remove_all2" class="batch_span">&lt;&lt;全部删除到左边</span>
+			   </div>
+			 </div>
+           </td>
+          </tr>
+          
+           <tr>
+           <td>&nbsp;</td>
+           <td><input type="submit" value="提交会议" class="_button"/></td>
+          </tr>
+          </form> 
+        </table>
+     </div>
+<include file="Public:meeting_footer" />

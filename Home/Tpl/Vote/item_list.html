@@ -1,0 +1,29 @@
+<include file="Public:vote_header" title="调查选项列表" />
+     <div class="module_public_main">
+        <table>
+          <tr>
+            <td colspan="4">&nbsp;&nbsp;调查标题&nbsp;:&nbsp;<{$v_title}></td>
+          </tr>
+          <tr>
+            <td width="8%" align="center">编号</td>
+            <td align="center">选项标题</td>
+            <td align="center">统计</td>
+            <td align="center">操作</td>
+          </tr>
+          <volist name="i_info" id="v" key="k">
+          <tr>
+            <td width="8%" align="center"><{$k}></td>
+            <td align="center"><{$v.i_title}></td>
+            <td align="center"><{$v.i_count}><b>次</b></td>
+            <td align="center">
+              <a href="__URL__/edit_item/i_id/<{$v.i_id}>/v_title/<{$v_title}>">编辑</a> |
+              <a href="__URL__/del_item/i_id/<{$v.i_id}>">删除</a>
+            </td>
+          </tr>
+          </volist>
+          <tr>
+            <td colspan="4" align="center"><input type="button" class="_button" value="添加选项" onclick="javascript:window.location='__URL__/add_item/v_id/<{$v_id}>/v_title/<{$v_title}>'"/>&nbsp;&nbsp;<input type="button" class="_button" value="设置顺序" onclick="javascript:window.location='__URL__/order_item/v_id/<{$v_id}>/v_title/<{$v_title}>'"/></td>
+          </tr>
+        </table>
+     </div>
+<include file="Public:vote_footer" />

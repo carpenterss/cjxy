@@ -1,0 +1,24 @@
+<include file="Public:employeesInfo_header" title="紧急通告发布"/>
+   <div class="module_public_main">
+     <table>
+     <form action="__URL__/do_releaseNotice" method="post">
+       <tr>
+         <td width="12%" align="right">紧急通知的日期:</td>
+         <td><input type="text" name="j_starttime" class="_input" onClick="WdatePicker()"/></td>
+       </tr>
+       <tr>
+         <td width="12%" align="right">紧急通知标题:</td>
+         <td><input type="text" name="j_title" class="_input" /></td>
+       </tr>
+       <tr>
+         <td width="12%" align="right">紧急通知内容:</td>
+         <td><textarea name="j_content" class="_input2"></textarea></td>
+       </tr>
+        <tr>
+         <td width="12%" align="right">&nbsp;</td>
+         <td><input type="submit" value="发布通知" class="_button" /></td>
+       </tr>
+       </form>
+     </table>
+   </div>
+<include file="Public:employeesInfo_footer" />

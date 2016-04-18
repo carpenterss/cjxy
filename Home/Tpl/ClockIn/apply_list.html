@@ -1,0 +1,51 @@
+<include file="Public:clockIn_header" title="申请列表"/>
+  <div class="module_public_main">
+     <table>
+        <tr>
+          <td width="8%" align="center">编号</td>
+          <td align="center">申请类型</td>
+          <td align="center">是否批准</td>
+          <td align="center">领导是否查看</td>
+          <td align="center">回复内容</td>
+          <td align="center">操作</td>
+        </tr>
+        <volist name="a_info" id="v" key="k">
+         <tr>
+          <td width="8%" align="center"><{$k}></td>
+          <if condition="$v.a_type eq '1'">
+          <td align="center">请假申请</td>
+          <else />
+          <td align="center">外出申请</td>
+          </if>
+          <if condition="$v.a_is_approval eq '1'">
+          <td align="center"><font color=green>已批准</font></td>
+          <elseif condition="$v.a_is_approval eq '2'"/>
+          <td align="center"><font color=red>驳回申请</font></td>
+          <else />
+          <td align="center"><font color=red>未批阅</font></td>
+          </if>
+          <if condition="$v.a_is_look eq '1'">
+          <td align="center"><font color=green>已查看</font></td>
+          <else />
+          <td align="center"><font color=red>未查看</font></td>
+          </if>
+          <if condition="$v.a_reply eq ''">
+          <td align="center"><font color=red>未回复内容</font></td>
+          <else />
+          <td align="center"><font color=green>已回复<a href="#" title="<{$v.a_reply}>" onclick="alert(this.title);">【查看】</a></font></td>
+          </if>
+          
+          <if condition="$level eq '1'">
+          <td align="center">
+            <a href="__URL__/look_apply/a_id/<{$v.a_id}>">查看申请详细</a>
+          </td>
+          <else />
+          <td align="center">
+             <a href="__URL__/del_apply/a_id/<{$v.a_id}>">删除申请</a>
+          </td>
+          </if>
+        </tr>
+        </volist>
+     </table>
+  </div>
+<include file="Public:clockIn_footer" />

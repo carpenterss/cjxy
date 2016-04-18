@@ -1,0 +1,193 @@
+<!DOCTYPE>
+<html>
+<head>
+    <load file="__PUBLIC__/Css/layout.css"/>
+    <load file="__PUBLIC__/Js/jquery.js"/>
+    <load file="__PUBLIC__/Js/menu.js"/>
+</head>
+<script>
+    $(document).ready(function(){
+        $(".OA_Lmenu .OA_Lmenu_ul li").first().addClass("OA_Lmenu_ul");
+        $(".OA_Lmenu .OA_Lmenu_ul li").click(function(){
+            $(this).addClass("current").siblings().removeClass("current")
+        });
+    });
+
+    function removehighlight(){
+        $('.OA_Lmenu_ul li').each(function() {
+            $(this).removeClass("current");
+        })
+    }
+</script>
+<body>
+<div class="OA_menu">
+    <h1 class="OA_title1"></h1>
+    <ul class="OA_Lmenu">
+
+        <if condition="($column[2] eq 1) AND ($xd_enable eq 1)">
+            <li class="OA_Lmenu_li">
+                <a onclick="removehighlight()" href="#">小额贷款公司</a>
+                <ul class="OA_Lmenu_ul" style="display: none;">
+                    <if condition="$son_2[0] eq '1'">
+                        <li name="xl"><a href="__APP__/Customer/customer_x_p_add" target="main">基础资料录入（个人）</a></li>
+                    </if>
+                    <if condition="$son_2[1] eq '1'">
+                        <li name="xl"><a href="__APP__/Customer/customer_x_e_add" target="main">基础资料录入（企业）</a></li>
+                    </if>
+                    <if condition="$son_2[2] eq '1'">
+                        <li name="xl"><a href="__APP__/Customer/customer_xdyw" target="main">业务流程</a></li>
+                    </if>
+
+                </ul>
+            </li>
+        </if>
+
+        <if condition="($column[3] eq 1) AND ($db_enable eq 1)">
+            <li class="OA_Lmenu_li">
+                <a onclick="removehighlight()" href="#">担保公司</a>
+                <ul class="OA_Lmenu_ul" style="display:none;">
+                    <if condition="$son_3[0] eq '1'">
+                        <li><a href="__APP__/Customerdb/customer_d_p_add" target="main">基础资料录入（个人）</a></li>
+                    </if>
+                    <if condition="$son_3[1] eq '1'">
+                        <li><a href="__APP__/Customerdb/customer_d_e_add" target="main">基础资料录入（企业）</a></li>
+                    </if>
+                    <if condition="$son_3[2] eq '1'">
+                        <li><a href="__APP__/Customerdb/customer_dbywgr" target="main">业务流程（个人）</a></li>
+                    </if>
+                    <if condition="$son_3[3] eq '1'">
+                        <li><a href="__APP__/Customerdb/customer_dbywqy" target="main">业务流程（企业）</a></li>
+                    </if>
+                </ul>
+            </li>
+        </if>
+
+        <if condition="($column[4] eq 1) AND ($cd_enable eq 1)">
+            <li class="OA_Lmenu_li">
+                <a onclick="removehighlight()" href="#">车贷公司</a>
+                <ul class="OA_Lmenu_ul" style="display:none;">
+                    <if condition="$son_4[0] eq '1'">
+                        <li><a href="__APP__/Customercd/customer_cd_add" target="main">基础资料录入</a></li>
+                    </if>
+                    <if condition="$son_4[1] eq '1'">
+                        <li><a href="__APP__/Customercd/customer_cdyw" target="main">业务流程</a></li>
+                    </if>
+                </ul>
+            </li>
+            </li>
+        </if>
+
+        <if condition="1 eq 1">
+            <li class="OA_Lmenu_li">
+                <a onclick="removehighlight()" href="#">客户基础资料管理</a>
+                <ul class="OA_Lmenu_ul" style="display:none;">
+                    <if condition="($son_2[4] eq '1') AND ($xd_enable eq 1)">
+                        <li><a href="__APP__/Customer/customer_baseinfo" target="main">管理小贷客户资料</a></li>
+                    </if>
+                    <if condition="($son_3[5] eq '1') AND ($db_enable eq 1)">
+                        <li><a href="__APP__/Customerdb/customer_baseinfo" target="main">管理担保客户资料</a></li>
+                    </if>
+                    <if condition="($son_4[3] eq '1') AND ($cd_enable eq 1)">
+                        <li><a href="__APP__/Customercd/customer_baseinfo" target="main">管理车贷客户资料</a></li>
+                    </if>
+                </ul>
+            </li>
+            <else/>
+        </if>
+
+        <if condition="1 eq 1">
+            <li class="OA_Lmenu_li">
+                <a onclick="removehighlight()" href="#">贷后管理</a>
+                <ul class="OA_Lmenu_ul" style="display:none;">
+                    <if condition="($son_2[3] eq '1') AND ($xd_enable eq 1)">
+                        <li><a href="__APP__/Customer/customer" target="main">管理小贷客户</a></li>
+                    </if>
+                    <if condition="($son_3[4] eq '1') AND ($db_enable eq 1)">
+                        <li><a href="__APP__/Customerdb/customer" target="main">管理担保客户</a></li>
+                    </if>
+                    <if condition="($son_4[2] eq '1') AND ($cd_enable eq 1)">
+                        <li><a href="__APP__/Customercd/customer" target="main">管理车贷客户</a></li>
+                    </if>
+                </ul>
+            </li>
+        </if>
+
+        <if condition="$column[6] eq 1">
+            <li class="OA_Lmenu_li">
+                <a onclick="removehighlight()" href="#">业绩统计</a>
+                <ul class="OA_Lmenu_ul" style="display:none;">
+                    <if condition="$son_6[0] eq '1'">
+                        <li><a href="__APP__/Yeji/yeji" target="main">业绩统计</a></li>
+                    </if>
+                </ul>
+            </li>
+        </if>
+
+
+
+        <if condition="$column[1] eq 1">
+            <li class="OA_Lmenu_li">
+                <a onclick="removehighlight()" href="#">个人工作管理</a>
+                <ul class="OA_Lmenu_ul" style="display: none;">
+                    <if condition="$son_1[0] eq '1'">
+                        <li><a href="__APP__/Message/message" target="main">短信息</a></li>
+                    </if>
+                    <if condition="$son_1[1] eq '1'">
+                        <li><a href="__APP__/EmployeesInfo/update_peizhi" target="main">修改密码</a></li>
+                    </if>
+                    <if condition="$son_1[2] eq '1'">
+                        <li><a href="__APP__/JobLog/jobLog" target="main">审核</a></li>
+                    </if>
+                </ul>
+            </li>
+        </if>
+
+        <li class="OA_Lmenu_li">
+            <a onclick="removehighlight()" href="#">黑名单</a>
+            <ul class="OA_Lmenu_ul" style="display:none;">
+                <li><a href="__APP__/New/blacklist" target="main">黑名单</a></li>
+            </ul>
+        </li>
+        <li class="OA_Lmenu_li">
+            <a onclick="removehighlight()" href="#">资金拆借信息平台</a>
+            <ul class="OA_Lmenu_ul" style="display:none;">
+                <li><a href="__APP__/New/fundborrow" target="main">资金拆借信息平台</a></li>
+            </ul>
+        </li>
+        <li class="OA_Lmenu_li">
+            <a onclick="removehighlight()" href="#">信用查询</a>
+            <ul class="OA_Lmenu_ul" style="display:none;">
+                <li><a href="__APP__/New/xycx" target="main">信用查询</a></li>
+            </ul>
+        </li>
+        <li class="OA_Lmenu_li">
+            <a onclick="removehighlight()" href="#">会员中心</a>
+            <ul class="OA_Lmenu_ul" style="display:none;">
+                <li><a href="__APP__/New/member_center" target="main">会员中心</a></li>
+            </ul>
+        </li>
+
+
+        <if condition="$column[5] eq 1">
+            <li class="OA_Lmenu_li">
+                <a onclick="removehighlight()" href="#">系统设置</a>
+                <ul class="OA_Lmenu_ul" style="display:none;">
+                    <if condition="$son_5[0] eq '1'">
+                        <li><a href="__APP__/System/OA_system_manage" target="main">平台管理</a></li>
+                    </if>
+                    <if condition="$son_5[1] eq '1'">
+                        <li><a href="__APP__/System/OA_user_manage" target="main">用户管理</a></li>
+                    </if>
+                    <if condition="$son_5[1] eq '1'">
+                        <li><a href="__APP__/Yeji/recoverycustomer" target="main">客户恢复</a></li>
+                    </if>
+                </ul>
+            </li>
+        </if>
+
+
+    </ul>
+    <h1 class="OA_title2"></h1>
+</div>
+</body>
+</html>

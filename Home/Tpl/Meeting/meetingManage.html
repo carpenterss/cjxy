@@ -1,0 +1,29 @@
+<include file="Public:meeting_header" title="会议室管理"/>
+     <div class="module_public_main">
+     <table>
+       <tr>
+         <td align="center" width="10%">会议室编号</td>
+         <td align="center">会议室名称</td>
+         <td align="center">容纳人数</td>
+         <td align="center">是否开放</td>
+         <td align="center">操作</td>
+       </tr>
+       <volist name="r_info" id="v" key="k">
+       <tr>
+         <td align="center"><{$k}></td>
+         <td align="center"><{$v.r_name}></td>
+         <td align="center"><{$v.r_renshu}>&nbsp;人</td>
+         <if condition="$v.r_is_open eq '1'">
+         <td align="center"><font color=green>√</font></td>
+         <else />
+         <td align="center"><font color=red>x</font></td>
+         </if>
+         <td align="center">
+           <a href="__URL__/edit_meetingRoom/r_id/<{$v.r_id}>">修改会议室信息</a> | 
+           <a href="__URL__/del_meetingRoom/r_id/<{$v.r_id}>">删除会议室</a>
+         </td>
+       </tr>
+       </volist>
+     </table>
+     </div>
+<include file="Public:meeting_footer" />

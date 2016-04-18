@@ -1,0 +1,26 @@
+<include file="Public:meeting_header" title="会议室预约详细信息"/>
+     <div class="module_public_main"> 
+       <table>
+         <tr>
+           <td align="center">预约人</td>
+           <td align="center">会议室预约号码<font color=red>(会议安排时选择您预约的会议室号码即可)</font></td>
+           <td align="center">预约使用时间段</td>
+           <td align="center">预约状态</td>
+         </tr>
+         <volist name="y_info" id="v">
+         <tr>
+           <td align="center"><{$v.y_uname}></td>
+           <td align="center"><{$v.y_id}></td>
+           <td align="center">会议室使用时间段：&nbsp;<font color=green>(<{$v.y_yuyue_starttime|date="Y年m月d日 H:m",###}>)</font>&nbsp;&nbsp;——&nbsp;<font color=green>(<{$v.y_yuyue_endtime|date="Y年m月d日 H:m",###}>)</font></td>
+           <php>
+           if($v['y_yuyue_endtime'] < time()){
+              echo "<td align='center'><font color=red>已过期</font></td>"; 
+           }else{
+              echo "<td align='center'><font color=green>未过期</font></td>";
+           }
+           </php>
+         </tr>
+         </volist>
+       </table>
+     </div>
+<include file="Public:meeting_footer" />

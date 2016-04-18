@@ -1,0 +1,30 @@
+<include file="Public:fileCabinet_header" title="查看文件柜" />
+    <div class="module_public_main">
+       <table>
+          <tr>
+            <td align="center">编号</td>
+            <td align="center">文件名称</td>
+            <td align="center">上传时间</td>
+            <td align="center">文件大小</td>
+            <td align="center">文件类型</td>
+            <td align="center">操作</td>
+          </tr>
+          <volist name="f_info" id="v" key="k">
+          <tr>
+            <td align="center"><{$k}></td>
+            <td align="center"><{$v.f_newname}></td>
+            <td align="center"><{$v.f_addtime|date="Y-m-d",###}></td>
+            <td align="center"><{$v['f_size']}>&nbsp;<font color=red>KB</font></td>
+            <td align="center"><{$v.f_type}></td>
+            <td align="center">
+               <a href="<{$v.f_path}><{$v.f_filename}>">查看/下载文件</a> | 
+               <a href="__URL__/del_file/f_id/<{$v.f_id}>/f_size/<{$v.f_size}>/f_filename/<{$v.f_filename}>/">删除文件</a>
+            </td>
+          </tr>
+          </volist>
+          <tr>
+            <td align="right" colspan="6"><{$fpage}></td>
+          </tr>
+       </table> 
+    </div>
+<include file="Public:fileCabinet_footer" />

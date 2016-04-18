@@ -1,0 +1,123 @@
+<include file="Public:system_header" title="生成权限控制"/>
+<div class="module_public_main">
+    <table>
+        <tr>
+            <td width="12%" align="right">用户姓名:</td>
+            <td><{$Think.get.uname}></td>
+        </tr>
+        <tr>
+            <td width="12%" align="right">用户详细权限:</td>
+            <td>
+                <div style="width:100%;height:auto;" id="uid" title="<{$Think.get.uid}>">
+                    <ul>
+                        <volist name="p_info" id="v" key="k">
+                            <li <if condition="($xd_enable eq 0) AND ($k eq 2)">style="display:none"</if>
+                            <if condition="($cd_enable eq 0) AND ($k eq 4)">style="display:none"</if>
+                            <if condition="($db_enable eq 0) AND ($k eq 3)">style="display:none"</if>
+                            >
+                                <p style="font-size:20px;width:100%;background:#F0F0F0;margin-top:10px;">⊙<{$v.p_column_name}>=>&nbsp;
+                                    <input type="checkbox" class="_column_<{$k}> column_sum" style='width:20px;height:20px;border:none;position:relative;top:5px;'/>
+                                    &nbsp;&nbsp;<button type="button" value="当前选单全选" class="currentallselect">当前选单全选</button>
+                                </p>
+                                <ul style="padding:10px 0px 10px 20px;border:2px dashed #ccc;" class="box_<{$k}>">
+                                    <php>
+                                        $sonName = explode("|",$p_info[($k-1)]['p_column_sonName']);
+                                        $sonPer  = explode(",",$p_info[($k-1)]['p_column_son']);
+                                        for($i=0;$i<count($sonName);$i++){
+                                        echo "<li style='height:25px;line-height:25px;color:green'><input type='checkbox' class='_column_son_{$k} column_son_sum'  style='width:20px;height:20px;border:none;position:relative;top:5px;'/>&nbsp;".$sonName[$i]."</li>";
+                                        }
+                                    </php>
+                                </ul>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input type="button" value="提交操作" class="_button" id="tijiao"/>
+                &nbsp;&nbsp;<button type="button" value="全选" class="allselect">全选</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    //列出用户默认状态的权限
+    for(var i=1;i<=$(".column_sum").length;i++){
+        var c = $("._column_"+i).attr("checked");
+        if(!c){
+            $("._column_son_"+i).attr("disabled","disabled");
+        }
+    }
+
+    //点击大栏目 切换相应小栏目的输入状态
+    $(".column_sum").click(function(){
+        var index = ($(".column_sum").index(this)+1);
+        if($(this).is(':checked')){
+            $(".box_"+index).attr("disabled",false);
+            $("._column_son_"+index).attr("disabled",false);
+        }else{
+            $(".box_"+index).attr("disabled","disabled");
+            $("._column_son_"+index).attr("disabled","disabled");
+        }
+    });
+
+    //当前选单全选
+    $(".currentallselect").click(function(){
+        var index = ($(".currentallselect").index(this)+1);
+        $("._column_" + index).prop("checked","checked");
+        $("._column_son_"+index).prop("checked","checked");
+        $("._column_son_"+index).prop("disabled",false);
+    });
+    //全选
+    $(".allselect").click(function(){
+        $(".column_sum").prop("checked","checked");
+        $(".column_son_sum").prop("checked","checked");
+        $(".column_son_sum").prop("disabled",false);
+
+    });
+
+    //传往后台前的数据处理
+    $("#tijiao").click(function(){
+        var length = $(".column_sum").length;
+        var uid = $("#uid").attr("title");
+        var p_arr = new Array(); //主栏目权限
+        var p_arrSon = ""; //子栏目权限
+        for(var j=0;j<length;j++){
+            if($(".column_sum")[j].checked){
+                p_arr.push(1);
+            }else{
+                p_arr.push(0);
+            }
+        }
+
+        //获取到子栏目下各个栏目的权限
+        for(var k=1;k<=p_arr.length;k++){
+            for(var s=0;s<$("._column_son_"+k).length;s++){
+                if($("._column_son_"+k)[s].checked){
+                    p_arrSon += "1,";
+                }else{
+                    p_arrSon += "0,";
+                }
+            }
+            var reg=/,$/gi;
+            p_arrSon=p_arrSon.replace(reg,"");
+            p_arrSon+="|";
+
+        }
+        var reg=/\|$/gi;
+        p_arrSon=p_arrSon.replace(reg,"");
+
+        //将处理好的值传入后台
+        $.get("__URL__/do_add_permissions",{
+            column:p_arr,
+            column_son:p_arrSon,
+            u_id:uid
+        },function(data){
+            alert(data);
+            window.location.href="<{:U('Permissions/permissions')}>";
+        });
+    });
+</script>
+<include file="Public:system_footer" />

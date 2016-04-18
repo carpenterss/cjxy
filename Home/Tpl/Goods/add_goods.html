@@ -1,0 +1,24 @@
+<include file="Public:goods_header" title="公司物品入库"/> <!--公共头部样式-->
+     <div class="module_public_main">
+        <table>
+		<form action="__URL__/do_add_goods" method="post">
+		   <tr>
+		     <td width="12%" align="right">物品名称:</td>
+			 <td><input type="text" name="g_name" class="_input" /></td>
+		   </tr>
+		   <tr>
+		     <td width="12%" align="right">物品单价:</td>
+			 <td><input type="text" name="g_jiage" class="_input" />&nbsp;<font color=green>元</font></td>
+		   </tr>
+		   <tr>
+		     <td width="12%" align="right">物品库存:</td>
+			 <td><input type="text" name="g_sum" class="_input" /></td>
+		   </tr>
+		   <tr>
+		     <td>&nbsp;</td>
+			 <td><input type="submit" class="_button" value="录入物品" /></td>
+		   </tr>
+		   </form>
+		</table>
+     </div>
+<include file="Public:goods_footer" /> <!--公共尾部样式-->

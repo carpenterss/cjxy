@@ -1,0 +1,364 @@
+<!DOCTYPE>
+<html>
+<head>
+  <load file="__PUBLIC__/Css/layout.css" />
+  <load file="__PUBLIC__/Js/jquery.js" />
+  <load file="__PUBLIC__/Js/main.js" />
+  <load file="__PUBLIC__/Js/jquery-ui.min.js" />
+  <load file="__PUBLIC__/Js/yanue.pop.js" />
+    <link href="__PUBLIC__/maintable/jq.css" rel="stylesheet">
+    <link href="__PUBLIC__/maintable/theme.default.min.css" rel="stylesheet">
+    <script src="__PUBLIC__/pager/jquery-latest.min.js"></script>
+
+    <link rel="stylesheet" href="__PUBLIC__/pager/jq.css">
+    <link href="__PUBLIC__/pager/prettify.css" rel="stylesheet">
+    <script src="__PUBLIC__/pager/prettify.js"></script>
+    <script src="__PUBLIC__/pager/docs.js"></script>
+
+    <link rel="stylesheet" href="__PUBLIC__/pager/theme.blue.css">
+    <script src="__PUBLIC__/pager/jquery.tablesorter.js"></script>
+    <script src="__PUBLIC__/pager/jquery.tablesorter.widgets.js"></script>
+
+    <link rel="stylesheet" href="__PUBLIC__/pager/jquery.tablesorter.pager.css">
+    <script src="__PUBLIC__/pager/jquery.tablesorter.pager.js"></script>
+    <script language="javascript" type="text/javascript"
+            src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+    <script>
+        $(function(){
+            $('table').tablesorter({
+                widgets        : ['zebra', 'columns'],
+                usNumberFormat : false,
+                sortReset      : true,
+                sortRestart    : true,
+                sortList: [[0,0]], // etc.
+                headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+                widgetOptions: {
+                }
+            })
+                    .tablesorterPager({
+                        container: $(".ts-pager1"),
+                        cssGoto: ".pagenum",
+                        removeRows: false,
+                        output: '{page} / {totalPages}'
+                    });
+        });
+    </script>
+ 
+</head>
+<body>
+  <div class="OA_main">
+     <div class="OA_welcom_left"></div>
+	 <iframe src="__APP__/Public/main_info" frameborder="no" style="height:auto;width:97%;height:82px;float:left;overflow:hidden;" target="main"></iframe>
+     <div class="OA_welcom_right"></div>
+     
+<div class="OA_main_content">
+	 <table style="width:100%">
+		<tr>
+			<td style="vertical-align:top;">
+				        <div class="OA_main_left" style="width:100%;">
+            <!--公告通知版块开始-->
+            <if condition="$user_info[0]['u_window'] eq '1'">
+            <div class="OA_main_L1 S_1" style="left:<{$ab_info[0]['a_left']}>px;top:<{$ab_info[0]['a_top']}>px;z-index:<{$ab_info[0]['a_zIndex']}>">
+                <h1>到期提醒</h1>
+                <ul>
+                <if condition="$n eq '2'">
+                <span style="font-size:15px;color:red;">对不起,暂无公告通知...</span>        
+                </if>
+                   <volist name="n_info" id="v">  
+                   	<li><{$v.n_title}><span style="float:right;"><{$v.n_addtime|date="Y-m-d",###}>&nbsp;&nbsp;<i><{$v.n_department}>发布</i></span></li>
+                   </volist>
+                </ul>
+            </div>
+            <else />
+            <div class="OA_main_L1 S_1">
+                <h1>到期提醒</h1>
+                <ul style="width: auto;">
+                    <table class="tablesorter">
+                        <thead>
+                        <tr>
+                            <th>剩余还款天数</th>
+                            <th>姓名</th>
+                            <th>客户类型</th>
+                            <th>本期还款金额</th>
+                            <th>贷款到期日</th>
+                            <th>身份证号码/组织机构代码证号</th>
+                            <th>电话</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr style="background-color: #d6e9c6">
+                            <th colspan="7" class="ts-pager1 form-horizontal">
+                                <button type="button" class="btn first">第一页</button>
+                                <button type="button" class="btn prev">上一页</button>
+                                <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+                                <button type="button" class="btn next">下一页</button>
+                                <button type="button" class="btn last">最后一页</button>
+                                <select class="pagenum input-mini" title="Select page number"></select>
+                            </th>
+                            <td></td>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <volist name="data" id="v">
+                            <tr>
+                                <td><{$v.syhkts}></td>
+                                <td><a href="<{$v.href}>"><{$v.xm}></a> </td>
+                                <td><{$v.type}></td>
+                                <td><{$v.hkje}></td>
+                                <td><{$v.dqr}></td>
+                                <td><{$v.sfzh}></td>
+                                <td><{$v.lxfs}></td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </ul>
+            </div>
+            </if>
+            <!--公告通知版块结束-->
+        </div> 
+			</td>
+			<td style="width:332px;vertical-align:top">
+				<!--备忘录版块开始-->
+        <if condition="$user_info[0]['u_window'] eq '1'">
+        <div class="OA_main_content S_3" style="left:<{$ab_info[2]['a_left']}>px;top:<{$ab_info[2]['a_top']}>px;z-index:<{$ab_info[2]['a_zIndex']}>">
+            <div class="OA_main_C1">
+               <span><img src="__PUBLIC__/Images/OA_main14.jpg" /></span>
+               <span class="OA_main_C1_span">
+                  <button class="button_1"></button>
+                  <b id="time_info"><{$now_time|date="Y-m",###}></b>
+                  <button class="button_2"></button>
+               </span>
+            </div>
+            <ul class="OA_main_C2">
+
+            </ul>
+            <div class="OA_main_C3">
+               <span id="d_click" style="cursor:pointer;">当天</span>
+               <p id="memo_msg">内容...</p>
+            </div>
+            <div class="OA_main_C4">
+               <span>添加新备忘:</span><br/>
+               <textarea id="memo_value"></textarea>
+            </div>
+            <div class="OA_main_C5">
+               <input type="image" src="__PUBLIC__/Images/OA_main19.jpg" id="add_memo" />
+            </div>
+        </div>
+        <else />
+        <div class="OA_main_content S_3">
+            <div class="OA_main_C1">
+               <span><img src="__PUBLIC__/Images/OA_main14.jpg" /></span>
+               <span class="OA_main_C1_span">
+                  <button class="button_1"></button>
+                  <b id="time_info"><{$now_time|date="Y-m",###}></b>
+                  <button class="button_2"></button>
+               </span>
+            </div>
+            <ul class="OA_main_C2">
+
+            </ul>
+            <div class="OA_main_C3">
+               <span id="d_click" style="cursor:pointer;">当天</span>
+               <p id="memo_msg">内容...</p>
+            </div>
+            <div class="OA_main_C4">
+               <span>添加新备忘:</span><br/>
+               <textarea id="memo_value"></textarea>
+            </div>
+            <div class="OA_main_C5">
+               <input type="image" src="__PUBLIC__/Images/OA_main19.jpg" id="add_memo" />
+            </div>
+        </div>
+        </if>
+        <!--备忘录版块结束-->
+			</td>
+		</tr>
+	 </table>
+	 <div class="OA_footer" style="width:100%;position:relative;left:-10px;bottom:0;">
+         <p>吉林省诚金信用管理有限公司&nbsp;&nbsp;&nbsp;&nbsp;客服电话:0431-88448922</p>
+     </div>
+ 
+ <div id="pop" style="display:none;"> 
+  <div id="popHead">
+	<a id="popClose" title="关闭">关闭</a>
+	<h2>公司紧急通告</h2>
+	</div>
+	<div id="popContent">
+	<dl>
+		<dt id="popTitle"><a href="#" target="_blank">这里是参数</a></dt>
+		<dd id="popIntro">这里是内容简介</dd>
+	</dl>
+	</div>
+  </div>
+ </div>
+</body>
+  <script type="text/javascript" >
+	  //记得加载jquery
+	  //使用参数：1.标题，2.链接地址，3.内容简介
+
+	 
+	 
+	  
+	  //日历程序部
+	var now_time = $("#time_info").text(); //获取当前年月
+	
+	//获取到当前系统时间，并组合成年-月-日的格式
+	var now_date = new Date();
+	var d_year = now_date.getFullYear();
+	var d_month = (now_date.getMonth()+1);
+	var d_day = now_date.getDate();
+	if(d_month < 10){
+	   d_month = "0"+d_month;	
+	}
+	var d_date = d_year+"-"+d_month+"-"+d_day;
+	
+	var time_arr = now_time.split("-");
+	var new_month = time_arr[1];
+	month_day(new_month,now_time); //调用函数计算月份天数并显示在前台
+	
+	//页面加载完成后模拟点击 当前日期的LI元素
+	$(".OA_main_C2").find("li>a[title='"+d_date+"']").trigger("click");
+	
+	var new_year  = time_arr[0];
+	var new_time;
+	var lis = "";
+	$(".button_1").click(function(){	
+	    $(".OA_main_C2").html("");
+		new_month = (new_month-1);
+		if(new_month < 1){
+		   new_month = 1;
+		   alert("对不起,只能对当前年份进行备忘录的添加");
+		}
+		if(new_month < 10){
+		   new_month = "0"+new_month;	
+		}
+		
+		new_time = new_year+"-"+new_month;
+		month_day(new_month,new_time); //调用函数计算月份天数并显示在前台
+	    $("#time_info").text(new_time);
+	});
+	
+	$(".button_2").click(function(){
+		$(".OA_main_C2").html("");
+		new_month = parseInt(new_month);
+		new_month = (new_month+1);
+		if(new_month > 12){
+		   new_month = 12;	
+		   alert("对不起,只能对当前年份进行备忘录的添加");
+		}
+		if(new_month < 10){
+		   new_month = "0"+new_month;	
+		}				
+		new_time = new_year+"-"+new_month;
+		month_day(new_month,new_time); //调用函数计算月份天数并显示在前台
+	    $("#time_info").text(new_time);
+	});
+	
+	
+	//计算月份中的天数 并创建相应元素
+	function month_day(month,time){
+		month = parseInt(month);
+	   	switch(month){
+		    case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+			  for(var i=1;i<=31;i++){
+				$(".OA_main_C2").append($("<li><a href='#' title='"+time+"-"+i+"'>"+i+"</a></li>"));
+			  }			  
+			break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+			  for(var i=1;i<=30;i++){
+				$(".OA_main_C2").append($("<li><a href='#' title='"+time+"-"+i+"'>"+i+"</a></li>"));
+			  }	
+			break;
+			case 2:
+			  for(var i=1;i<=28;i++){
+				$(".OA_main_C2").append($("<li><a href='#' title='"+time+"-"+i+"'>"+i+"</a></li>"));
+			  }	
+			break;     	
+		}
+				
+		$(".OA_main_C2").find("li >a ").click(function(){
+			 $(".OA_main_C2").find("li >a ").removeClass("hover_lis");
+			 $(this).addClass("hover_lis");
+		     title = $(this).attr("title");
+			 //获取当前项目的目录
+			 $.get("__URL__/main_ajax",{
+				  nowTimes : title
+			 },function(data){
+				  var msg = $("<font color=green>"+data+"</font>")
+				  $("#memo_msg").html(msg);
+			 });
+	    });
+		
+	}
+	
+	
+	//点击当天按钮处理
+		$("#d_click").click(function(){
+			 $(".OA_main_C2").find("li>a[title='"+d_date+"']").trigger("click");
+		});
+		
+    //添加备忘录
+	$("#add_memo").click(function(){
+		var v = $("#memo_value").val();
+		if(v==""){
+		   alert("对不起,请添加备忘内容");	
+		}
+
+		$.get("__URL__/add_memo",{
+			  value : v,
+			  d_times : title
+		},function(data){
+			  if(data==1){
+				 alert("备忘录添加成功");
+				 $("#memo_value").val("");  				 
+			  }else if(data==2){
+				 alert("备忘录添加失败");  
+			  }else{
+				 alert("对不起,您当天已经添加过备忘录了");  
+			  }
+		});
+	});
+	
+	//双击修改备忘录
+	var memo_i = 0; //禁止重复添加更新内容框
+	$("#memo_msg").dblclick(function(){
+		if(memo_i == 0){
+			$(this).append("<textarea cols=30 rows=4 id='update_memo' style='border:1px solid #f0f0f0;'></textarea>");
+			    memo_i = 1; 
+		    $("#update_memo").focus();
+	    }
+		
+		//焦点离开时保存信息
+		$("#update_memo").blur(function(){
+			if(this.value==""){
+			      location.reload();
+			}else{		
+		    	  var update_v = $(this).val();
+				  $.get("__URL__/update_memo",{
+				 	value : update_v,
+			     	d_times : title
+				  },function(data){
+					  if(data==1){
+				 	     alert("备忘录信息更新成功");
+				 	     location.reload();
+			    	  }else{
+				 	     alert("备忘录更新失败");  
+			    	  }
+				 });
+			}
+	    });
+	});
+
+	   
+</script>
+</html>

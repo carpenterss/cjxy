@@ -1,0 +1,84 @@
+<include file="Public:panel_header" title="控制面板" />
+     <div class="module_public_main">
+         <table>
+            <tr>
+              <td width="18%" align="center"><img src="__PUBLIC__/Images/mianban_12.jpg" /></td>
+              <td align="justify">
+                <div style="width:100%;height:95px;">
+                   <h2 style="font-size:15px;border-bottom:1px dashed #ccc;">电子邮件 >></h2>
+                      <p style="margin-top:5px;">内部电子邮件数量:&nbsp;<b><if condition="$e_sum eq 0">0<else /><{$e_sum}></if></b>&nbsp;封</p>
+                      <p style="margin-top:5px;">外部电子邮件数量:&nbsp;<b><if condition="$o_sum eq 0">0<else /><{$o_sum}></if></b>&nbsp;封</p>
+                      <p style="margin-top:5px;">电子邮件总数量:&nbsp;<b><if condition="$email_sum eq 0">0<else /><{$email_sum}></if></b>&nbsp;封</p>
+                      <p style="margin-top:5px;">系统提示:<b><if condition="$email_sum gt 100"><font color=red>提示.....您应该清理一下了</font><else /><font color=green>正常.....</font></if></b>&nbsp;</p>
+                   </ul>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td width="18%" align="center"><img src="__PUBLIC__/Images/mianban_02.jpg" /></td>
+              <td align="justify">
+                <div style="width:100%;height:95px;">
+                   <h2 style="font-size:15px;border-bottom:1px dashed #ccc;">短信息 >></h2>
+                      <p style="margin-top:5px;">已接收短信数量:&nbsp;<b><if condition="$m_sum eq 0">0<else /><{$m_sum}></if></b>&nbsp;封</p>
+                      <p style="margin-top:5px;">未回复短信数量:&nbsp;<b><if condition="$m_reply_sum eq 0">0<else /><{$m_reply_sum}></if></b>&nbsp;封</p>
+                      <p style="margin-top:5px;">未查看短信数量:&nbsp;<b><if condition="$m_look_sum eq 0">0<else /><{$m_look_sum}></if></b>&nbsp;封</p>
+                      <p style="margin-top:5px;">系统提示:&nbsp;<b><if condition="$m_sum gt 100"><font color=red>提示.....您应该清理一下了</font><else /><font color=green>正常.....</font></if></b>&nbsp;</p>
+                   </ul>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td width="18%" align="center"><img src="__PUBLIC__/Images/mianban_07.jpg" /></td>
+              <td align="justify">
+                <div style="width:100%;height:95px;">
+                   <h2 style="font-size:15px;border-bottom:1px dashed #ccc;">日程安排 >></h2>
+                      <p style="margin-top:5px;">已有日程安排数量:&nbsp;<b><if condition="$s_sum eq 0">0<else /><{$s_sum}></if></b>&nbsp;条</p>
+                      <p style="margin-top:5px;">系统提示:&nbsp;<b><if condition="$s_sum gt 100"><font color=red>提示.....您应该清理一下了</font><else /><font color=green>正常.....</font></if></b>&nbsp;</p>
+                   </ul>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td width="18%" align="center"><img src="__PUBLIC__/Images/mianban_11.jpg" /></td>
+              <td align="justify">
+                <div style="width:100%;height:95px;">
+                   <h2 style="font-size:15px;border-bottom:1px dashed #ccc;">工作日志 >></h2>
+                      <p style="margin-top:5px;">已写工作日志数量:&nbsp;<b><if condition="$j_sum eq 0">0<else /><{$j_sum}></if></b>&nbsp;条</p>
+                      <p style="margin-top:5px;">领导审批过工作日志数量:&nbsp;<b><if condition="$j_review_sum eq 0">0<else /><{$j_review_sum}></if></b>&nbsp;条</p>
+                      <p style="margin-top:5px;">系统提示:&nbsp;<b><if condition="$j_sum gt 100"><font color=red>提示.....您应该清理一下了</font><else /><font color=green>正常.....</font></if></b>&nbsp;</p>
+                   </ul>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td width="18%" align="center"><img src="__PUBLIC__/Images/mianban_04.jpg" /></td>
+              <td align="justify">
+                <div style="width:100%;height:95px;">
+                   <h2 style="font-size:15px;border-bottom:1px dashed #ccc;">个人文件柜 >></h2>
+                      <p style="margin-top:5px;">已存文件数量:&nbsp;<b><if condition="$f_sum eq 0">0<else /><{$f_sum}></if></b>&nbsp;条</p>
+                      <p style="margin-top:5px;">剩余空间大小:&nbsp;<b><{$f_free}></b>&nbsp;KB</p>
+
+                      <p style="margin-top:5px;">系统提示:&nbsp;<b><if condition="$f_sum gt 100"><font color=red>提示.....您应该清理一下了</font><else /><font color=green>正常.....</font></if></b>&nbsp;</p>
+                   </ul>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td width="18%" align="center"><img src="__PUBLIC__/Images/mianban_14.jpg" /></td>
+              <td align="justify">
+                <div style="width:100%;height:95px;">
+                   <h2 style="font-size:15px;border-bottom:1px dashed #ccc;">客户信息 >></h2>
+                      <p style="margin-top:5px;">已有客户数量:&nbsp;<b><if condition="$c_sum eq 0">0<else /><{$c_sum}></if></b>&nbsp;个</p>
+                      <p style="margin-top:5px;">系统提示:&nbsp;<b><if condition="$c_sum gt 100"><font color=red>您的客户已超过100人..请您注意整理客户信息...</font><else /><font color=green>正常.....</font></if></b>&nbsp;</p>
+                   </ul>
+                </div>
+              </td>
+            </tr>
+         </table>
+     </div>
+<include file="Public:panel_footer" /> <!--公共尾部样式-->

@@ -1,0 +1,167 @@
+<include file="Public:customer_header" title="客户恢复"/>
+<script language="javascript" type="text/javascript"
+        src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+<!-- jQuery -->
+<script src="__PUBLIC__/pager/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jq.css">
+<link href="__PUBLIC__/pager/prettify.css" rel="stylesheet">
+<script src="__PUBLIC__/pager/prettify.js"></script>
+<script src="__PUBLIC__/pager/docs.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/theme.blue.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.js"></script>
+<script src="__PUBLIC__/pager/jquery.tablesorter.widgets.js"></script>
+<link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<style>
+
+	.form-control {
+		height: 24px;
+	}
+</style>
+<!-->
+<link rel="stylesheet" href="__PUBLIC__/pager/jquery.tablesorter.pager.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.pager.js"></script>
+<script language="javascript">
+    function confirmdel() {
+        if (confirm("确定要删除该客户？若误删除请联系管理员"))
+            return true;
+        else
+            return false;
+    }
+    $(function () {
+        $.tablesorter.themes.bootstrap = {
+            // these classes are added to the table. To see other table classes available,
+            // look here: http://getbootstrap.com/css/#tables
+            table: 'table table-bordered table-striped',
+            caption: 'caption',
+            // header class names
+            header: 'bootstrap-header', // give the header a gradient background (theme.bootstrap_2.css)
+            sortNone: '',
+            sortAsc: '',
+            sortDesc: '',
+            active: '', // applied when column is sorted
+            hover: '', // custom css required - a defined bootstrap style may not override other classes
+            // icon class names
+            icons: '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+            iconSortNone: 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted
+            iconSortAsc: 'glyphicon glyphicon-chevron-up', // class name added to icon when column has ascending sort
+            iconSortDesc: 'glyphicon glyphicon-chevron-down', // class name added to icon when column has descending sort
+            filterRow: '', // filter row class; use widgetOptions.filter_cssFilter for the input/select element
+            footerRow: '',
+            footerCells: '',
+            even: '', // even row zebra striping
+            odd: ''  // odd row zebra striping
+        };
+        $("#xptable").tablesorter({
+            theme: "bootstrap",
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: ["even", "odd"],
+                filter_reset: ".reset",
+                filter_cssFilter: "form-control",
+            }
+        }).tablesorterPager({
+            container: $(".ts-pager1"),
+            cssGoto: ".pagenum",
+            removeRows: false,
+            output: '{page} / {totalPages}'
+        });
+        $("#xetable").tablesorter({
+            theme: "bootstrap",
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: ["even", "odd"],
+                filter_reset: ".reset",
+                filter_cssFilter: "form-control",
+            }
+        }).tablesorterPager({
+            container: $(".ts-pager2"),
+            cssGoto: ".pagenum",
+            removeRows: false,
+            output: '{page} / {totalPages}'
+        });
+    });
+</script>
+<div class="module_public_main">
+    <table id="xptable">
+        <thead>
+        <tr>
+            <td align="center">客户编号</td>
+            <td align="center">操作员姓名</td>
+            <td align="center">删除该客户操作员姓名</td>
+            <td align="center">客户姓名</td>
+            <td align="center">身份证号</td>
+            <td align="center">客户类型</td>
+            <td align="center">操作</td>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th colspan="5" class="ts-pager1 form-horizontal">
+                <button type="button" class="btn first">第一页</button>
+                <button type="button" class="btn prev">上一页</button>
+                <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+                <button type="button" class="btn next">下一页</button>
+                <button type="button" class="btn last">最后一页</button>
+                <select class="pagesize input-mini" title="Select page size">
+                    <option selected="selected" value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                </select>
+                <select class="pagenum input-mini" title="Select page number"></select>
+            </th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <volist name="data" id="v" key="k">
+            <tr>
+                <td align="center"><{$v.c_id|str_pad=4,"0",STR_PAD_LEFT}></td>
+                <td align="center"><{$v.u_id}></td>
+                <td align="center"><{$v.del_u_id}></td>
+                <td align="center"><{$v.xm}></td>
+                <td align="center"><{$v.sfzh}></td>
+                <if condition="$v.type eq 'xp'">
+                    <td align="center">小贷个人</td>
+                    <elseif condition="$v.type eq 'xe'"/>
+                    <td align="center">小贷企业</td>
+                    <elseif condition="$v.type eq 'cd'"/>
+                    <td align="center">车贷客户</td>
+                    <elseif condition="$v.type eq 'dp'"/>
+                    <td align="center">担保个人</td>
+                    <elseif condition="$v.type eq 'de'"/>
+                    <td align="center">担保企业</td>
+                </if>
+
+
+                <td align="center">
+                        <a href="__APP__/Yeji/do_rec_customer/id/<{$v.c_id}>/type/<{$v.type}>" onclick="return confirmrec()">恢复</a> |
+                        <a href="__APP__/Yeji/do_phy_del/id/<{$v.c_id}>/type/<{$v.type}>" onclick="return confirmdel()">彻底删除</a>
+                </td>
+            </tr>
+        </volist>
+
+        </tbody>
+    </table>
+</div>
+<script>
+    function confirmrec(){
+        if (confirm("确定要恢复该客户？"))
+            return true;
+        else
+            return false;
+    }
+
+    function confirmdel(){
+        if (confirm('确定要彻底删除该用户？'))
+            return true;
+        else
+            return false;
+    }
+</script>
+<include file="Public:customer_footer"/>

@@ -1,0 +1,9 @@
+$(function(){
+   //全选/全不选
+   $("#all_check").click(function(){
+	  $(".check_is").attr("checked",true);
+   });
+   $("#no_check").click(function(){
+	  $(".check_is").attr("checked",false);
+   });
+});

@@ -1,0 +1,34 @@
+<include file="Public:email_header" title="外部发送邮件详细查看" /> <!--公共头部样式-->
+   <div class="module_public_main">
+     <table>
+       <tr>
+         <td width="12%" align="right">邮件标题:</td>
+         <td><{$e_info.o_title}></td>
+       </tr>
+       <tr>
+         <td width="12%" align="right">发送源地址:</td>
+         <td><{$e_info.o_source}></td>
+       </tr>
+       <tr>
+         <td width="12%" align="right">发送目的地址:</td>
+         <td><{$e_info.o_purpose}></td>
+       </tr>
+       <tr>
+         <td width="12%" align="right">发送时间:</td>
+         <td><{$e_info.o_addtime|date="Y-m-d H:m",###}></td>
+       </tr>
+       <tr>
+         <td width="12%" align="right">邮件内容:</td>
+         <td><{$e_info.o_content}></td>
+       </tr>
+       <tr>
+         <td width="12%" align="right">发送状态:</td>
+         <if condition="$e_info.o_status eq '1'">
+         <td><font color=green>成功</font></td>
+  		 <else />
+         <td><font color=red>失败</font></td>
+         </if>
+       </tr>
+     </table>
+   </div>
+<include file="Public:footer" /> <!--公共尾部样式-->

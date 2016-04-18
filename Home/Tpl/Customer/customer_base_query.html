@@ -1,0 +1,81 @@
+<!DOCTYPE>
+<html>
+<head>
+    <load file="__PUBLIC__/Css/layout.css" />
+    <load file="__PUBLIC__/Css/module_public.css" />
+    <load file="__PUBLIC__/Js/jquery.js" />
+    <load file="__PUBLIC__/Js/message.js" />
+</head>
+<body>
+<div class="module_public">
+    <div class="module_public_content">
+        <h1> >> 小额贷款客户基础资料查询结果 <a href="__ROOT__/index.php/Customer/customer_baseinfo">【返回】</a></h1>
+
+    </div>
+<div class="module_public_main">
+    <table id="data">
+        <if condition="$customertype eq p">
+            <tr>
+                <td align="center">客户编号</td>
+                <td align="center">客户姓名</td>
+                <td align="center">客户身份证号</td>
+                <td align="center">客户联系方式</td>
+                <td align="center">操作</td>
+            </tr>
+            <volist name="c_info" id="v" key="k">
+                <tr class="tr_info">
+                    <td align="center"><{$v.id|str_pad=4,"0",STR_PAD_LEFT}></td>
+                    <td align="center"><{$v.x_p_name}></td>
+                    <td align="center"><{$v.x_p_idcard}></td>
+                    <td align="center"><{$v.x_p_lxfs}></td>
+                    <td align="center">
+                        <a href="__URL__/customer_x_p_update/id/<{$v.id}>">查看/更新客户资料</a> |
+                        <a href="__URL__/del_customer/id/1<{$v.id}>" onclick="return confirmdel()">删除客户</a>
+                    </td>
+                </tr>
+            </volist>
+        </if>
+        <if condition="$customertype eq e">
+            <tr>
+                <td align="center">客户编号</td>
+                <td align="center">企业名称</td>
+                <td align="center">营业执照号</td>
+                <td align="center">法人姓名</td>
+                <td align="center">法人身份证号</td>
+                <td align="center">法人联系方式</td>
+                <td align="center">操作</td>
+            </tr>
+            <volist name="c_info" id="m" key="n">
+                <tr class="tr_info">
+                    <td align="center"><{$m.id|str_pad=5,"0",STR_PAD_LEFT}></td>
+                    <td align="center"><{$m.x_e_name}></td>
+                    <td align="center"><{$m.x_e_yyzzh}></td>
+                    <td align="center"><{$m.x_e_frxm}></td>
+                    <td align="center"><{$m.x_e_frsfzh}></td>
+                    <td align="center"><{$m.x_e_frlxfs}></td>
+                    <td align="center">
+                        <a href="__URL__/customer_x_e_update/id/<{$m.id}>">查看/更新客户资料</a> |
+                        <a href="__URL__/del_customer/id/2<{$m.id}>" onclick="return confirmdel()">删除客户</a>
+                    </td>
+                </tr>
+            </volist>
+        </if>
+        <!--<tr>-->
+            <!--<td colspan="8" align="right" id="data2" style="padding:10px 0;"><{$fpage}></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td align="right" colspan="8"><input type="button" onclick="history.go(-1);" value="返回客户列表" class="_button"-->
+                                                 <!--style="width:150px;"/></td>-->
+        <!--</tr>-->
+    </table>
+
+</div>
+<script>
+    function confirmdel() {
+        if (confirm("确定要删除该客户？若误删除请联系管理员"))
+            return true;
+        else
+            return false;
+    }
+</script>
+<include file="Public:customer_footer"/>

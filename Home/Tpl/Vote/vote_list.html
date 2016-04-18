@@ -1,0 +1,41 @@
+<include file="Public:vote_header" title="调查列表" />
+     <div class="module_public_main">
+        <table>
+           <tr>
+             <td width="8%" align="center">编号</td>
+             <td align="center">调查标题</td>
+             <td align="center">开始时间</td>
+             <td align="center">结束时间</td>
+             <td align="center">选项类型</td>
+             <td align="center">是否过期</td>
+             <td align="center">是否启用</td>
+             <td align="center">操作</td>
+           </tr>
+           <volist name="v_info" id="v" key="k">
+            <tr>
+             <td width="8%" align="center"><{$k}></td>
+             <td align="center"><{$v.v_title}></td>
+             <td align="center"><{$v.v_starttime|date="Y-m-d",###}></td>
+             <td align="center"><{$v.v_endtime|date="Y-m-d",###}></td>
+             <if condition="$v.v_type eq '1'">
+             <td align="center"><font color=green>单选</font></td>
+             <else />
+             <td align="center"><font color=green>多选</font></td>
+             </if>
+             <td align="center"><{$v.v_time}></td>
+             <if condition="$v.v_display eq '1'">
+	         <td align="center"><font color=green>已启用</font></td>
+             <else />
+             <td align="center"><font color=red>未启用</font></td>
+             </if>
+             <td align="center">
+                <a href="__URL__/edit_vote/v_id/<{$v.v_id}>">编辑</a> | 
+                <a href="__URL__/item_list/v_id/<{$v.v_id}>/v_title/<{$v.v_title}>">选项管理</a> | 
+                <a href="__URL__/user_list/v_id/<{$v.v_id}>">用户投票信息</a> |
+                <a href="__URL__/del_vote/v_id/<{$v.v_id}>">删除</a> 
+             </td>
+           </tr>
+           </volist>
+        </table>
+     </div>
+<include file="Public:vote_footer" />

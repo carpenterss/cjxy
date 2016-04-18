@@ -1,0 +1,22 @@
+<include file="Public:addressBook_header" title="公司内部快速电话查询本" />
+ <div class="module_public_main">
+   <table>
+     <tr>
+	   <td align="center" width="8%">编号</td>
+	   <td align="center">姓名</td>
+	   <td align="center">职位</td>
+	   <td align="center">部门</td>
+	   <td align="center">电话</td>
+	 </tr>
+	 <volist name="q_info" id="v" key="k">
+	 <tr>
+	   <td align="center" width="8%"><{$k}></td>
+	   <td align="center"><{$v.q_name}></td>
+	   <td align="center"><{$v.q_position}></td>
+	   <td align="center"><{$v.q_department}></td>
+	   <td align="center"><{$v.q_phone}></td>
+	 </tr>
+	 </volist>
+   </table>
+  </div>
+<include file="Public:addressBook_footer" />

@@ -1,0 +1,41 @@
+<include file="Public:vote_header" title="编辑调查" />
+     <div class="module_public_main">
+       <table>
+       <form action="__URL__/do_editVote" method="post">
+       <input type="hidden" name="v_id" value="<{$v_info.v_id}>" />
+         <tr>
+           <td width="12%" align="right">调查标题:</td>
+           <td><input type="text" name="v_title" class="_input" value="<{$v_info.v_title}>"/></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">所属类型:</td>
+           <if condition="$v_info.v_type eq '1'">
+           <td><input type="radio" name="v_type" value="1" checked=""/>单选&nbsp;&nbsp;<input type="radio" name="v_type" value="2"/>多选</td>
+           <else />
+           <td><input type="radio" name="v_type" value="1"/>单选&nbsp;&nbsp;<input type="radio" name="v_type" value="2" checked=""/>多选</td>
+           </if>
+         </tr>
+         <tr>
+           <td width="12%" align="right">开始时间:</td>
+           <td><input type="text" name="v_starttime" class="_input" onClick="WdatePicker()" value="<{$v_info.v_starttime|date='Y-m-d',###}>"/></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">结束时间:</td>
+           <td><input type="text" name="v_endtime" class="_input" onClick="WdatePicker()" value="<{$v_info.v_endtime|date='Y-m-d',###}>"/></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">是否启用:</td>
+           <if condition="$v_info.v_display eq '1'">
+           <td><input type="radio" name="v_display" value="1" checked=""/><font color=green>是</font>&nbsp;&nbsp;<input type="radio" name="v_display" value="0"/><font color=red>否</font></td>
+           <else />
+           <td><input type="radio" name="v_display" value="1"/><font color=green>是</font>&nbsp;&nbsp;<input type="radio" name="v_display" value="0"  checked=""/><font color=red>否</font></td>
+           </if>
+         </tr>
+         <tr>
+           <td>&nbsp;</td>
+           <td><input type="submit" value="更新信息" class="_button"/></td>
+         </tr>
+         </form>
+       </table>
+     </div>
+<include file="Public:vote_footer" />

@@ -1,0 +1,16 @@
+CREATE TABLE `oa_addressbook` (
+  `a_id` int(11) NOT NULL auto_increment,
+  `a_uid` int(11) NOT NULL,
+  `a_name` varchar(30) collate utf8_bin NOT NULL,
+  `a_pname` varchar(30) collate utf8_bin NOT NULL,
+  `a_company` varchar(30) collate utf8_bin NOT NULL,
+  `a_phone` varchar(20) collate utf8_bin NOT NULL,
+  `a_telephone` varchar(30) collate utf8_bin NOT NULL,
+  `a_fax` varchar(20) collate utf8_bin NOT NULL,
+  `a_address` varchar(50) collate utf8_bin NOT NULL,
+  `a_qq` varchar(20) collate utf8_bin NOT NULL,
+  `a_email` varchar(30) collate utf8_bin NOT NULL,
+  `a_note` varchar(200) collate utf8_bin NOT NULL,
+  PRIMARY KEY  (`a_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;insert into oa_addressbook(a_id,a_uid,a_name,a_pname,a_company,a_phone,a_telephone,a_fax,a_address,a_qq,a_email,a_note) value('1','1','张三','zhangsan','陕西松茂','13909385555','0938-2622564','0938-2622589','陕西北大街22号','123456789','zhangsan@123.com','张三备注');insert into oa_addressbook(a_id,a_uid,a_name,a_pname,a_company,a_phone,a_telephone,a_fax,a_address,a_qq,a_email,a_note) value('2','1','李四','lisi','上海嘉挚科技有限公司','13909387777','0938-2618888','0938-2618888','高新区唐延路88号','987654321','lisi@123.com','李四备注');
+

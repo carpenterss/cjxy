@@ -1,0 +1,33 @@
+<include file="Public:employeesInfo_header" title="任务管理"/>
+	<div class="module_public_main">
+  		<table>
+         <tr>
+          <td align="center">编号</td>
+          <td align="center">下达时间</td>
+          <td align="center">下达员工</td>
+          <td align="center">任务状态</td>
+          <td align="center">操作</td>
+         </tr>
+         <volist name="t_info" id="v" key="k">
+         <tr>
+          <td align="center"><{$k}></td>
+          <td align="center"><{$v.t_addtime|date="Y年m月d日 H点m分",###}></td>
+          <td align="center"><{$v.u_name}></td>
+          <if condition="$v.t_isOK eq 0">
+          <td align="center"><font color=red>未完成</font></td>
+          <else />
+          <td align="center"><font color=green>已完成</font></td>
+          </if>
+          <td align="center">
+            <a href="#" title="<{$v.t_content}>" class="look_tasks">查看任务详细</a> |
+            <a href="__URL__/tasks_isOK/t_id/<{$v.t_id}>">更新任务状态</a> |
+            <a href="__URL__/del_tasks/t_id/<{$v.t_id}>">删除任务记录</a> 
+          </td>
+         </tr>
+         </volist>
+         <tr>
+           <td colspan="5" align="right"><{$fpage}></td>
+         </tr>
+        </table>
+    </div>
+<include file="Public:employeesInfo_footer" />

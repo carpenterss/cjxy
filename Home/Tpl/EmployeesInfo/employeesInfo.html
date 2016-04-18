@@ -1,0 +1,50 @@
+<include file="Public:employeesInfo_header" title="管理员工"/>
+   <div class="module_public_main">
+      <table>
+      <form action="__URL__/employeesInfo/action/search_name" method="post">
+        <tr>
+          <td align="center">搜索员工:</td>
+          <td colspan="6"><input type="text" name="u_name" class="_input" value="请输入要查询的员工姓名" style="color:#999;padding-left:5px;" id="search_name"/>&nbsp;<input type="submit" class="_button" value="查找" /></td>
+        </tr>
+        </form>
+        <tr>
+          <td align="center">编号</td>
+          <td align="center">员工姓名</td>
+          <td align="center">性别</td>
+          <td align="center">年龄</td>
+          <td align="center">所属部门</td>
+          <td align="center">职位名称</td>
+          <td align="center">操作</td>
+        </tr>
+        <volist name="e_info" id="v" key="k">
+        <tr>
+          <td align="center"><{$k}></td>
+          <td align="center"><{$v.u_name}></td>
+          <if condition="$v.u_sex eq '1'">
+          <td align="center">男</td>
+          <else />
+          <td align="center">女</td>
+          </if>
+          <td align="center"><{$v.u_age}></td>
+          <td align="center"><{$v.d_name}></td>
+          <td align="center"><{$v.p_name}></td>
+          <td align="center">
+            <if condition="$v.u_resume_url eq ''">
+            <a href="#"><font color=red>本员工未上传简历</font></a> |   
+            <else />
+            <a href="__PUBLIC__/Resume/<{$v.u_resume_url}>">查看员工个人简历</a> |   
+            </if>         
+            <if condition="$v.u_enable eq '1'">
+            <a href="__URL__/employees_status/action/no/u_id/<{$v.u_id}>"><font color=red>禁止员工登入OA</font></a>
+            <else />
+            <a href="__URL__/employees_status/action/yes/u_id/<{$v.u_id}>"><font color=green>允许员工登入OA</font></a>
+            </if>
+          </td> 
+        </tr>
+        </volist>
+        <tr>
+          <td colspan="7" align="right"><{$fpage}></td>
+        </tr>
+      </table> 
+   </div>
+<include file="Public:employeesInfo_footer" />

@@ -1,0 +1,44 @@
+<include file="Public:system_header" title="修改用户信息"/>
+     <div class="module_public_main">
+		<table>
+        <form action="__URL__/do_editUser" method="post">
+        <input type="hidden" name="u_id" value="<{$e_info.u_id}>" />
+          <tr>
+            <td width="12%" align="right">用户账号:</td>
+            <td><input type="text" name="u_username" class="_input" value="<{$e_info.u_username}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">用户姓名:</td>
+            <td><input type="text" name="u_name" class="_input" value="<{$e_info.u_name}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">用户手机:</td>
+            <td><input type="text" name="u_phone" class="_input" value="<{$e_info.u_phone}>"/></td>
+          </tr>
+            <td width="12%" align="right">性别:</td>
+            <if condition="$e_info.u_sex eq '1'">
+            <td><input type="radio" name="u_sex" value="1" checked=""/><font color=green>男</font>&nbsp;&nbsp;<input type="radio" name="u_sex" value="2"/><font color=red>女</font></td>
+            <else />
+            <td><input type="radio" name="u_sex" value="1"/><font color=green>男</font>&nbsp;&nbsp;<input type="radio" name="u_sex" value="2"  checked=""/><font color=red>女</font></td>
+            </if>
+          </tr>
+          <tr>
+            <td width="12%" align="right">年龄:</td>
+            <td><input type="text" name="u_age" class="_input" style="width:50px;" value="<{$e_info.u_age}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">是否启用账号:</td>
+            <if condition="$e_info.u_enable eq '1'">
+            <td><input type="radio" name="u_enable" value="1" checked=""/><font color=green>是</font>&nbsp;&nbsp;<input type="radio" name="u_enable" value="2"/><font color=red>否</font></td>
+            <else />
+            <td><input type="radio" name="u_enable" value="1"/><font color=green>是</font>&nbsp;&nbsp;<input type="radio" name="u_enable" value="2"  checked=""/><font color=red>否</font></td>
+            </if>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="更新信息" class="_button" /></td>
+          </tr>
+          </form>
+        </table>
+     </div>
+<include file="Public:system_footer" />

@@ -1,0 +1,40 @@
+<include file="Public:notice_header" title="已发布公告管理"/>
+<div class="module_public_main">
+    <table>
+        <form action="__URL__/batch_del_notice" method="post" onsubmit="return CheckComfirm()">
+            <tr>
+                <td align="center">编号</td>
+                <td align="center">公告标题</td>
+                <td align="center">发布时间</td>
+                <td align="center">操作</td>
+                <td align="center"><a href="#" id="all_check">全选/<a href="#" id="no_check">全不选</a></td>
+            </tr>
+            <volist name="n_info" id="v" key="k">
+                <tr>
+                    <td align="center"><{$k}></td>
+                    <td align="left"><{$v.n_title|substr=0,20}>...</td>
+                    <td align="center"><{$v.n_addtime|date="Y-m-d H:m",###}></td>
+                    <td align="center">
+                        <a href="__URL__/edit_notice/n_id/<{$v.n_id}>">修改公告</a>
+                    </td>
+                    <td align="center"><input type="checkbox" class="check_is" value="<{$v.n_id}>" name="check_is[]"/>
+                    </td>
+                </tr>
+            </volist>
+            <tr>
+                <td colspan="4" style="text-align:right"><{$fpage}></td>
+                <td align="center"><input type="submit" value="删除选中项" class="_button"/></td>
+            </tr>
+        </form>
+    </table>
+</div>
+
+<script language="javascript">
+    function CheckComfirm() {
+        if (window.confirm("确认删除该信息？")) {
+            return true;
+        }
+        return false;
+    }
+</script>
+<include file="Public:notice_footer"/>

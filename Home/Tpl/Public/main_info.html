@@ -1,0 +1,41 @@
+<html>
+<head>
+<load file="__PUBLIC__/Css/layout.css" />
+<load file="__PUBLIC__/Js/jquery.js" /> 
+</head>
+<body>
+<div class="OA_welcom_content">
+        <!--<div class="OA_photo" id="img_head">-->
+            <!--<a><img src="__PUBLIC__/Images/OA_main5.jpg" /></a>-->
+        <!--</div>-->
+        <ul class="OA_UserInfo">
+           <li><img src="__PUBLIC__/Images/OA_main6.jpg" />&nbsp;欢迎使用本系统&nbsp;</li>
+           <li>操作员:<font color=green><{$user_info[0]['u_name']}></font></li>
+           <!--<li>最后登录时间:&nbsp;<font color=green><{$user_info[0]['u_lasttime']|date="Y-m-d H:m",###}></font></li>-->
+        </ul>
+        <!--<div class="OA_message"><a href="__APP__/Message/message" target="main">短消息</a><if condition="$m_sum eq 0"><else /><span><b style="position:relative;left:-56px;left:-54px\9;color:#ffffff;"><{$m_sum}></if></b></span></div>
+        <div class="OA_log"><a href="__APP__/JobLog/jobLog"  target="main">工作日志</a><if condition="$j_sum eq 0"><else /><span><b style="position:relative;left:-56px;left:-54px\9;color:#ffffff;"><{$j_sum}></if></b></span></div>
+        <div class="OA_day"><a href="__APP__/EmployeesInfo/look_tasks" target="main">任务安排</a><if condition="$t_sum eq 0"><else /><span><b style="position:relative;left:-56px;left:-54px\9;color:#ffffff;"><{$t_sum}></if></b></span></div>-->
+        <div class="OA_message"><a href="__APP__/Message/message" target="main">短消息</a><span><b style="position:relative;left:-56px;left:-54px\9;color:#ffffff;" id="duanxinxi"><{$m_sum}></b></span></div>
+        <if condition="$son_1[2] eq '1'">
+        <div class="OA_log"><a href="__APP__/JobLog/jobLog"  target="main">审核状态</a><span><b style="position:relative;left:-56px;left:-54px\9;color:#ffffff;" id="gongzuorizhi"><{$j_sum}></b></span></div>
+        </if>
+        <!--<div class="OA_day"><a href="__APP__/EmployeesInfo/look_tasks" target="main">任务安排</a><span><b style="position:relative;left:-56px;left:-54px\9;color:#ffffff;" id="renwu"><{$t_sum}></b></span></div>-->
+        <!--<a href="__APP__/ClockIn/caogaozhi" target="main"><div class="OA_attendance"></div></a>-->
+        <!--<a href="__APP__/AddressBook/phone_book" target="main"><div class="OA_telBook"></div></a>-->
+</div>
+</body>
+<script type="text/javascript">
+      
+	  setInterval(function(){
+          $.get("__URL__/update_mainInfo",{
+              
+          },function(data){
+             var data_arr = data.split("|");
+             $("#duanxinxi").html(data_arr[0]);
+             $("#gongzuorizhi").html(data_arr[1]);
+             $("#renwu").html(data_arr[2]);
+          });
+      },5000);
+</script>
+</html>

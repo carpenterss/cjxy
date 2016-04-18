@@ -1,0 +1,29 @@
+<include file="Public:message_header" title="单独发送短信页面" />
+  <div class="module_public_main">
+      <table>
+       <form action="__URL__/doMessage" method="post">
+         <tr>
+           <td width="12%" align="right">请选择发送人:</td>
+           <td>
+             <select name="m_re">
+                <option>--请选择接收人--</option>
+                <volist name="e_info" id="v">
+                   <option value="<{$v.u_id}>|<{$v.u_name}>"><{$v.u_name}></option>
+                </volist>
+             </select>
+           </td>
+         </tr>
+         <tr>
+           <td align="right">短信息内容:</td>
+           <td>
+             <textarea cols="70" rows="7" name="m_content" class="_input2"></textarea>
+           </td>
+         </tr>
+         <tr>
+           <td>&nbsp;</td>
+           <td><input type="submit" value="发送信息" class="_button"/></td>
+         </tr>
+         </form>
+      </table>
+  </div>
+<include file="Public:message_footer" />

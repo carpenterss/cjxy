@@ -1,0 +1,46 @@
+<include file="Public:vote_header" title="调查选项列表" />
+     <div class="module_public_main">
+        <table>
+        <form action="__URL__/do_orderItem" method="post">
+        <input type="hidden" name="v_id" value="<{$v_id}>" />
+          <tr>
+            <td colspan="4">&nbsp;&nbsp;调查标题&nbsp;:&nbsp;<{$v_title}></td>
+          </tr>
+          <tr>
+            <td width="8%" align="center">编号</td>
+            <td align="center">选项标题</td>
+            <td align="center">顺序</td>
+          </tr>
+          <volist name="i_info" id="v" key="k">
+          <tr>
+            <td width="8%" align="center"><{$k}></td>
+            <td align="center"><{$v.i_title}></td>
+            <td align="center" title="111"><input type="text" name="i_order" class="_input _order" value="<{$v.i_order}>" title="<{$v.i_id}>"/></td>
+
+          </tr>
+          </volist>
+        </table>
+     </div>
+     <script type="text/javascript">
+	    $("._order").blur(function(){
+			var I_id = $(this).attr("title");
+			var v = $(this).val();
+			
+			if(isNaN(v)){
+			   alert("对不起,这里需要填写一个数字以便进行排序");
+			   location.reload();	 
+			} 
+			
+			$.get("__URL__/do_orderItem",{
+				 i_id : I_id,
+				 i_order : v
+			},function(data){
+				 if(data==1){
+					alert("顺序设置成功"); 
+				 }else{
+					alert("对不起,顺序设置失败");  
+				 }
+			});
+		});
+	 </script>
+<include file="Public:vote_footer" />

@@ -1,0 +1,26 @@
+<include file="Public:meeting_header" title="会议管理"/>
+     <div class="module_public_main"> 
+        <table>
+          <tr>
+            <td align="center" width="15%">会议主办人</td>
+            <td align="center">会议主题</td>
+            <td align="center">会议开始时间</td>
+            <td align="center">会议室名</td>
+            <td align="center">操作</td>
+          </tr>
+          <volist name="m_info" id="v">
+          <tr>
+            <td align="center"><{$v.m_name}></td>
+            <td align="center"><{$v.m_title}></td>
+            <td align="center"><{$v.m_starttime|date="Y-m-d H:m",###}></td>
+            <td align="center"><{$v.r_name}></td>
+            <td align="center">
+              <a href="__URL__/look_Employees/m_id/<{$v.m_id}>">查看会议已通知人员</a> |
+              <a href="__URL__/edit_meeting/m_id/<{$v.m_id}>">修改会议信息</a> |
+              <a href="__URL__/del_meeting/m_id/<{$v.m_id}>">取消会议</a>
+            </td>
+          </tr>
+          </volist>
+        </table> 
+     </div>
+<include file="Public:meeting_footer" />

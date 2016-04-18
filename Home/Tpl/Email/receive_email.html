@@ -1,0 +1,55 @@
+<include file="Public:email_header" title="接收内部邮件"/> <!--公共头部样式-->
+     <div class="module_public_main">
+       <table>
+       <form action="__URL__/batch_out_del" method="post">
+         <tr>
+           <td colspan="8">您有<font color=red>&nbsp;<{$num}>&nbsp;</font>封邮件没有接收&nbsp;->&nbsp;<a href="__URL__/receive_email/action/look">点击进行接收</a></td>
+         </tr>
+         <tr>
+           <td colspan="8">已接收邮件列表 ↓</td>
+         </tr>
+         <tr style="background:#F0F0F0;">
+           <td align="center">编号</td>
+           <td align="center">邮件标题</td>
+           <td align="center">接收时间</td>
+           <td align="center">发送人</td>
+           <td align="center">携带附件</td>
+           <td align="center">是否查看</td>
+           <td align="center">操作</td>
+           <td align="center">全选/全部选</td>
+         </tr>
+         <volist name="e_info" id="v" key="k">
+         <tr>
+           <td align="center"><{$k}></td>
+           <td align="left"><{$v.em_title|substr=0,21}>...</td>
+           <td align="center"><{$v.em_addtime|date="y-m-d H:m",###}></td>
+           <td align="center"><{$v.em_name}></td>
+           <if condition="$v.em_filename eq ''">
+           <td align="center"><font color=red>无附件</font></td>
+           <else />
+           <td align="center"><{$v.em_filename}></td>
+           </if>
+           <if condition="$v.em_look_is eq '0'">
+           <td align="center"><font color=red>x</font></td>
+           <else />
+           <td align="center"><font color=green>√</font></td>
+           </if>
+           <td align="center">
+             <a href="__URL__/look_email/em_id/<{$v.em_id}>">查看邮件</a> |
+             <if condition="$v.em_fileUpload eq ''">
+             <a href="#">附件为空</a> |    
+             <else />
+             <a href="__PUBLIC__/Email_attachment/<{$v.em_fileUpload}>">下载附件</a> |   
+             </if>
+             <a href="__URL__/delete_out_email/em_id/<{$v.em_id}>">删除记录</a>
+           </td>
+           <td align="center"><input type="checkbox" class="check_is" value="<{$v.em_id}>" name="check_is[]"/></td>
+         </tr>  
+         </volist>
+         <tr>
+            <td colspan="7" align="right"><{$fpage}></td>
+            <td align="center"><input type="submit" value="删除选中项" class="_button"/></td>
+         </tr>
+       </table>
+     </div>
+<include file="Public:footer" /> <!--公共尾部样式-->

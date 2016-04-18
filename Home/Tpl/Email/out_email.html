@@ -1,0 +1,43 @@
+<include file="Public:email_header" title="外部发送邮件管理" /> <!--公共头部样式-->
+   <div class="module_public_main">
+      <table>
+       <form action="__URL__/batch_outEmail_del" method="post">
+           <tr>
+              <td colspan="8" align="center"><a href="__URL__/send_out_email">[发送外部邮件]</a></td>
+           </tr>
+           
+           <tr style="background:#F0F0F0;">
+              <td width="5%" align="center">编号</td>
+              <td align="center">邮件标题</td>
+              <td align="center">发送时间</td>
+              <td align="center">收件地址</td>
+              <td align="center">发送状态</td>
+              <td align="center">操作</td>
+              <td align="center"><a href="#" id="all_check">全选/<a href="#" id="no_check">全不选</a></td>
+           </tr>
+           <volist name="e_info" id="v" key="k">
+           <tr>
+              <td width="5%" align="center"><{$k}></td>
+              <td align="left" title="<{$v.o_title}>"><{$v.o_title|substr=0,20}>...</td>
+              <td align="center"><{$v.o_addtime|date="Y-m-d H:m",###}></td>
+              <td align="center"><{$v.o_purpose}></td>
+              <if condition="$v.o_status eq '1'">
+              <td align="center"><font color=green>发送成功</font></td>
+              <else />
+              <td align="center"><font color=red>发送失败</font></td>
+              </if>
+              <td align="center">
+                <a href="__URL__/look_outEmail/o_id/<{$v.o_id}>">查看详细</a> | 
+                <a href="__URL__/del_outEmail/o_id/<{$v.o_id}>">删除记录</a>
+              </td>
+              <td align="center"><input type="checkbox" class="check_is" value="<{$v.o_id}>" name="check_is[]"/></td>
+           </tr>
+           </volist>
+           <tr>
+              <td colspan="6" align="right"><{$fpage}></td>
+              <td align="center"><input type="submit" value="删除选中项" class="_button"/></td>
+           </tr>
+           </form>
+       </table>
+   </div>
+<include file="Public:footer" /> <!--公共尾部样式-->

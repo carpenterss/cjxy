@@ -1,0 +1,115 @@
+<include file="Public:message_header" title="短消息"/>
+<script type="text/javascript">
+    $(function () {
+        //查看短信息后将数据库的是否查看更新
+        $(".look_message").click(function () {
+            var content = $(this).attr("name");
+            var m_id = $(this).attr("title");
+
+            $.get("__URL__/doLook", {
+                m_id: m_id
+            }, function (data) {
+
+            });
+            alert(content);
+            location.reload();
+        });
+
+
+        //回复信息
+        $(".reply_message").click(function (e) {
+            //获取回复所需信息
+            var info = $(this).attr("title");
+            var reply_info = new Array();
+            reply_info = info.split("|");
+
+            //获取点击元素的坐标
+            var position = $(this).offset();
+            var x = position.left;
+            var y = position.top;
+
+            //动态创建回复框
+            var reply_box = $("<div style='width:400px;height:205px;border:1px solid #cccccc;background:#F0F0F0;position:absolute;top:" + y + "px;left:" + (x - 350) + "px;display:none;'><h1 style='font-size:16px;margin-left:5px;padding:5px;'>短信息回复 >><span style='float:right;margin-right:10px;cursor:pointer;' id='close_box'>[关闭]</span></h1><div style='width:380px;height:140px;background:#ffffff;margin:0px auto;'><textarea style='width:380px;height:140px;border:none;' name='reply_content'></textarea></div><input type='button' value='回复信息' class='_button' id='btn' style='margin-left:10px;margin-top:5px;'/></div>");
+            $("body").append(reply_box);
+            $(reply_box).slideDown(800);
+
+            //关闭按钮处理
+            $("#close_box").click(function () {
+                reply_box.remove();
+            });
+
+            //点击提交AJAX传递参数到程序处理页面
+            $("#btn").click(function () {
+                var content = $("textarea[name='reply_content']").val();
+                $.get("__URL__/reply_message", {
+                    m_content: content,
+                    m_sendname: reply_info[0],
+                    m_sendUid: reply_info[1],
+                    m_rename: reply_info[2],
+                    m_reUid: reply_info[3],
+                    m_id: reply_info[4]
+                }, function (data) {
+                    if (data == 1) {
+                        alert('回复成功！');
+                        location.reload();
+                    } else {
+                        alert('回复失败,请重新尝试');
+                    }
+                });
+            });
+        });
+    });
+
+    function CheckComfirm(){
+        if(window.confirm("确认删除该信息？")){
+            return true;
+        }
+        return false;
+    }
+</script>
+<div class="module_public_main">
+    <table>
+        <form action="__URL__/batch_message_del" method="post" onsubmit="return CheckComfirm()">
+            <tr style="background:#F0F0F0">
+                <td align="center">编号</td>
+                <td align="center">信息内容</td>
+                <td align="center">信息发送时间</td>
+                <td align="center">信息发送人</td>
+                <td align="center">是否查看</td>
+                <td align="center">是否回复</td>
+                <td align="center">操作</td>
+                <td align="center"><a href="#" id="all_check">全选/<a href="#" id="no_check">全不选</a></td>
+            </tr>
+            <volist name="m_info" id="v" key="k">
+                <tr>
+                    <td align="center"><{$k}></td>
+                    <td align="center"><a href="#" class="look_message" name="<{$v.m_content}>" title="<{$v.m_id}>">{查看短信息}</a>
+                    </td>
+                    <td align="center"><{$v.m_addtime|date="Y-m-d H:m",###}></td>
+                    <td align="center"><{$v.m_sendname}></td>
+                    <if condition="$v.m_looks_is eq '1'">
+                        <td align="center"><font color=green>√</font></td>
+                        <else/>
+                        <td align="center"><font color=red>x</font></td>
+                    </if>
+                    <if condition="$v.m_reply_is eq '1'">
+                        <td align="center"><font color=green>√</font></td>
+                        <else/>
+                        <td align="center"><font color=red>x</font></td>
+                    </if>
+                    <td align="center">
+                        <a href="#" class="reply_message"
+                           title="<{$v.m_sendname}>|<{$v.m_sendUid}>|<{$v.m_rename}>|<{$v.m_reUid}>|<{$v.m_id}>">回复信息</a>
+                    </td>
+                    <td align="center"><input type="checkbox" class="check_is" value="<{$v.m_id}>" name="check_is[]"/>
+                    </td>
+                </tr>
+            </volist>
+            <tr>
+                <td colspan="7" align="right"><{$fpage}></td>
+                <td align="center"><input id="del_btn" type="submit" value="删除选中项" class="_button"/></td>
+            </tr>
+        </form>
+    </table>
+</div>
+<include file="Public:message_footer"/>

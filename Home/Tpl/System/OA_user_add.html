@@ -1,0 +1,59 @@
+<include file="Public:system_header" title="OA用户管理"/>
+<div class="module_public_main">
+    <table>
+        <form action="__URL__/do_addUser" method="post">
+            <tr>
+                <td colspan="2" bgcolor="#F0F0F0"><a href="__URL__/OA_user_add">【创建用户】</a><a
+                        href="__URL__/OA_user_manage">【管理用户】</a></td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">用户账号:</td>
+                <td><input type="text" name="u_username" class="_input"/></td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">用户密码:</td>
+                <td><input type="password" name="u_password" class="_input"/></td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">确认密码:</td>
+                <td><input type="password" name="u_password2" class="_input"/></td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">用户姓名:</td>
+                <td><input type="text" name="u_name" class="_input"/></td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">用户手机:</td>
+                <td><input type="text" name="u_phone" class="_input"/></td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">用户类别:</td>
+                <td>
+                    <input type="radio" name="u_department" value="1" checked="checked"/><font color=green>管理层</font>&nbsp;
+                    <input type="radio" name="u_department" value="0"/><font color=green>操作员</font>&nbsp;&nbsp;&nbsp;<font color=red>管理层用户可查看所有客户信息，操作员只能查看该操作员客户信息</font>
+                </td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">性别:</td>
+                <td><input type="radio" name="u_sex" value="1"/><font color=green>男</font>&nbsp;&nbsp;<input
+                        type="radio" name="u_sex" value="2"/><font color=red>女</font></td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">年龄:</td>
+                <td><input type="text" name="u_age" class="_input" style="width:50px;"/></td>
+            </tr>
+            <tr>
+                <td width="12%" align="right">是否启用账号:</td>
+                <td><input type="radio" name="u_enable" value="1" checked=""/><font
+                        color=green>是</font>&nbsp;&nbsp;<input type="radio" name="u_enable" value="2"/><font
+                        color=red>否</font></td>
+            </tr>
+
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="创建用户" class="_button"/></td>
+            </tr>
+        </form>
+    </table>
+</div>
+<include file="Public:system_footer"/>

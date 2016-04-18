@@ -1,0 +1,279 @@
+<include file="Public:customer_header" title="车贷客户基础资料管理"/>
+<script language="javascript" type="text/javascript"
+        src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+<script src="__PUBLIC__/pager/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jq.css">
+<link href="__PUBLIC__/pager/prettify.css" rel="stylesheet">
+<script src="__PUBLIC__/pager/prettify.js"></script>
+<script src="__PUBLIC__/pager/docs.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/theme.blue.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.js"></script>
+<script src="__PUBLIC__/pager/jquery.tablesorter.widgets.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jquery.tablesorter.pager.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.pager.js"></script>
+<link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    table.tablesorter tbody tr.normal-row td {
+        background: #f4f5f6;
+        /*color: #ffffff;*/
+    }
+
+    table.tablesorter tbody tr.alt-row td {
+        background: #dfdfdf;
+        /*color: #ffffff;*/
+    }
+
+    .tablesorter-filter-row {
+        text-align: center;
+    }
+
+    .tablesorter-filter-row {
+        background-color: #f0f0f0;
+    }
+
+    .form-control {
+        height: 24px;
+    }
+</style>
+<script>
+    function confirmdel() {
+        if (confirm("确定要删除该客户？若误删除请联系管理员"))
+            return true;
+        else
+            return false;
+    }
+    function confirmdelyw() {
+        if (confirm("确定要删除该业务？"))
+            return true;
+        else
+            return false;
+    }
+    $(function () {
+        $.tablesorter.themes.bootstrap = {
+            // these classes are added to the table. To see other table classes available,
+            // look here: http://getbootstrap.com/css/#tables
+            table: 'table table-bordered table-striped',
+            caption: 'caption',
+            // header class names
+            header: 'bootstrap-header', // give the header a gradient background (theme.bootstrap_2.css)
+            sortNone: '',
+            sortAsc: '',
+            sortDesc: '',
+            active: '', // applied when column is sorted
+            hover: '', // custom css required - a defined bootstrap style may not override other classes
+            // icon class names
+            icons: '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+            iconSortNone: 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted
+            iconSortAsc: 'glyphicon glyphicon-chevron-up', // class name added to icon when column has ascending sort
+            iconSortDesc: 'glyphicon glyphicon-chevron-down', // class name added to icon when column has descending sort
+            filterRow: '', // filter row class; use widgetOptions.filter_cssFilter for the input/select element
+            footerRow: '',
+            footerCells: '',
+            even: '', // even row zebra striping
+            odd: ''  // odd row zebra striping
+        };
+        $("#cdtable").tablesorter({
+            theme: "bootstrap",
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: ["normal-row", "alt-row"],
+                filter_reset: ".reset",
+                filter_cssFilter: "form-control",
+            },
+            initialized: function (cdtable) {
+                var opts = $.tablesorter.filter.getOptionSource(cdtable, 1);
+                $('.search').on('change', function () {
+                            var filters = [];
+                            filters[1] = $(this).find(':selected').map(function () {
+                                if (this.value === '已成交业务') {
+                                    this.value = '!暂无业务';
+                                } else if (this.value === '未成交业务') {
+                                    this.value = '暂无业务';
+                                } else if (this.value === '显示全部') {
+                                    this.value = '';
+                                }
+                                return this.value;
+                            }).get().join('|');
+                            $.tablesorter.setFilters(cdtable, filters, true);
+                        });
+            }
+        })
+
+                .tablesorterPager({
+                    container: $(".ts-pager"),
+                    cssGoto: ".pagenum",
+                    removeRows: false,
+                    output: '{page} / {totalPages}'
+                });
+    });
+</script>
+<div class="module_public_main">
+    <div style="width: 100%; height: 36px; background-color:#337ab7; margin: 10px 0; padding: 0 0 0 10px; color:#fff; line-height:36px;">
+        <span style="font-size:14px;font-family:'黑体','宋体'">车贷客户基础资料查询</span></div>
+    <table>
+        <tr>
+            <td colspan="8"><strong>请选择查询条件 >></strong></td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <button class="_button" id="cd_name">客户姓名</button>
+
+                <button class="_button" id="cd_idcard">客户身份证号</button>
+
+                <button class="_button" id="cd_lxfs">客户联系方式</button>
+
+            </td>
+        </tr>
+    </table>
+    <table id="cdtable">
+        <thead>
+        <tr style="background-color: #f0f0f0">
+            <td align="center">客户编号</td>
+            <td align="center">客户姓名</td>
+            <td align="center">客户身份证号</td>
+            <td align="center">客户联系方式</td>
+            <td align="center">操作</td>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr style="background-color: #f0f0f0">
+            <th colspan="3" class="ts-pager form-horizontal">
+                <button type="button" class="btn first">第一页</button>
+                <button type="button" class="btn prev">上一页</button>
+                <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+                <button type="button" class="btn next">下一页</button>
+                <button type="button" class="btn last">最后一页</button>
+                <select class="pagesize input-mini" title="Select page size">
+                    <option selected="selected" value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                </select>
+                <select class="pagenum input-mini" title="Select page number"></select>
+            </th>
+            <td></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <volist name="c_data" id="v" key="k">
+            <tr>
+                <td align="center"><{$v.id|str_pad=4,"0",STR_PAD_LEFT}></td>
+                <td align="center"><{$v.cd_name}></td>
+                <td align="center"><{$v.cd_idcard}></td>
+                <td align="center"><{$v.cd_lxfs}></td>
+                <td align="center">
+                    <a href="__URL__/customer_cd_update/id/<{$v.id}>">查看/更新客户资料</a> |
+                    <a href="__URL__/del_customer/id/<{$v.id}>" onclick="return confirmdel()">删除客户</a>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        i = 0;
+        var div_query = $("<input type='button' value='查询' style='width:80px;height:24px;border:1px solid #ccc;margin-left:10px;' id='query_value'/><input type='button' value='取消' style='width:80px;height:24px;border:1px solid #ccc;margin-left:10px;' id='quxiao'/>");
+
+        //客户姓名
+        $("#cd_name").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input type='text' class='_input' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;' id='value' />");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled", "true");
+                $.get("__URL__/customer_base_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                $("._button").prop("disabled", "");
+                i = 0;
+            });
+        });
+        //客户姓名
+        $("#cd_idcard").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input type='text' class='_input' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;' id='value' />");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled", "true");
+                $.get("__URL__/customer_base_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                $("._button").prop("disabled", "");
+                i = 0;
+            });
+        });
+        //客户姓名
+        $("#cd_lxfs").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input type='text' class='_input' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;' id='value' />");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled", "true");
+                $.get("__URL__/customer_base_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                $("._button").prop("disabled", "");
+                i = 0;
+            });
+        });
+
+    })
+</script>
+<include file="Public:customer_footer"/>

@@ -1,0 +1,48 @@
+<include file="Public:clockIn_header" title="查看申请"/>
+  <div class="module_public_main">
+     <table>
+        <tr>
+          <td width="12%" align="right">申请人姓名:</td>
+          <td><{$u_name}></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">申请类型:</td>
+          <if condition="$a_info.a_type eq '1'">
+          	<td>请假申请</td>
+          <else />
+            <td>外出申请</td>
+          </if>
+        </tr>
+        <tr>
+          <td width="12%" align="right">申请内容:</td>
+          <td><{$a_info.a_content}></td>
+        </tr>
+        <tr>
+          <td colspan="2" bgcolor="#F0F0F0">回复操作</td>
+        </tr>
+        <form action="__URL__/do_reply" method="post">
+        <input type="hidden" name="a_id" value="<{$a_info.a_id}>" />
+        <tr>
+          <td width="12%" align="right">&nbsp;</td>
+          <if condition="$a_info.a_is_approval eq '1'">
+          <td><input type="radio" value="1" name="approval" checked=""/>批准申请&nbsp;&nbsp;&nbsp;<input type="radio" value="2" name="approval" />驳回申请</td>
+          <elseif condition="$a_info.a_is_approval eq '2'" />
+          <td><input type="radio" value="1" name="approval"/>批准申请&nbsp;&nbsp;&nbsp;<input type="radio" value="2" name="approval"  checked=""/>驳回申请</td>
+          <else />
+          <td><input type="radio" value="1" name="approval"/>批准申请&nbsp;&nbsp;&nbsp;<input type="radio" value="2" name="approval" />驳回申请</td>
+          </if>
+        </tr>
+        <tr>
+          <td width="12%" align="right">回复申请:</td>
+          <td>
+            <textarea class="_input2" name="reply"><{$a_info.a_reply}></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><input type="submit" value="提交操作" class="_button" /></td>
+        </tr>
+        </form>
+     </table>
+  </div>
+<include file="Public:clockIn_footer" />

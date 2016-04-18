@@ -1,0 +1,1437 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <!-- Bootstrap -->
+    <!-- 引入uploadify样式 -->
+    <link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="__PUBLIC__/processbar/nprogress.js"></script>
+    <link href="__PUBLIC__/processbar/nprogress.css" rel="stylesheet">
+
+
+    <![endif]-->
+    <script src="__PUBLIC__/processbar/nprogress.js"></script>
+    <link href="__PUBLIC__/processbar/nprogress.css" rel="stylesheet">
+    <style>
+        .t-bg {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .t-color {
+            border-bottom: 4px solid #4499ee;
+
+        }
+
+        .uploadify {
+            position: relative;
+            margin-bottom: 1em;
+        }
+
+        .uploadify-button {
+            background-color: #505050;
+            background-image: linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -o-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -moz-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -webkit-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -ms-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -webkit-gradient(
+                    linear,
+                    left bottom,
+                    left top,
+                    color-stop(0, #505050),
+                    color-stop(1, #707070)
+            );
+            background-position: center top;
+            background-repeat: no-repeat;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+            border: 2px solid #808080;
+            color: #FFF;
+            font: bold 12px Arial, Helvetica, sans-serif;
+            text-align: center;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            width: 100%;
+        }
+
+        .uploadify:hover .uploadify-button {
+            background-color: #606060;
+            background-image: linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -o-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -moz-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -webkit-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -ms-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -webkit-gradient(
+                    linear,
+                    left bottom,
+                    left top,
+                    color-stop(0, #606060),
+                    color-stop(1, #808080)
+            );
+            background-position: center bottom;
+        }
+
+        .uploadify-button.disabled {
+            background-color: #D0D0D0;
+            color: #808080;
+        }
+
+        .uploadify-queue {
+            margin-bottom: 1em;
+        }
+
+        .uploadify-queue-item {
+            background-color: #F5F5F5;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            font: 11px Verdana, Geneva, sans-serif;
+            margin-top: 5px;
+            max-width: 350px;
+            padding: 10px;
+        }
+
+        .uploadify-error {
+            background-color: #FDE5DD !important;
+        }
+
+        .uploadify-queue-item .cancel a {
+            background: url('../img/uploadify-cancel.png') 0 0 no-repeat;
+            float: right;
+            height: 16px;
+            text-indent: -9999px;
+            width: 16px;
+        }
+
+        .uploadify-queue-item.completed {
+            background-color: #E5E5E5;
+        }
+
+        .uploadify-progress {
+            background-color: #E5E5E5;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .uploadify-progress-bar {
+            background-color: #0099FF;
+            height: 3px;
+            width: 1px;
+        }
+
+        .qyjbhyhls_box {
+            padding: 9px 14px;
+            margin-bottom: 14px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .gxht_box {
+            padding: 9px 14px;
+            margin-bottom: 14px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .bb_box, .yywj_box {
+            padding: 9px 14px;
+            margin-bottom: 14px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .ht {
+            padding: 9px 14px;
+            margin-bottom: 14px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .img {
+            text-align: center;
+            display: inline-block;
+            margin: auto;
+            max-width: 150px;
+            max-height: 200px;
+            padding: 4px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .img_ctrl {
+            text-align: center;
+            display: inline-block;
+            /*position: absolute;*/
+            width: 100%;
+            /*height: auto;*/
+            padding: 1px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+
+        .img_name {
+            display: none;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .modal-content {
+            text-align: center;
+        }
+
+        #img_show {
+            max-width: 100%;
+        }
+
+        #fileselect {
+            display: none;
+        }
+
+        #send-btn {
+            cursor: pointer;
+            display: block;
+            margin: 10px;
+            width: 120px;
+        }
+
+        .error {
+            color: #ff0000;
+        }
+
+        .container1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<script src="../js/jquery.js"></script>
+<script src="__PUBLIC__/validate/js/x_e_add.js"></script>
+<include file="Public:customer_header" title="小额贷款企业客户基础资料更新"/>
+<script>
+
+    function foldder(name, flag) {
+        var object = document.getElementsByName(name);
+        if (flag == 'show') {
+            for (var i = 0; i < object.length; i++) {
+                object[i].style.display = '';
+            }
+        } else {
+            for (var i = 0; i < object.length; i++) {
+                object[i].style.display = 'none';
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        if ('<{$x_e_gdrs}>' != null)
+// 任何需要执行的js特效
+        {
+            var i = 0;
+            while (i < '<{$x_e_gdrs}>') {
+                load_gdinfo(i);
+                i++;
+            }
+
+        }
+    });
+    var qpid = 1;
+    function add_qp() {
+        $("#form_array_text").append("<tr id='qpnametr" + qpid + "'><td width='20%' align='right' class='t-bg'>股东" + qpid + "姓名:</td><td colspan='3'><input onblur='checkqpxm(" + qpid + ")' style='width: 200px' type='text' id='qpxm" + qpid + "' class='_input'/><font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='qpxmnull" + qpid + "'></font></td></tr>");
+        $("#form_array_text").append("<tr id='qpgxtr" + qpid + "'><td width='20%' align='right' class='t-bg'>股东" + qpid + "身份证:</td><td colspan='3'><input onblur='checkqpgx(" + qpid + ")' style='width: 200px' type='text' id='qpgx" + qpid + "' class='_input'/><font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='qpgxnull" + qpid + "'></font></td></tr>");
+        qpid++;
+    }
+
+    function del_qp() {
+        if (confirm("确定删除该股东？")) {
+
+            if (qpid > 1) {
+                qpid = qpid - 1;
+            }
+            $("#qpnametr" + qpid).remove();
+            $("#qpgxtr" + qpid).remove();
+        }
+    }
+
+    var fwid = 1;
+    function add_fw() {
+        $("#form_array_text_fw").append("<tr id='fwnametr" + fwid + "'><td width='20%' align='right' class='t-bg'>房屋" + fwid + "性质:</td><td colspan='3'><input type='radio' name='fwxm" + fwid + "' value='0'  checked='checked'/><font color=green>自有</font>&nbsp;<input name='fwxm" + fwid + "' type='radio' value='1'/><font color=red>租赁</font></tr>");
+        $("#form_array_text_fw").append("<tr id='fwgxtr" + fwid + "'><td width='20%' align='right' class='t-bg'>房屋" + fwid + "位置:</td><td colspan='3'><input onblur='checkfwgx(" + fwid + ")' style='width: 200px' type='text' id='fwgx" + fwid + "' class='_input'/><font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='fwgxnull" + fwid + "'></font></td></tr>");
+        $("#form_array_text_fw").append("<tr id='fwlxfstr" + fwid + "'><td width='20%' align='right' class='t-bg'>房屋" + fwid + "价值:</td><td colspan='3'><input onblur='checkfwlxfs(" + fwid + ")' style='width: 200px' type='text' id='fwlxfs" + fwid + "' class='_input'/><font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='fwlxfsnull" + fwid + "'></font></td></tr>");
+        fwid++;
+    }
+
+    function del_fw() {
+        if (confirm("确定要删除该房屋？")) {
+            if (fwid > 1) {
+                fwid = fwid - 1;
+            }
+            $("#fwnametr" + fwid).remove();
+            $("#fwgxtr" + fwid).remove();
+            $("#fwlxfstr" + fwid).remove();
+        }
+    }
+    var clid = 1;
+    function add_cl() {
+        $("#tbody_cl").append("<tr id='clxhtr" + clid + "'><td width='20%' align='right' class='t-bg'>车辆" + clid + "型号:</td><td colspan='3'><input onblur='checkclxh(" + clid + ")' style='width: 200px' type='text' id='clxh" + clid + "' class='_input'/><font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='clxhnull" + clid + "'></font></td></tr>");
+        $("#tbody_cl").append("<tr id='cljztr" + clid + "'><td width='20%' align='right' class='t-bg'>车辆" + clid + "价值:</td><td colspan='3'><input onblur='checkcljz(" + clid + ")' style='width: 200px' type='text' id='cljz" + clid + "' class='_input'/>元<font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='cljznull" + clid + "'></font></td></tr>");
+        $("#tbody_cl").append("<tr id='clnxtr" + clid + "'><td width='20%' align='right' class='t-bg'>车辆" + clid + "年限:</td><td colspan='3'><input onblur='checkclnx(" + clid + ")' style='width: 200px' type='text' id='clnx" + clid + "' class='_input'/>年<font style='color: red; font-size: 12px;' mce_style='color: red; font-size: 12px;' id='clnxnull" + clid + "'></font></td></tr>");
+        clid++;
+    }
+    function del_cl() {
+        if (confirm("确定要删除该车辆？")) {
+            if (clid > 1) {
+                clid = clid - 1;
+            }
+            $("#clxhtr" + clid).remove();
+            $("#cljztr" + clid).remove();
+            $("#clnxtr" + clid).remove();
+        }
+    }
+
+</script>
+<script src="__PUBLIC__/js/jquery/jquery-1.11.3.js"></script>
+<script> var handleUrl = '<{:U("Customer/do_edit_x_e_customer")}>';</script>
+<script>
+    $(document).ready(function () {
+        var menuParent = $('.menu > .ListTitlePanel > div');//获取menu下的父层的DIV
+        var menuList = $('.menuList');
+        var history = 0;
+        $(menuList[history]).show();
+        $('.menu > .menuParent > .ListTitlePanel > .ListTitle').each(function (i) {//获取列表的大标题并遍历
+            $(this).click(function () {
+                if ($(menuList[i]).css('display') == 'none') {
+                    $(menuList[history]).hide();
+                    $(menuList[i]).slideDown(300);
+                    history = i;
+                }
+            });
+        });
+    });
+
+
+</script>
+<div class="module_public_main">
+
+    <div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <img id="img_show" src="" alt="">
+            </div>
+        </div>
+    </div>
+    <form id="x_e_update_form">
+        <div class="menu">
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>基础信息</b></td>
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="jcxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">企业名称</td>
+                            <td><input type="text" name="x_e_name" class="_input" value="<{$c_info[0].x_e_name}>"
+                                       onblur="checkname()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="namenull"></font></td>
+                            <td width="20%" align="right" class="t-bg">营业执照号</td>
+                            <td><input type="text" name="x_e_yyzzh" class="_input" value="<{$c_info[0].x_e_yyzzh}>"
+                                       onblur="checkyyzzh()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="yyzzh"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">税务登记证号</td>
+                            <td><input type="text" name="x_e_sudjzh" class="_input" value="<{$c_info[0].x_e_sudjzh}>"
+                                       onblur="checksudjzh()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="sudjzh"></font></td>
+                            <td width="20%" align="right" class="t-bg">组织机构代码证号</td>
+                            <td><input type="text" name="x_e_zzjgdmzh" class="_input"
+                                       value="<{$c_info[0].x_e_zzjgdmzh}>"
+                                       onblur="checkzzjgdmzh()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="zzjgdmzh"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">经营场所所在地</td>
+                            <td><input type="text" name="x_e_jycsszd" class="_input" value="<{$c_info[0].x_e_jycsszd}>"
+                                       onblur="checkjycsszd()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="jycsszd"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>法人、股东信息</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="frxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">法人姓名</td>
+                            <td><input style="width: 200px" type="text" name="x_e_frxm" class="_input"
+                                       value="<{$c_info[0].x_e_frxm}>"
+                                       onblur="checkfrxm()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="frxm"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">法人身份证号</td>
+                            <td><input style="width: 200px" type="text" name="x_e_frsfzh" class="_input"
+                                       value="<{$c_info[0].x_e_frsfzh}>"
+                                       onblur="checkfrsfzh()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="frsfzh"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">法人户籍住址</td>
+                            <td><input style="width: 200px" type="text" name="x_e_frhjzz" class="_input"
+                                       value="<{$c_info[0].x_e_frhjzz}>"
+                                       onblur="checkfrhjzz()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="frhjzz"></font></td>
+                            <td width="20%" align="right" class="t-bg">法人实际住址</td>
+                            <td><input style="width: 200px" type="text" name="x_e_frsjzz" class="_input"
+                                       value="<{$c_info[0].x_e_frsjzz}>"
+                                       onblur="checkfrsjzz()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="frsjzz"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">法人联系方式</td>
+                            <td><input style="width: 200px" type="text" name="x_e_frlxfs" class="_input"
+                                       value="<{$c_info[0].x_e_frlxfs}>"
+                                       onblur="checkfrlxfs()" onkeyup="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="frlxfs"></font></td>
+                            <td width="20%" align="right" class="t-bg">是否有配偶</td>
+                            <td>
+                                <input type="radio" onclick="foldder('potr','show');" name="x_e_sfypo" value="0"
+                                <if condition="$c_info[0]['x_e_sfypo'] eq '0'">checked="checked"</if>
+                                /><font color=green>是</font>&nbsp;
+                                <input type="radio" onclick="foldder('potr','');" name="x_e_sfypo" value="1"
+                                <if condition="$c_info[0]['x_e_sfypo'] eq '1'">checked="checked"</if>
+                                /><font
+                                    color=green>否</font>
+                            </td>
+                        </tr>
+                        <tr name="potr"
+                        <if condition="$c_info[0]['x_e_sfypo'] eq '0'">
+                            style="display: ''"
+                            <elseif condition="$c_info[0]['x_e_sfypo'] eq '1'"/>
+                            style="display: none"
+                        </if>
+                        >
+                        <td width="20%" align="right" class="t-bg">法人配偶姓名:</td>
+                        <td colspan="3"><input style="width: 200px" type="text" name="x_e_frpoxm" class="_input"
+                                               value="<{$c_info[0].x_e_frpoxm}>"
+                                               onblur="checkfrpoxm()" onkeyup="disbutton()"/>
+                            <font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="frpoxm"></font></td>
+                        </tr>
+                        <tr name="potr"
+                        <if condition="$c_info[0]['x_e_sfypo'] eq '0'">
+                            style="display: ''"
+                            <elseif condition="$c_info[0]['x_e_sfypo'] eq '1'"/>
+                            style="display: none"
+                        </if>
+                        >
+                        <td width="20%" align="right" class="t-bg">法人配偶身份证号:</td>
+                        <td colspan="3"><input style="width: 200px" type="text" name="x_e_frposfzh" class="_input"
+                                               value="<{$c_info[0].x_e_frposfzh}>"
+                                               onblur="checkfrposfzh()" onkeyup="disbutton()"/>
+                            <font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="frposfzh"></font></td>
+                        </tr>
+                        <tr name="potr"
+                        <if condition="$c_info[0]['x_e_sfypo'] eq '0'">
+                            style="display: ''"
+                            <elseif condition="$c_info[0]['x_e_sfypo'] eq '1'"/>
+                            style="display: none"
+                        </if>
+                        >
+                        <td width="20%" align="right" class="t-bg">法人配偶户籍住址:</td>
+                        <td colspan="3"><input style="width: 200px" type="text" name="x_e_frpohjzz" class="_input"
+                                               value="<{$c_info[0].x_e_frpohjzz}>"
+                                               onblur="checkfrpohjzz()" onkeyup="disbutton()"/>
+                            <font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="frpohjzz"></font></td>
+                        </tr>
+                        <tr name="potr"
+                        <if condition="$c_info[0]['x_e_sfypo'] eq '0'">
+                            style="display: ''"
+                            <elseif condition="$c_info[0]['x_e_sfypo'] eq '1'"/>
+                            style="display: none"
+                        </if>
+                        >
+                        <td width="20%" align="right" class="t-bg">法人配偶联系方式</td>
+                        <td colspan="3"><input style="width: 200px" type="text" name="x_e_frpolxfs" class="_input"
+                                               value="<{$c_info[0].x_e_frpolxfs}>"
+                                               onblur="checkfrpolxfs()" onkeyup="disbutton()"/>
+                            <font
+                                    style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                    id="frpolxfs"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">股东</td>
+                            <td colspan="3">
+                                <input type="button" onclick="add_qp()" value="添加股东" class="btn btn-primary"/>&nbsp;
+                                <input type="button" onclick="del_qp()" value="删除最后一个股东" class="btn btn-primary"/>
+                            </td>
+                        </tr>
+                        <tbody align="left" id="form_array_text" width="200px">
+                        <volist name="gdxx" id="vo" key="k">
+                            <tr id="qpnametr<{$k}>">
+                                <td width="20%" align="right" class="t-bg">股东<{$k}>姓名:</td>
+                                <td><input value="<{$vo[0]}>" onblur="checkqpxm(<{$k}>)" style="width: 200px"
+                                           type="text" id="qpxm<{$k}>" class="_input"/><font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="qpxmnull<{$k}>"></font></td>
+                            </tr>
+                            <tr id="qpgxtr<{$k}>">
+                                <td width="20%" align="right" class="t-bg">股东<{$k}>身份证:</td>
+                                <td><input value="<{$vo[1]}>" onblur="checkqpgx(<{$k}>)" style="width: 200px"
+                                           type="text" id="qpgx<{$k}>" class="_input"/><font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="qpgxnull<{$k}>"></font></td>
+                            </tr>
+                            <script>
+                                qpid =
+                                <
+                                {
+                                    $k
+                                }
+                                >
+                                +1;
+                            </script>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="menu">
+                <div class="menuParent">
+                    <div class="ListTitlePanel">
+                        <div class="ListTitle">
+                            <table align="left">
+                                <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                    <td width="20%" align="center"><b>许可证信息</b></td>
+                                </tr>
+                            </table>
+                            <div class="leftbgbt"></div>
+                        </div>
+                    </div>
+                    <div class="menuList" style="display: none;">
+                        <table align="left" id="xkzxx">
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">银行开户许可证号</td>
+                                <td><input style="width: 200px" type="text" name="x_e_khxkzh" class="_input"
+                                           value="<{$c_info[0].x_e_khxkzh}>"
+                                        >
+                                </td>
+                                <td width="20%" align="right" class="t-bg">组织机构信用代码证号</td>
+                                <td><input style="width: 200px" type="text" name="x_e_jgxydmzh" class="_input"
+                                           value="<{$c_info[0].x_e_jgxydmzh}>"
+                                        ></td>
+                            </tr>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">安全生产许可证名称</td>
+                                <td><input style="width: 200px" type="text" name="x_e_aqscxkzmc" class="_input"
+                                           value="<{$c_info[0].x_e_aqscxkzmc}>"
+                                        ></td>
+                                <td width="20%" align="right" class="t-bg">安全生产许可证号码</td>
+                                <td><input style="width: 200px" type="text" name="x_e_aqxkzhm" class="_input"
+                                           value="<{$c_info[0].x_e_aqxkzhm}>"
+                                        ></td>
+                            </tr>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">排污许可证名称</td>
+                                <td><input style="width: 200px" type="text" name="x_e_pwxkzmc" class="_input"
+                                           value="<{$c_info[0].x_e_pwxkzmc}>"
+                                        ></td>
+                                <td width="20%" align="right" class="t-bg">排污许可证号码</td>
+                                <td><input style="width: 200px" type="text" name="x_e_pwxkzhm" class="_input"
+                                           value="<{$c_info[0].x_e_pwxkzhm}>"
+                                        ></td>
+                            </tr>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">房产证号码</td>
+                                <td><input style="width: 200px" type="text" name="x_e_fczhm" class="_input"
+                                           value="<{$c_info[0].x_e_fczhm}>"
+                                        ></td>
+                                <td width="20%" align="right" class="t-bg">土地使用证号码</td>
+                                <td><input style="width: 200px" type="text" name="x_e_tdsyzhm" class="_input"
+                                           value="<{$c_info[0].x_e_tdsyzhm}>"
+                                        ></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="menuParent">
+                    <div class="ListTitlePanel">
+                        <div class="ListTitle">
+                            <table align="left" id="zc_head">
+                                <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                    <td width="20%" align="center"><b>资产信息</b></td>
+                                </tr>
+                            </table>
+                            <div class="leftbgbt"></div>
+                        </div>
+                    </div>
+                    <div class="menuList" style="display: none;">
+                        <table align="left" id="zcxx">
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">企业上年总收入</td>
+                                <td><input style="width: 200px" style="width: 200px" type="text" name="x_e_qysnzsr"
+                                           class="_input"
+                                           onblur="checkqysnzsr()" value="<{$c_info[0].x_e_qysnzsr}>"/>元 <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="qysnzsr"></font>
+                                </td>
+                                <td width="20%" align="right" class="t-bg">资产总规模:</td>
+                                <td><input style="width: 200px" style="width: 200px" type="text" name="x_e_zczgm"
+                                           class="_input"
+                                           onblur="checkzczgm()" value="<{$c_info[0].x_e_zczgm}>"/>元 <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="zczgm"></font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">房屋</td>
+                                <td colspan="3">
+                                    <input type="button" onclick="add_fw()" value="添加房屋" class="btn btn-primary"/>&nbsp
+                                    <input type="button" onclick="del_fw()" value="删除最后一个房屋" class="btn btn-primary"/>
+                                </td>
+                            </tr>
+                            <tbody align="left" id="form_array_text_fw" width="200px">
+                            <volist name="fwxx" id="vo" key="k">
+
+                                <tr id="fwnametr<{$k}>">
+                                    <td width="20%" align="right" class="t-bg">房屋性质:</td>
+                                    <td><input type="radio" name="fwxm<{$k}>" value="0"
+                                        <if condition="$vo[0] eq 0"> checked="checked"</if>
+                                        /><font color=green>自有</font>&nbsp;<input name="fwxm<{$k}>" type="radio"
+                                                                                  value="1"
+                                        <if condition="$vo[0][0] eq 1"> checked="checked"</if>
+                                        /><font color=red>租赁</font>
+                                </tr>
+                                <tr id="fwgxtr<{$k}>">
+                                    <td width="20%" align="right" class="t-bg">房屋<{$k}>位置:</td>
+                                    <td><input value="<{$vo[1]}>" onblur="checkfwgx(<{$k}>)" style="width: 200px"
+                                               type="text" id="fwgx<{$k}>" class="_input"/><font
+                                            style="color: red; font-size: 12px;"
+                                            mce_style="color: red; font-size: 12px;" id="fwgxnull<{$k}>"></font></td>
+                                </tr>
+                                <tr id="fwlxfstr<{$k}>">
+                                    <td width="20%" align="right" class="t-bg">房屋<{$k}>价值:</td>
+                                    <td><input value="<{$vo[2]}>" onblur="checkfwlxfs(<{$k}>)" style="width: 200px"
+                                               type="text" id="fwlxfs<{$k}>" class="_input"/>元<font
+                                            style="color: red; font-size: 12px;"
+                                            mce_style="color: red; font-size: 12px;" id="fwlxfsnull<{$k}>"></font></td>
+                                </tr>
+                                <script>
+                                    fwid =
+                                    <
+                                    {
+                                        $k
+                                    }
+                                    >
+                                    +1;
+                                </script>
+                            </volist>
+                            </tbody>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">车辆信息</td>
+                                <td colspan="3">
+                                    <input type="button" onclick="add_cl()" value="添加车辆" class="btn btn-primary"/>&nbsp
+                                    <input type="button" onclick="del_cl()" value="删除最后一个车辆" class="btn btn-primary"/>
+                                </td>
+                            </tr>
+                            <tbody align="left" id="tbody_cl" width="200px">
+                            <volist name="clxx" id="v" iey="i">
+
+                                <tr id="clxhtr<{$i}>">
+                                    <td width="20%" align="right" class="t-bg">车辆<{$i}>型号:</td>
+                                    <td><input value="<{$v[0]}>" onblur="checiclxh(<{$i}>)" style="width: 200px"
+                                               type="text" id="clxh<{$i}>" class="_input"/><font
+                                            style="color: red; font-size: 12px;"
+                                            mce_style="color: red; font-size: 12px;" id="clxhnull<{$i}>"></font></td>
+                                </tr>
+                                <tr id="cljztr<{$i}>">
+                                    <td width="20%" align="right" class="t-bg">车辆<{$i}>价值:</td>
+                                    <td><input value="<{$v[1]}>" onblur="checkcljz(<{$i}>)" style="width: 200px"
+                                               type="text" id="cljz<{$i}>" class="_input"/>元<font
+                                            style="color: red; font-size: 12px;"
+                                            mce_style="color: red; font-size: 12px;" id="cljznull<{$i}>"></font></td>
+                                </tr>
+                                <tr id="clnxtr<{$i}>">
+                                    <td width="20%" align="right" class="t-bg">车辆<{$i}>年限:</td>
+                                    <td><input value="<{$v[2]}>" onblur="checkclnx(<{$i}>)" style="width: 200px"
+                                               type="text" id="clnx<{$i}>" class="_input"/><font
+                                            style="color: red; font-size: 12px;"
+                                            mce_style="color: red; font-size: 12px;" id="clnxnull<{$i}>"></font></td>
+                                </tr>
+                                <script>
+                                    clid =
+                                    <
+                                    {
+                                        $i
+                                    }
+                                    >
+                                    +1;
+                                </script>
+                            </volist>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">其他收入备注:</td>
+                                <td colspan="3"><input style="width: 200px" style="width: 200px" type="text"
+                                                       name="x_e_qtsrbz"
+                                                       class="_input"
+                                                       onblur="checkqtsrbz()" value="<{$c_info[0].x_e_qtsrbz}>"/> <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="qtsrbz"></font>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="menuParent">
+                    <div class="ListTitlePanel">
+                        <div class="ListTitle">
+                            <table align="left" id="fz_head">
+                                <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                    <td width="20%" align="center"><b>负债信息</b></td>
+                                </tr>
+                            </table>
+                            <div class="leftbgbt"></div>
+                        </div>
+                    </div>
+                    <div class="menuList" style="display: none;">
+                        <table align="left" id="fzxx">
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">银行负债余额</td>
+                                <td><input style="width: 200px" style="width: 200px" type="text" name="x_e_yhfzye"
+                                           class="_input"
+                                           onblur="checkyhfzye()" value="<{$c_info[0].x_e_yhfzye}>"/>元 <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="yhfzye"></font>
+                                </td>
+                                <td width="20%" align="right" class="t-bg">民间借贷余额</td>
+                                <td><input style="width: 200px" style="width: 200px" type="text" name="x_e_mjjdye"
+                                           class="_input"
+                                           onblur="checkmjjdye()" value="<{$c_info[0].x_e_mjjdye}>"/>元 <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="mjjdye"></font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">对外担保额度</td>
+                                <td><input style="width: 200px" style="width: 200px" type="text" name="x_e_dwdbed"
+                                           class="_input"
+                                           onblur="checkdwdbed()" value="<{$c_info[0].x_e_dwdbed}>"/>元 <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="dwdbed"></font>
+                                </td>
+                                <td width="20%" align="right" class="t-bg"></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="menuParent">
+                    <div class="ListTitlePanel">
+                        <div class="ListTitle">
+                            <table align="left">
+                                <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                    <td width="20%" align="center"><b>其他影印文件</b></td>
+
+                                </tr>
+                            </table>
+                            <div class="leftbgbt"></div>
+                        </div>
+                    </div>
+                    <div class="menuList" style="display: none;">
+                        <table align="left" id="yywj">
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">企业银行流水（一年）:</td>
+                                <td>
+                                    <div class="container1">
+                                        <div class="row qyjbhyhls_box" id="qyjbhyhls_box">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary" id="selsect_qyjbhyhls">选择文件
+                                            </button>
+                                            <input hidden="hidden" type="file" id="fileselect_qyjbhyhls"
+                                                   name="fileselect[]"
+                                                   multiple="multiple"/>
+                                        </div>
+                                        <font style="color: red; font-size: 12px;"
+                                              mce_style="color: red; font-size: 12px;"
+                                              id="qyjbhyhlsnull"></font>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">购销合同（上下游企业合同）:</td>
+                                <td>
+                                    <div class="container1">
+                                        <div class="row gxht_box" id="gxht_box">
+
+                                        </div>
+                                        <div class="form-group1">
+                                            <button type="button" class="btn btn-primary" id="selsect_gxht">选择文件
+                                            </button>
+                                            <input hidden="true" type="file" id="fileselect_gxht" name="fileselect[]"
+                                                   multiple="multiple"/>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">
+                                    审计财务报表（经会计师事所或审计师事务所审计的上个年度的会计决算报表和相应的审计报告以及最近三个月的会计报表：会计报表包括资产负债表、损益表、现金流量表以及报表附注等）:
+                                </td>
+                                <td>
+                                    <div class="container1">
+                                        <div class="row bb_box" id="bb_box">
+
+                                        </div>
+                                        <div class="form-group1">
+                                            <button type="button" class="btn btn-primary" id="selsect_bb">选择文件</button>
+                                            <input hidden="true" type="file" id="fileselect_bb" name="fileselect[]"
+                                                   multiple="multiple"/>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" align="right" class="t-bg">其他影印文件
+                                </td>
+                                <td>
+                                    <div class="container1">
+                                        <div class="row yywj_box" id="yywj_box">
+
+                                        </div>
+                                        <div class="form-group1">
+                                            <button type="button" class="btn btn-primary" id="selsect_yywj">选择文件
+                                            </button>
+                                            <input hidden="true" type="file" id="fileselect_yywj" name="fileselect[]"
+                                                   multiple="multiple"/>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <table align="left"
+            <if condition="$enter eq 1">style="display:none"</if>
+            >
+            <tr>
+                <td align="center">
+                    <button type="button" class="btn btn-primary" value="确定提交" id="send-btn"/>
+                    确定提交
+                </td>
+            </tr>
+
+            </table>
+        </div>
+    </form>
+    <script> var qyjbhyhls = new Array();</script>
+    <script> var gxht = new Array();</script>
+    <script> var bb = new Array();</script>
+    <script> var ht = new Array();</script>
+    <script> var yywj = new Array();
+    function put_img1(path, type) {
+        path = path.substr(0, path.length - 1);
+        var strs = new Array(); //定义一数组
+        var strs = path.split("/"); //字符分割
+        var savename = strs[4];
+        var img_url = "__ROOT__" + path.substring(1);
+        var new_img = '<div class="col-md-3">';
+        var extStart = path.lastIndexOf(".");
+        var ext = path.substring(extStart, path.length).toUpperCase();
+        if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+            new_img += '<span style="background-color: #838383">' + savename + '</span>'
+            new_img += '<img style="display:none" src="' + img_url + '" alt="' + savename + '" class="img">';
+            new_img += '<div class="img_ctrl">';
+            new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+            new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+            new_img += '</div>';
+            new_img += '<div class="img_name">';
+            new_img += '<form action="" class="form-inline">';
+            new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+            new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+            new_img += '</form>';
+            new_img += '</div>';
+            new_img += '</div>';
+        } else {
+            new_img += '<img src="' + img_url + '" alt="' + savename + '" class="img">';
+            new_img += '<div class="img_ctrl">';
+            new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+            new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+            new_img += '</div>';
+            new_img += '<div class="img_name">';
+            new_img += '<form action="" class="form-inline">';
+            new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+            new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+            new_img += '</form>';
+            new_img += '</div>';
+            new_img += '</div>';
+        }
+
+        if (type == "x_e_qyjbhyhls") {
+            $('.qyjbhyhls_box').append(new_img);
+        }
+        if (type == "x_e_gxht") {
+            $('.gxht_box').append(new_img);
+        }
+        if (type == "x_e_bb") {
+            $('.bb_box').append(new_img);
+        }
+        if (type == "x_e_ht") {
+            $('.ht').append(new_img);
+        }
+        if (type == "x_e_yywj") {
+            $('.yywj_box').append(new_img);
+        }
+    }</script>
+
+    <volist name='qyjbhyhls' id='vo'>
+        <script> qyjbhyhls[qyjbhyhls.length] = '<{$vo}>';</script>
+
+        <script>put_img1('<{$vo}>', "x_e_qyjbhyhls");
+
+        </script>
+
+    </volist>
+    <volist name='gxht' id='vo'>
+
+        <script> gxht[gxht.length] = '<{$vo}>';</script>
+
+        <script>put_img1('<{$vo}>', "x_e_gxht");
+
+        </script>
+
+    </volist>
+    <volist name='bb' id='vo'>
+
+        <script> bb[bb.length] = '<{$vo}>';</script>
+
+        <script>put_img1('<{$vo}>', "x_e_bb");
+
+        </script>
+
+    </volist>
+
+    <volist name='ht' id='vo'>
+
+        <script> ht[ht.length] = '<{$vo}>';</script>
+
+        <script>put_img1('<{$vo}>', "x_e_ht");
+
+        </script>
+
+    </volist>
+    <volist name='yywj' id='vo'>
+
+        <script> ht[ht.length] = '<{$vo}>';</script>
+
+        <script>put_img1('<{$vo}>', "x_e_yywj");
+
+        </script>
+
+    </volist>
+    </table>
+
+    <!--<volist name="gdxx" id="vo" key="k">-->
+    <!--<script>-->
+    <!--$("#form_array_text").append("<tr id='qpnametr" + qpid + "'><td width='20%' align='right'>股东" + <{$k}> +"姓名:</td><td><input type='text' id='qpxm" + <{$k}> +"' class='_input' value='<{$vo[0]}>'/></td></tr>");-->
+    <!--$("#form_array_text").append("<tr id='qpgxtr" + qpid + "'><td width='20%' align='right'>股东" + <{$k}> +"身份证号:</td><td><input type='text' id='qpgx" + <{$k}> +"' class='_input' value='<{$vo[1]}>'/></td></tr>");-->
+    <!--qpid =<{$k}>+1;-->
+    <!--</script>-->
+    <!--</volist>-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="__PUBLIC__/js/jquery/jquery-1.11.3.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="__PUBLIC__/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+
+    <!-- 引入uploadify的js代码 -->
+    <script src="__PUBLIC__/uploadify/jquery.uploadify.min.js"></script>
+
+    <!-- 复制专用插件 -->
+    <script src="__PUBLIC__/js/jquery.zclip/jquery.zclip.js"></script>
+    <!-- 引入livequery 用于新增对象方法绑定 -->
+    <script src="__PUBLIC__/js/jquery.livequery.js"></script>
+    <script src="__PUBLIC__/processbar/spin.min.js"></script>
+    <!--异步上传-->
+    <script> var handleUrl = '<{:U("Customer/do_edit_x_e_customer")}>';</script>
+    <script>
+        $('#send-btn').click(function () {
+            var id = '<{$c_info[0].id}>';
+            var x_e_name = $('input[name = x_e_name]').val();
+            var x_e_yyzzh = $('input[name = x_e_yyzzh]').val();
+            var x_e_sudjzh = $('input[name = x_e_sudjzh]').val();
+            var x_e_zzjgdmzh = $('input[name = x_e_zzjgdmzh]').val();
+            var x_e_frxm = $('input[name = x_e_frxm]').val();
+            var x_e_frsfzh = $('input[name = x_e_frsfzh]').val();
+            var x_e_frhjzz = $('input[name = x_e_frhjzz]').val();
+            var x_e_frsjzz = $('input[name = x_e_frsjzz]').val();
+            var x_e_frlxfs = $('input[name = x_e_frlxfs]').val();
+            var x_e_frpoxm = $('input[name = x_e_frpoxm]').val();
+            var x_e_frposfzh = $('input[name = x_e_frposfzh]').val();
+            var x_e_frpohjzz = $('input[name = x_e_frpohjzz]').val();
+            var x_e_frpolxfs = $('input[name = x_e_frpolxfs]').val();
+            var x_e_sfypo = $('input[name = x_e_sfypo]:checked').val();
+            var x_e_dkkh = $('input[name = x_e_dkkh]').val();
+            var x_e_khxkzh = $('input[name = x_e_khxkzh]').val();
+            var x_e_jgxydmzh = $('input[name = x_e_jgxydmzh]').val();
+            var x_e_aqscxkzmc = $('input[name = x_e_aqscxkzmc]').val();
+            var x_e_aqxkzhm = $('input[name = x_e_aqxkzhm]').val();
+            var x_e_pwxkzmc = $('input[name = x_e_pwxkzmc]').val();
+            var x_e_pwxkzhm = $('input[name = x_e_pwxkzhm]').val();
+            var x_e_jycsszd = $('input[name = x_e_jycsszd]').val();
+            var x_e_qysnzsr = $('input[name = x_e_qysnzsr]').val();
+            var x_e_zczgm = $('input[name = x_e_zczgm]').val();
+            var x_e_qtsrbz = $('input[name = x_e_qtsrbz]').val();
+            var x_e_yhfzye = $('input[name = x_e_yhfzye]').val();
+            var x_e_mjjdye = $('input[name = x_e_mjjdye]').val();
+            var x_e_dwdbed = $('input[name = x_e_dwdbed]').val();
+            var x_e_qyjbhyhls = qyjbhyhls;
+            var x_e_gxht = gxht;
+            var x_e_bb = bb;
+            var x_e_fczhm = $('input[name = x_e_fczhm]').val();
+            var x_e_tdsyzhm = $('input[name = x_e_tdsyzhm]').val();
+            var x_e_hkdj = '<{$c_info[0].x_e_hkdj}>';
+            var x_e_qpinfoarray = new Array();
+            for (var i = 0; i < qpid; i++) {
+                if ($('#qpxm' + i).val() != null && $('#qpxm' + i).val() != '') {
+                    x_e_qpinfoarray.push([$('#qpxm' + i).val(), $('#qpgx' + i).val()]);
+                }
+            }
+            var fwxx = new Array();
+            for (var i = 0; i < fwid; i++) {
+                fwxx.push([$('input[name = fwxm' + i + ']:checked').val(), $('#fwgx' + i).val(), $('#fwlxfs' + i).val()]);
+            }
+            var clxx = new Array();
+            for (var i = 0; i < clid; i++) {
+                clxx.push([$('#clxh' + i).val(), $('#cljz' + i).val(), $('#clnx' + i).val()]);
+            }
+            if (checkdata()) {
+                document.getElementById('send-btn').disabled = true;
+                $.post(handleUrl, {
+                    id: id,
+                    x_e_name: x_e_name,
+                    x_e_yyzzh: x_e_yyzzh,
+                    x_e_sudjzh: x_e_sudjzh,
+                    x_e_jycsszd: x_e_jycsszd,
+                    x_e_zzjgdmzh: x_e_zzjgdmzh,
+                    x_e_frxm: x_e_frxm,
+                    x_e_frsfzh: x_e_frsfzh,
+                    x_e_frhjzz: x_e_frhjzz,
+                    x_e_frsjzz: x_e_frsjzz,
+                    x_e_frlxfs: x_e_frlxfs,
+                    x_e_frpoxm: x_e_frpoxm,
+                    x_e_frposfzh: x_e_frposfzh,
+                    x_e_frpohjzz: x_e_frpohjzz,
+                    x_e_frpolxfs: x_e_frpolxfs,
+                    x_e_sfypo: x_e_sfypo,
+                    x_e_gdxx: x_e_qpinfoarray,
+                    x_e_dkkh: x_e_dkkh,
+                    x_e_khxkzh: x_e_khxkzh,
+                    x_e_jgxydmzh: x_e_jgxydmzh,
+                    x_e_aqscxkzmc: x_e_aqscxkzmc,
+                    x_e_aqxkzhm: x_e_aqxkzhm,
+                    x_e_pwxkzmc: x_e_pwxkzmc,
+                    x_e_pwxkzhm: x_e_pwxkzhm,
+                    x_e_qyjbhyhls: x_e_qyjbhyhls,
+                    x_e_gxht: x_e_gxht,
+                    x_e_bb: x_e_bb,
+                    x_e_fczhm: x_e_fczhm,
+                    x_e_tdsyzhm: x_e_tdsyzhm,
+                    x_e_hkdj: x_e_hkdj,
+                    x_e_yywj: yywj,
+                    x_e_fwxx: fwxx,
+                    x_e_clxx: clxx,
+                    x_e_qysnzsr: x_e_qysnzsr,
+                    x_e_zczgm: x_e_zczgm,
+                    x_e_qtsrbz: x_e_qtsrbz,
+                    x_e_yhfzye: x_e_yhfzye,
+                    x_e_mjjdye: x_e_mjjdye,
+                    x_e_dwdbed: x_e_dwdbed
+                }, function (returndata) {
+                    document.getElementById('send-btn').disabled = false;
+                    if (returndata.status) {
+                        alert('于' + returndata.time + '更新成功');
+                        window.location.href = "<{:U('Index/main')}>";
+                    } else {
+                        alert('更新失败，错误：' + returndata.error);
+                    }
+                }, 'json');
+            } else {
+                alert('填写的信息错误或者不完整，请检查');
+                document.getElementById('send-btn').disabled = false;
+            }
+        })
+    </script>
+    <script>
+
+        $(function () {
+            $('#selsect_qyjbhyhls').click(function (event) {
+                $('#fileselect_qyjbhyhls').click();
+            });
+            $('#selsect_gxht').click(function (event) {
+                $('#fileselect_gxht').click();
+            });
+            $('#selsect_bb').click(function (event) {
+                $('#fileselect_bb').click();
+            });
+            $('#selsect_ht').click(function (event) {
+                $('#fileselect_ht').click();
+            });
+            $('#selsect_yywj').click(function (event) {
+                $('#fileselect_yywj').click();
+            });
+            //选择文件
+            $('#fileselect_qyjbhyhls').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "x_e_qyjbhyhls";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+                ;
+            });
+            $('#fileselect_gxht').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "x_e_gxht";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+                ;
+            });
+            $('#fileselect_bb').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "x_e_bb";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+                ;
+            });
+            $('#fileselect_ht').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "x_e_ht";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+                ;
+            });
+            $('#fileselect_yywj').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "x_e_yywj";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+                ;
+            });
+            //上传操作
+            function html5up(file, type) {
+                /* Act on the event */
+                var name = file.name;
+                var size = file.size;
+                var shardSize = 5 * 1024 * 1024;    //以2MB为一个分片
+                var shardCount = Math.ceil(size / shardSize);  //总片数
+                var chunk = 0;
+                if (size > shardSize) {
+                    chunk = 1;
+                }
+                for (var i = 0; i < shardCount; ++i) {
+                    var start = i * shardSize;
+                    var end = Math.min(size, start + shardSize);
+                    var form_data = new FormData();
+                    form_data.append('timestamp', "<{$time}>");
+                    form_data.append('token', '<{:md5("unique_salt".$time)}>');
+                    form_data.append("filetype", type);
+                    form_data.append("data", file.slice(start, end));  //slice方法用于切出文件的一部分
+                    form_data.append("name", name);
+                    form_data.append("total", shardCount);  //总片数
+                    form_data.append("index", i + 1);        //当前是第几片
+                    form_data.append("chunk", chunk);
+                    $.ajax({
+                        url: '__APP__/Upload/upload',
+                        type: 'POST',
+                        // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                        async: false,
+                        processData: false,
+                        contentType: false,
+                        data: form_data
+                    })
+                            .done(function (data) {
+                                // alert(data);
+                                NProgress.done();
+                                if (!data.status) {
+                                    return false;
+                                }
+                                if (type == "x_e_qyjbhyhls") {
+                                    qyjbhyhls[qyjbhyhls.length] = data.savepath + data.savename;
+                                } else if (type == "x_e_gxht") {
+                                    gxht[gxht.length] = data.savepath + data.savename;
+                                } else if (type == "x_e_bb") {
+                                    bb[bb.length] = data.savepath + data.savename;
+                                } else if (type == "x_e_ht") {
+                                    ht[ht.length] = data.savepath + data.savename;
+                                } else if (type == "x_e_yywj") {
+                                    yywj[yywj.length] = data.savepath + data.savename;
+                                }
+                                put_img(data.savepath, data.savename, type);//添加图片到img_box
+                                console.log("success");
+                            })
+                            .fail(function () {
+                                console.log("error");
+                            })
+                            .always(function () {
+                                console.log("complete");
+                            });
+                }
+            }
+
+            //uploadify上传操作
+            $('#file_upload').uploadify({
+                'formData': {
+                    'timestamp': "<{$time}>",//当前时间戳由后台传过来的
+                    'token': '<{:md5("unique_salt".$time)}>'//用md5生成token
+                },
+                'swf': '__PUBLIC__/uploadify/uploadify.swf',//引用uploadify.swf
+                'uploader': '__APP__/Upload/upload',//后台上传文件处理方法
+                'buttonText': '选择文件',
+                'multi': true,//允许多文件上传
+                'fileTypeExts': '*.gif; *.jpg; *.png;',//限制文件格式
+                'fileSizeLimit': '5MB',//限制文件大小
+
+                'onUploadSuccess': function (file, data, response) {
+                    var data = $.parseJSON(data);
+                    if (!data['status']) {
+                        alert(data['info']);
+                        return false;
+                    }
+                    ;
+                    put_img(data['savepath'], data['savename']);//添加图片到img_box
+                }
+            });
+
+
+            //添加图片到img_box
+            function put_img(savepath, savename, type) {
+                savename = savename.substring(0, savename.length - 1);
+                var path = savepath + savename;
+                var img_url = "__ROOT__" + path.substring(1);
+                var new_img = '<div class="col-md-3">';
+                var extStart = path.lastIndexOf(".");
+                var ext = path.substring(extStart, path.length).toUpperCase();
+                if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    new_img += '<span style="background-color: #838383">' + savename + '</span>'
+                    new_img += '<img style="display:none" src="' + img_url + '" alt="' + savename + '" class="img">';
+                    new_img += '<div class="img_ctrl">';
+                    new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+                    new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+                    new_img += '</div>';
+                    new_img += '<div class="img_name">';
+                    new_img += '<form action="" class="form-inline">';
+                    new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+                    new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+                    new_img += '</form>';
+                    new_img += '</div>';
+                    new_img += '</div>';
+                } else {
+                    new_img += '<img src="' + img_url + '" alt="' + savename + '" class="img">';
+                    new_img += '<div class="img_ctrl">';
+                    new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+                    new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+                    new_img += '</div>';
+                    new_img += '<div class="img_name">';
+                    new_img += '<form action="" class="form-inline">';
+                    new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+                    new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+                    new_img += '</form>';
+                    new_img += '</div>';
+                    new_img += '</div>';
+                }
+
+                if (type == 'x_e_qyjbhyhls') {
+                    $('.qyjbhyhls_box').append(new_img);
+                }
+                if (type == 'x_e_gxht') {
+                    $('.gxht_box').append(new_img);
+                }
+                if (type == 'x_e_bb') {
+                    $('.bb_box').append(new_img);
+                }
+                if (type == 'x_e_ht') {
+                    $('.ht').append(new_img);
+                }
+                if (type == 'x_e_yywj') {
+                    $('.yywj_box').append(new_img);
+                }
+
+            }
+
+            //复制图片地址
+            $('.glyphicon-cloud-download').click(function () {
+                var URL = "http://" + "<{$Think.server.HTTP_HOST}>" + $(this).parents('div.col-md-3').find('.img').attr('src');
+                window.open(URL);
+            });
+
+            //复制图片地址
+            $('.glyphicon-cloud-download').livequery(function () {
+                $(this).zclip({
+                    path: '__PUBLIC__/js/jquery.zclip/ZeroClipboard.swf',
+                    copy: function () {
+
+                        var URL = "http://" + "<{$Think.server.HTTP_HOST}>" + $(this).parents('div.col-md-3').find('.img').attr('src');
+                        window.open(URL);
+                    },
+                    afterCopy: function () {
+                        alert('成功复制图片地址');
+                    },
+                });
+            });
+
+
+            //调出修改标题input
+            $(document).on('click', '.glyphicon-tag', function (event) {
+                var div = $(this).parents('div.col-md-3');
+                var img_name = div.find('.img_name');
+                img_name.fadeToggle();
+            });
+
+
+            //图片删除
+            $(document).on('click', '.glyphicon-trash', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                var div = $(this).parents('div.col-md-3');
+                var img_url = div.find('.img').attr('src');
+                var len = ("__ROOT__").length;
+                var url = "." + img_url.substring(len, img_url.length);
+                var imgtype = div.find('.img').attr('value');
+                // alert(img_url);
+                $.ajax({
+                    url: '<{:U("Upload/del",null,false)}>',
+                    type: 'POST',
+                    // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                    data: {url: img_url},
+                    success: function (data) {
+                        if (!data['status']) {
+                            alert(data['info']);
+                            return false;
+                        } else {
+                            alert(data['info']);
+                            if (imgtype == "x_e_qyjbhyhls") {
+                                qyjbhyhls.splice($.inArray(url, qyjbhyhls), 1);
+                            } else if (imgtype == "x_e_gxht") {
+                                gxht.splice($.inArray(url, gxht), 1);
+                            } else if (imgtype == "x_e_bb") {
+                                bb.splice($.inArray(url, bb), 1);
+                            } else if (imgtype == "x_e_ht") {
+                                ht.splice($.inArray(url, ht), 1);
+                            } else if (imgtype == "x_e_yywj") {
+                                yywj.splice($.inArray(url, yywj), 1);
+                            }
+                            div.fadeOut(2000);
+                            div.remove();
+                        }
+                        ;
+                    }
+                });
+
+            });
+
+            //图片放大预览
+            $(document).on('click', '.img', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                var img_url = $(this).attr('src');
+                $('#modal').modal('show');
+                $('#img_show').attr('src', img_url);
+            });
+
+            //点击modal自动隐藏
+            $('#modal').click(function (event) {
+                $(this).modal('hide');
+            });
+        });
+    </script>
+</div>
+<include file="Public:customer_footer"/>

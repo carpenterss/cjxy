@@ -1,0 +1,30 @@
+<include file="Public:employeesInfo_header" title="任务查看"/>
+   <div class="module_public_main">
+      <table>
+         <tr>
+           <td align="center">编号</td>
+           <td align="center">任务下达人</td>
+           <td align="center">下达时间</td>
+           <td align="center">任务内容</td>
+           <td align="center">上级审批</td>
+           <td align="center">操作</td>
+         </tr>
+         <volist name="t_info" id="v" key="k">
+         <tr>
+           <td align="center"><{$k}></td>
+           <td align="center"><{$v.t_name}></td>
+           <td align="center"><{$v.t_addtime|date="Y-m-d H:m",###}></td>
+           <td align="center"><{$v.t_content|substr=0,30}>...</td>
+           <if condition="$v.t_isOK eq 0">
+           	   <td align="center"><font color=red>未完成</font></td>
+           <else />
+               <td align="center"><font color=green>已完成</font></td>
+           </if>
+           <td align="center">
+             <a href="#" onclick="alert(this.title)" title="<{$v.t_content}>">查看任务内容</a>
+           </td>
+         </tr>   
+         </volist>
+      </table>
+   </div>
+<include file="Public:employeesInfo_footer" />

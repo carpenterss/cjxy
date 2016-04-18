@@ -1,0 +1,1092 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/uploadify/uploadify.css">
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="__PUBLIC__/validate/js/customer_xdyw.js"></script>
+    <script language="javascript" type="text/javascript"
+            src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+    <script src="__PUBLIC__/processbar/nprogress.js"></script>
+    <link href="__PUBLIC__/processbar/nprogress.css" rel="stylesheet">
+    <style>
+        .t-bg {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .t-color {
+            border-bottom: 4px solid #4499ee;
+
+        }
+
+        .uploadify {
+            position: relative;
+            margin-bottom: 1em;
+        }
+
+        .uploadify-button {
+            background-color: #505050;
+            background-image: linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -o-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -moz-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -webkit-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -ms-linear-gradient(bottom, #505050 0%, #707070 100%);
+            background-image: -webkit-gradient(
+                    linear,
+                    left bottom,
+                    left top,
+                    color-stop(0, #505050),
+                    color-stop(1, #707070)
+            );
+            background-position: center top;
+            background-repeat: no-repeat;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+            border: 2px solid #808080;
+            color: #FFF;
+            font: bold 12px Arial, Helvetica, sans-serif;
+            text-align: center;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            width: 100%;
+        }
+
+        .uploadify:hover .uploadify-button {
+            background-color: #606060;
+            background-image: linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -o-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -moz-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -webkit-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -ms-linear-gradient(top, #606060 0%, #808080 100%);
+            background-image: -webkit-gradient(
+                    linear,
+                    left bottom,
+                    left top,
+                    color-stop(0, #606060),
+                    color-stop(1, #808080)
+            );
+            background-position: center bottom;
+        }
+
+        .uploadify-button.disabled {
+            background-color: #D0D0D0;
+            color: #808080;
+        }
+
+        .uploadify-queue {
+            margin-bottom: 1em;
+        }
+
+        .uploadify-queue-item {
+            background-color: #F5F5F5;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            font: 11px Verdana, Geneva, sans-serif;
+            margin-top: 5px;
+            max-width: 350px;
+            padding: 10px;
+        }
+
+        .uploadify-error {
+            background-color: #FDE5DD !important;
+        }
+
+        .uploadify-queue-item .cancel a {
+            background: url('../img/uploadify-cancel.png') 0 0 no-repeat;
+            float: right;
+            height: 16px;
+            text-indent: -9999px;
+            width: 16px;
+        }
+
+        .uploadify-queue-item.completed {
+            background-color: #E5E5E5;
+        }
+
+        .uploadify-progress {
+            background-color: #E5E5E5;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .uploadify-progress-bar {
+            background-color: #0099FF;
+            height: 3px;
+            width: 1px;
+        }
+
+        .container1 {
+            text-align: center;
+        }
+
+        .img_box, .kcht {
+            padding: 9px 14px;
+            margin-bottom: 14px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .img {
+            text-align: center;
+            display: inline-block;
+            margin: auto;
+            max-width: 150px;
+            max-height: 200px;
+            padding: 4px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .img_ctrl {
+            text-align: center;
+            display: inline-block;
+            /*position: absolute;*/
+            width: 100%;
+            /*height: auto;*/
+            padding: 1px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+
+        .img_name {
+            display: none;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .modal-content {
+            text-align: center;
+        }
+
+        #img_show {
+            max-width: 100%;
+        }
+
+        #fileselect {
+            display: none;
+        }
+
+        #send-btn {
+            cursor: pointer;
+            display: block;
+            margin: 10px;
+            width: 120px;
+        }
+    </style>
+</head>
+<include file="Public:customer_header" title="小额贷款业务信息添加"/>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery-1.8.3-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery.metadata.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/CardId.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+<!--<script type="text/javascript" src="__PUBLIC__/validate/js/xdyw.js"></script>-->
+<script> var handleUrl = '<{:U("Customer/do_xdyw")}>';</script>
+<script>
+
+    function guid() {
+        function S4() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    }
+    var uniquetag = guid();
+
+    var timer;
+    var windowopen;
+    function add_dbr() {
+        var cardid = uniquetag;
+        if (cardid == "") {
+            alert('GUID生成失败，请刷新网页重试');
+        } else {
+            windowopen = window.open('__APP__/Customer/customer_x_p_dbr_add/idcard/' + uniquetag + '/', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+            timer = window.setInterval("IfWindowClosed1()", 100);
+        }
+    }
+
+    function IfWindowClosed1() {
+        if (windowopen.closed == true) {
+            window.clearInterval(timer)
+            $.post("__URL__/getdbrinfo/cardid/" + uniquetag, {
+                cardid: uniquetag,
+                request: 1
+            }, function (returndata) {
+                if (returndata.status) {
+                    var dbrinfo = eval(returndata.dbrinfo);
+                    var tbody = document.getElementById("dbr_info");
+                    for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                        tbody.removeChild(tbody.childNodes[i]);
+                    }
+                    for (var i = 0; i < dbrinfo.length; i++) {
+                        var tr = document.createElement("tr");
+                        var td = document.createElement("td");
+                        td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbr(" + dbrinfo[i]["id"] + ")'>担保人" + dbrinfo[i]["x_p_name"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbr(" + dbrinfo[i]["id"] + ")'>删除</button>";
+                        var td1 = document.createElement("td");
+                        tr.appendChild(td1);
+                        tr.appendChild(td);
+                        tbody.appendChild(tr)
+                    }
+                }
+            })
+        }
+    }
+
+    function updatedbr(id) {
+        windowopen = window.open('__APP__/Customer/customer_x_p_dbr_update/id/' + id + '/', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+        timer = window.setInterval("IfWindowClosed1()", 100);
+    }
+
+
+    function del_dbr(id) {
+        if (confirm("确定要删除该担保人？")) {
+            $.post("__URL__/do_del_dbr", {
+                id: id,
+                request: 1,
+                cardid: uniquetag
+            }, function (returndata) {
+                if (returndata.status) {
+                    var dbrinfo = eval(returndata.dbrinfo);
+                    var tbody = document.getElementById("dbr_info");
+                    for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                        tbody.removeChild(tbody.childNodes[i]);
+                    }
+                    for (var i = 0; i < dbrinfo.length; i++) {
+                        var tr = document.createElement("tr");
+                        var td = document.createElement("td");
+                        td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbr(" + dbrinfo[i]["id"] + ")'>担保人" + dbrinfo[i]["x_p_name"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbr(" + dbrinfo[i]["id"] + ")'>删除</button>";
+                        var td1 = document.createElement("td");
+                        tr.appendChild(td1);
+                        tr.appendChild(td);
+                        tbody.appendChild(tr)
+                    }
+                }
+            })
+        }
+    }
+
+    function hascustomer() {
+        if ($('input[name = x_name]').val() != null && $('input[name = x_name]').val() != '' && $('input[name = x_cardid]').val() != null && $('input[name = x_cardid]').val() != '' && $('input[name= x_khlx]:checked').val() != null && $('input[name= x_khlx]:checked').val() != '') {
+            $.post("__URL__/hascustomer", {
+                xm: $('input[name = x_name]').val(),
+                sfzh: $('input[name = x_cardid]').val(),
+                khlx: $('input[name= x_khlx]:checked').val()
+            }, function (returndata) {
+                var b1 = "<button type='button' class='btn btn-primary' onclick='openbasicinfo(" + returndata.id + "," + returndata.khlx + ")'>查看客户基础信息</button>";
+                if (returndata['status'] == 0) {
+                    customernull.innerHTML = "该客户基础已录入" + b1;
+                } else if (returndata['status'] == 1) {
+                    customernull.innerHTML = "该客户基础信息不存在，请检查信息是否正确";
+                } else {
+                    customernull.innerHTML = "该客户基础资料已被删除，请联系管理员恢复"
+                }
+            });
+        } else {
+            customernull.innerHTML = "请填写客户资料";
+        }
+    }
+
+    function openbasicinfo(id, type) {
+        if (type == 1) {
+            windowopen = window.open('__APP__/Customer/customer_x_p_update/id/' + id + '/enter/1', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+        } else {
+            windowopen = window.open('__APP__/Customer/customer_x_e_update/id/' + id + '/enter/1', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+        }
+    }
+    function recoverycustomer(c_id, type) {
+        $.ajax({
+            url: '<{:U("Customer/recoverycustomer",null,false)}>',
+            type: 'POST',
+            // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+            data: {
+                c_id: c_id,
+                type: $('input[name= x_khlx]:checked').val()
+            },
+            success: function (data) {
+                if (!data['status']) {
+                    alert("该客户已恢复")
+                } else {
+                    alert("该客户恢复失败，请联系管理员")
+                }
+            }
+        })
+    }
+
+    function createjj() {
+        var x_cardid = $('input[name = x_cardid]').val();
+        $.post("__URL__/createjj/cardid/" + x_cardid, {
+            jkrsfzh: x_cardid,
+            jkrxm: $('input[name = x_name]').val(),
+            jkyt: $('input[name = x_yt]').val(),
+            jkylv: $('input[name = x_lv]').val(),
+            jxfs: $('input[name = x_hkfs]:checked').val(),
+            jkje: $('input[name = x_dkje]').val(),
+            jkqsrq: $("#x_dkqsrq").val(),
+            jkjsrq: $("#x_dkjsrq").val(),
+            customertype: $('input[name= x_khlx]:checked').val()
+        }, function (returndata) {
+            if (returndata.status) {
+                var tbody = document.getElementById("jj");
+                var tr = document.createElement("tr");
+                var td = document.createElement("td");
+                td.innerHTML = "<a href='__ROOT__/ChengJin Office Output File.xls'>点击下载借据</a>";
+                var td1 = document.createElement("td");
+                tr.appendChild(td1);
+                tr.appendChild(td);
+                tbody.appendChild(tr)
+
+            }
+        })
+    }
+
+
+    var timer;
+    var windowopen;
+    function add_dbw() {
+        var cardid = uniquetag;
+        if (cardid == "" || uniquetag == undefined) {
+            alert('请先填写个人基础信息再添加担保物');
+        } else {
+            windowopen = window.open('__APP__/Customer/customer_dbw_add/idcard/' + uniquetag + '/type/' + $('input[name= x_khlx]:checked').val(), 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+            timer = window.setInterval("IfWindowClosed()", 100);
+        }
+    }
+
+    function IfWindowClosed() {
+        if (windowopen.closed == true) {
+            window.clearInterval(timer)
+            $.post("__URL__/getdbwinfo/idcard/" + uniquetag, {
+                cardid: uniquetag,
+                request: 1,
+                type: $('input[name= x_khlx]:checked').val()
+            }, function (returndata) {
+                if (returndata.status) {
+                    var dbwinfo = eval(returndata.dbwinfo);
+                    var tbody = document.getElementById("dbw_info");
+                    for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                        tbody.removeChild(tbody.childNodes[i]);
+                    }
+                    for (var i = 0; i < dbwinfo.length; i++) {
+                        var tr = document.createElement("tr");
+                        var td = document.createElement("td");
+                        if (dbwinfo[i]['db_type'] == 1) {
+                            td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>房屋：产权证号" + dbwinfo[i]["fw_fczh"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 2) {
+                            td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>车辆：车牌号" + dbwinfo[i]["c_ph"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 3) {
+                            td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>贵金属：名称" + dbwinfo[i]["gjs_mc"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 4) {
+                            td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>信用</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 5) {
+                            td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>凭证：姓名" + dbwinfo[i]["pz_name"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 6) {
+                            td.innerHTML = "<button type='button' class='btn btn-primary' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>其他：名称" + dbwinfo[i]["qt_name"] + "</button><button type='button' class='btn btn-primary' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        }
+                        var td1 = document.createElement("td");
+                        tr.appendChild(td1);
+                        tr.appendChild(td);
+                        tbody.appendChild(tr)
+                    }
+                }
+            })
+        }
+    }
+
+    function updatedbw(id) {
+        windowopen = window.open('__APP__/Customer/customer_dbw_update/id/' + id + '/', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+        timer = window.setInterval("IfWindowClosed()", 100);
+    }
+
+
+    function del_dbw(id) {
+        if (confirm("确定删除该记录？")) {
+
+            $.post("__URL__/do_del_dbw", {
+                id: id,
+                request: 1,
+                cardid: uniquetag,
+                type: $('input[name= x_khlx]:checked').val()
+            }, function (returndata) {
+                if (returndata.status) {
+                    var dbwinfo = eval(returndata.dbwinfo);
+                    var tbody = document.getElementById("dbw_info");
+                    for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                        tbody.removeChild(tbody.childNodes[i]);
+                    }
+                    for (var i = 0; i < dbwinfo.length; i++) {
+                        var tr = document.createElement("tr");
+                        var td = document.createElement("td");
+                        if (dbwinfo[i]['db_type'] == 1) {
+                            td.innerHTML = "<button type='button' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>房屋：产权证号" + dbwinfo[i]["fw_fczh"] + "</button><button type='button' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 2) {
+                            td.innerHTML = "<button type='button' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>车辆：车牌号" + dbwinfo[i]["c_ph"] + "</button><button type='button' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 3) {
+                            td.innerHTML = "<button type='button' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>贵金属：名称" + dbwinfo[i]["gjs_mc"] + "</button><button type='button' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 4) {
+                            td.innerHTML = "<button type='button' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>信用</button><button type='button' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 5) {
+                            td.innerHTML = "<button type='button' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>凭证：姓名" + dbwinfo[i]["pz_name"] + "</button><button type='button' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        } else if (dbwinfo[i]['db_type'] == 6) {
+                            td.innerHTML = "<button type='button' onclick='updatedbw(" + dbwinfo[i]["id"] + ")'>其他：名称" + dbwinfo[i]["qt_name"] + "</button><button type='button' onclick='del_dbw(" + dbwinfo[i]["id"] + ")'>删除</button>";
+                        }
+                        var td1 = document.createElement("td");
+                        tr.appendChild(td1);
+                        tr.appendChild(td);
+                        tbody.appendChild(tr)
+                    }
+                }
+            })
+        }
+    }
+
+</script>
+<script>
+    $(document).ready(function () {
+        var menuParent = $('.menu > .ListTitlePanel > div');//获取menu下的父层的DIV
+        var menuList = $('.menuList');
+        var history = 0;
+        $(menuList[history]).show();
+        $('.menu > .menuParent > .ListTitlePanel > .ListTitle').each(function (i) {//获取列表的大标题并遍历
+            $(this).click(function () {
+                if ($(menuList[i]).css('display') == 'none') {
+                    $(menuList[history]).hide();
+                    $(menuList[i]).slideDown(300);
+                    history = i;
+                }
+            });
+        });
+    });
+
+    function callx() {
+        $.post("<{:U('Index/remotecallx')}>", {
+            startdate: $('#x_dkqsrq').val(),
+            money: $('input[name = x_dkje]').val(),
+            lv: $('input[name = x_lv]').val() / 1000,
+            type: $('input[name = x_hkfs]:checked').val(),
+            enddate: $('#x_dkjsrq').val(),
+        }, function (returndata) {
+            if (returndata.status) {
+                document.getElementById('lxze').value = returndata.lxze + "元";
+                document.getElementById('ljhkze').value = returndata.ljhkze + "元";
+            }
+        })
+    }
+
+
+</script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/validate/css/register.css"/>
+<div class="module_public_main">
+    <div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                <img id="img_show" src="" alt="">
+            </div>
+        </div>
+    </div>
+    <form id="xdyw_form" action="">
+        <table align="left">
+            <tr>
+                <td width="20%" align="right" class="t-bg">客户姓名/企业名称</td>
+                <td><input style="width: 200px" type="text" name="x_name" class="_input" onblur="hascustomer()"/></td>
+            </tr>
+            <tr>
+                <td width="20%" align="right" class="t-bg">客户身份证/组织机构代码证号</td>
+                <td><input style="width: 200px" type="text" name="x_cardid" class="_input" onblur="hascustomer()"/></td>
+            </tr>
+            <tr>
+                <td width="20%" align="right" class="t-bg">客户类型</td>
+                <td>
+                    <input type="radio" name="x_khlx" value="1" onclick="hascustomer()"/><font color=green>个人</font>&nbsp;
+                    <input type="radio" name="x_khlx" value="2" onclick="hascustomer()"/><font color=green>企业</font>
+                </td>
+                &nbsp;&nbsp;
+                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                      id="customernull"></font>
+            </tr>
+        </table>
+        <br/>
+
+        <div class="menu">
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>贷款信息</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="jcxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">贷款金额</td>
+                            <td><input type="text" name="x_dkje" class="_input"
+                                       onblur="checkdkje()"
+                                       onkeypress="disbutton()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="dkjenull"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">贷款月利率</td>
+                            <td><input type="text" name="x_lv" class="_input" onblur="checklv()"
+                                       onkeypress="disbutton()"/>&nbsp;‰&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="lvnull"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">贷款起始日期</td>
+                            <td><input id="x_dkqsrq" class="_input Wdate" type="text" id="x_dkqsrq"
+                                       onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'x_dkjsrq\')||\'3020-10-01\'}'})"/>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">贷款结束日期</td>
+                            <td>
+                                <input id="x_dkjsrq" class="_input Wdate" type="text" id="x_dkjsrq"
+                                       onFocus="WdatePicker({minDate:'#F{$dp.$D(\'x_dkqsrq\')}',maxDate:'3020-10-01'})">
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="qxnull"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">贷款用途</td>
+                            <td><input type="text" name="x_yt" class="_input" onblur="checkyt()"
+                                       onkeypress="disbutton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                        id="ytnull"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">还款方式</td>
+                            <td>
+                                <input type="radio" name="x_hkfs" value="1"/><font color=green>等额本息</font>&nbsp;
+                                <input type="radio" name="x_hkfs" value="2"/><font color=green>等额本金</font>&nbsp;
+                                <input type="radio" name="x_hkfs" value="3"/><font color=green>按月还息到期还本</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">利息计算</td>
+                            <td>
+                                <button type="button" value="计算" onclick="callx()" class="btn btn-primary"
+                                        style="width:120px;height:30px;">计算
+                                </button>
+                            </td>
+                            <td class="t-bg"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">利息总额</td>
+                            <td>
+                                <input style="width: 200px;" type="text" id="lxze" readonly class="_input"/>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">累计还款总额</td>
+                            <td>
+                                <input style="width: 200px;" type="text" id="ljhkze" readonly class="_input"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">资金科目</td>
+                            <td>
+                                <input type="checkbox" name="x_zjkm" value="1" onclick="getcheckedvalue()"/><font
+                                    color=green>公司资金</font>&nbsp;
+                                <input type="checkbox" name="x_zjkm" value="2" onclick="getcheckedvalue()"/><font
+                                    color=green>其他资金</font>&nbsp;
+                            </td>
+                            <td width="20%" align="right" class="t-bg">资金科目备注</td>
+                            <td>
+                                <input type="text" name="x_zjkmbz" class="_input"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>担保方式</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="dbrxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">是否有担保人</td>
+                            <td>
+                                <button id="adddbr" type="button" onclick="add_dbr()" class="btn btn-primary"
+                                        style="width:120px;height:30px;">添加担保人
+                                </button>
+                            </td>
+                        </tr>
+                        <tbody align="left" id="dbr_info" width="200px">
+
+                        </tbody>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">担保物信息</td>
+                            <td>
+                                <button id="adddbw" type="button" onclick="add_dbw()" class="btn btn-primary"
+                                        style="width:120px;height:30px;">添加担保物
+                                </button>
+                            </td>
+                        </tr>
+                        <tbody align="left" id="dbw_info" width="200px">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>系统自动生成借据</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="xtzdscht">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg"></td>
+                            <td><input type="button" value="生成借据" onclick="createjj()" class="btn btn-primary"
+                                       style="width:120px;height:30px;"></td>
+                        </tr>
+                        <tbody align="left" id="jj" width="200px">
+
+                        </tbody>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">借据文件:</td>
+                            <td>
+                                <div class="container1">
+                                    <div class="row img_box" id="gxht_box">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary" id="selsect">选择文件</button>
+                                        <input hidden="true" type="file" id="fileselect" class="form-control"
+                                               name="fileselect[]"
+                                               multiple="multiple"/>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>放款登记</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="fkdj">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">放款方式</td>
+                            <td>
+                                <input type="radio" name="x_fkfs" value="1"
+                                       onclick="javascript:document.getElementById('hk').style.display = 'none'"/><font
+                                    color=green>现金</font>&nbsp;
+                                <input type="radio" name="x_fkfs" value="2" checked="checked"
+                                       onclick="javascript:document.getElementById('hk').style.display = ''"/><font
+                                    color=green>汇款</font>
+                            </td>
+                        </tr>
+                        <tr id="hk">
+                            <td width="20%" align="right" class="t-bg">汇款账号：</td>
+                            <td>
+                                <input style="width: 300px;" onblur="checkhkzh()" type="text" name="x_hkzh"
+                                       class="_input"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="hkzh"></font>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+
+                </div>
+            </div>
+
+
+            <table align="left">
+                <tr>
+                    <td align="center">
+                        <button type="button" value="确定提交" id="send-btn" class="btn btn-primary"/>
+                        确定提交
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="__PUBLIC__/js/jquery/jquery-1.11.3.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="__PUBLIC__/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+
+    <!-- 引入uploadify的js代码 -->
+    <script src="__PUBLIC__/uploadify/jquery.uploadify.min.js"></script>
+
+    <!-- 复制专用插件 -->
+    <script src="__PUBLIC__/js/jquery.zclip/jquery.zclip.js"></script>
+    <!-- 引入livequery 用于新增对象方法绑定 -->
+    <script src="__PUBLIC__/js/jquery.livequery.js"></script>
+    <script src="__PUBLIC__/processbar/spin.min.js"></script>
+    <script> var handleUrl = '<{:U("Customer/do_xdyw")}>';</script>
+    <script>
+        var ht = new Array();
+        var kcht = new Array();
+        var opts = {
+            lines: 13, // 花瓣数目
+            length: 20, // 花瓣长度
+            width: 10, // 花瓣宽度
+            radius: 30, // 花瓣距中心半径
+            corners: 1, // 花瓣圆滑度 (0-1)
+            rotate: 0, // 花瓣旋转角度
+            direction: 1, // 花瓣旋转方向 1: 顺时针, -1: 逆时针
+            color: '#5882FA', // 花瓣颜色
+            speed: 1, // 花瓣旋转速度
+            trail: 60, // 花瓣旋转时的拖影(百分比)
+            shadow: false, // 花瓣是否显示阴影
+            hwaccel: false, //spinner 是否启用硬件加速及高速旋转
+            className: 'spinner', // spinner css 样式名称
+            zIndex: 2e9, // spinner的z轴 (默认是2000000000)
+            top: 'auto', // spinner 相对父容器Top定位 单位 px
+            left: 'auto'// spinner 相对父容器Left定位 单位 px
+        };
+
+        var spinner = new Spinner(opts);
+
+    </script>
+    <script>
+        $('#send-btn').click(function () {
+            var x_name = $('input[name = x_name]').val();
+            var x_cardid = $('input[name = x_cardid]').val();
+            var x_khlx = $('input[name= x_khlx]:checked').val();
+            var x_dkje = $('input[name = x_dkje]').val();
+            var x_dkqsrq = $("#x_dkqsrq").val();
+            var x_dkjsrq = $("#x_dkjsrq").val();
+            var x_lv = $('input[name = x_lv]').val();
+            var x_yt = $('input[name = x_yt]').val();
+            var x_hkfs = $('input[name= x_hkfs]:checked').val();
+            var x_hkly = $('input[name = x_hkly]').val();
+            var x_dbfs = $('input[name = x_dbfs]').val();
+            var x_dy = $('input[name = x_dy]').val();
+            var x_ht = ht;
+            var x_fkfs = $('input[name = x_fkfs]:checked').val();
+            var x_hkdj = $('input[name = x_hkdj]').val();
+            var x_hkzh = $('input[name = x_hkzh]').val();
+            var x_zjkmarray = new Array();
+            $('input:checkbox:checked[name="x_zjkm"]').each(function (i) {
+                x_zjkmarray[i] = this.value;
+            })
+            var x_zjkm;
+            if (x_zjkmarray.length == 1) {
+                if (x_zjkmarray[0] == 1) {
+                    x_zjkm = 1;
+                } else {
+                    x_zjkm = 2;
+                }
+            } else {
+                x_zjkm = 3;
+            }
+            var x_kc = $("#x_kc").val();
+            var x_zjkmbz = $('input[name = x_zjkmbz]').val();
+            if (checkdata()) {
+                document.getElementById('send-btn').disabled = true;
+                $.post(handleUrl, {
+                    x_name: x_name,
+                    x_cardid: x_cardid,
+                    x_khlx: x_khlx,
+                    x_dkje: x_dkje,
+                    x_lv: x_lv,
+                    x_dkqsrq: x_dkqsrq,
+                    x_dkjsrq: x_dkjsrq,
+                    x_yt: x_yt,
+                    x_hkfs: x_hkfs,
+                    x_hkly: x_hkly,
+                    x_dbfs: x_dbfs,
+                    x_dy: x_dy,
+                    x_ht: x_ht,
+                    x_hkzh: x_hkzh,
+                    x_fkfs: x_fkfs,
+                    x_hkdj: x_hkdj,
+                    x_kc: x_kc,
+                    x_kcht: kcht,
+                    x_zjkm: x_zjkm,
+                    x_zjkmbz: x_zjkmbz,
+                    uniquetag: uniquetag
+
+                }, function (returndata) {
+                    document.getElementById('send-btn').disabled = false;
+                    if (returndata.status) {
+                        alert('于' + returndata.time + '添加成功');
+                        window.location.href = "<{:U('Index/main')}>";
+                    } else {
+                        alert('添加失败，错误：' + returndata.error);
+                    }
+                }, 'json');
+            } else {
+                alert('信息不完整或错误，请检查！')
+                document.getElementById('send-btn').disabled = false;
+            }
+        })
+    </script>
+    <script>
+        $(function () {
+            $('#selsect').click(function (event) {
+                $('#fileselect').click();
+            });
+            $('#select_kcht').click(function (event) {
+                $('#fileselect_kcht').click();
+            });
+            //选择文件
+            $('#fileselect').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "xd_ht";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+            });
+            $('#fileselect_kcht').change(function (event) {
+                event.preventDefault();
+                var n = event.target.files.length;
+                var file;
+                var type = "xd_kcht";
+                for (var i = 0; i < n; i++) {
+                    file = event.target.files[i];
+                                        NProgress.start();                     setTimeout(function(){html5up(file,type);},1000);
+                }
+            });
+            //上传操作
+            function html5up(file, type) {
+                /* Act on the event */
+                var name = file.name;
+                spinner.spin(document.getElementById('yywj_box'));
+                var size = file.size;
+                var shardSize = 5 * 1024 * 1024;    //以2MB为一个分片
+                var shardCount = Math.ceil(size / shardSize);  //总片数
+                var chunk = 0;
+                if (size > shardSize) {
+                    chunk = 1;
+                }
+                for (var i = 0; i < shardCount; ++i) {
+                    var start = i * shardSize;
+                    var end = Math.min(size, start + shardSize);
+                    var form_data = new FormData();
+                    form_data.append('timestamp', "<{$time}>");
+                    form_data.append('token', '<{:md5("unique_salt".$time)}>');
+                    form_data.append("filetype", type);
+                    form_data.append("data", file.slice(start, end));  //slice方法用于切出文件的一部分
+                    form_data.append("name", name);
+                    form_data.append("total", shardCount);  //总片数
+                    form_data.append("index", i + 1);        //当前是第几片
+                    form_data.append("chunk", chunk);
+                    $.ajax({
+                        url: '__APP__/Upload/upload',
+                        type: 'POST',
+                        // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                        async: false,
+                        processData: false,
+                        contentType: false,
+                        data: form_data
+                    })
+                            .done(function (data) {
+                                // alert(data);
+                                NProgress.done();
+                                if (!data.status) {
+                                    return false;
+                                }
+                                if (type == "xd_ht") {
+                                    ht[ht.length] = data.savepath + data.savename;
+                                } else if (type == "xd_kcht") {
+                                    kcht[kcht.length] = data.savepath + data.savename;
+                                }
+                                put_img(data.savepath, data.savename, type);//添加图片到img_box
+                                console.log("success");
+                            })
+                            .fail(function () {
+                                console.log("error");
+                            })
+                            .always(function () {
+                                console.log("complete");
+                                spinner.spin();
+                            });
+                }
+            }
+
+            //uploadify上传操作
+            $('#file_upload').uploadify({
+                'formData': {
+                    'timestamp': "<{$time}>",//当前时间戳由后台传过来的
+                    'token': '<{:md5("unique_salt".$time)}>'//用md5生成token
+                },
+                'swf': '__PUBLIC__/uploadify/uploadify.swf',//引用uploadify.swf
+                'uploader': '__APP__/Upload/upload',//后台上传文件处理方法
+                'buttonText': '选择文件',
+                'multi': true,//允许多文件上传
+                'fileTypeExts': '*.gif; *.jpg; *.png;',//限制文件格式
+                'fileSizeLimit': '5MB',//限制文件大小
+
+                'onUploadSuccess': function (file, data, response) {
+                    var data = $.parseJSON(data);
+                    if (!data['status']) {
+                        alert(data['info']);
+                        return false;
+                    }
+                    put_img(data['savepath'], data['savename']);//添加图片到img_box
+                }
+            });
+
+
+            //添加图片到img_box
+            function put_img(savepath, savename, type) {
+                savename = savename.substring(0, savename.length - 1);
+                var path = savepath + savename;
+                var img_url = "__ROOT__" + path.substring(1);
+                var new_img = '<div class="col-md-3">';
+                var extStart = path.lastIndexOf(".");
+                var ext = path.substring(extStart, path.length).toUpperCase();
+                if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    new_img += '<span style="background-color: #838383">' + savename + '</span>'
+                    new_img += '<img style="display:none" src="' + img_url + '" alt="' + savename + '" class="img">';
+                    new_img += '<div class="img_ctrl">';
+                    new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+                    new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+                    new_img += '</div>';
+                    new_img += '<div class="img_name">';
+                    new_img += '<form action="" class="form-inline">';
+                    new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+                    new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+                    new_img += '</form>';
+                    new_img += '</div>';
+                    new_img += '</div>';
+                } else {
+                    new_img += '<img src="' + img_url + '" alt="' + savename + '" class="img">';
+                    new_img += '<div class="img_ctrl">';
+                    new_img += '<span class="glyphicon glyphicon-cloud-download btn" data-toggle="tooltip" data-placement="bottom" title="下载链接地址" aria-hidden="true"></span>';
+                    new_img += '<span class="glyphicon glyphicon-trash btn" data-toggle="tooltip" data-placement="bottom" title="删除文件" aria-hidden="true"></span>';
+                    new_img += '</div>';
+                    new_img += '<div class="img_name">';
+                    new_img += '<form action="" class="form-inline">';
+                    new_img += '<input type="text" class="form-control input-sm savename" value="' + savename + '">';
+                    new_img += '<button class="btn btn-primary btn-sm save inline-block">保存</button>';
+                    new_img += '</form>';
+                    new_img += '</div>';
+                    new_img += '</div>';
+                }
+
+                if (type == "xd_ht") {
+                    $('.img_box').append(new_img);
+                } else if (type == "xd_kcht") {
+                    $('.kcht').append(new_img);
+                }
+
+            }
+
+            //复制图片地址
+            $('.glyphicon-cloud-download').livequery(function () {
+                $(this).zclip({
+                    path: '__PUBLIC__/js/jquery.zclip/ZeroClipboard.swf',
+                    copy: function () {
+
+                        var URL = "http://" + "<{$Think.server.HTTP_HOST}>" + $(this).parents('div.col-md-3').find('.img').attr('src');
+                        window.open(URL);
+                    },
+                    afterCopy: function () {
+                        alert('成功复制图片地址');
+                    },
+                });
+            });
+
+
+            //调出修改标题input
+            $(document).on('click', '.glyphicon-tag', function (event) {
+                var div = $(this).parents('div.col-md-3');
+                var img_name = div.find('.img_name');
+                img_name.fadeToggle();
+            });
+
+
+            //图片删除
+            $(document).on('click', '.glyphicon-trash', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                var div = $(this).parents('div.col-md-3');
+                var img_url = div.find('.img').attr('src');
+                var len = ("__ROOT__").length;
+                var url = "." + img_url.substring(len, img_url.length);
+                var imgtype = div.find('.img').attr('value');
+                $.ajax({
+                    url: '<{:U("Upload/del",null,false)}>',
+                    type: 'POST',
+                    // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                    data: {url: img_url},
+                    success: function (data) {
+                        if (!data['status']) {
+                            alert(data['info']);
+                            return false;
+                        } else {
+                            alert(data['info']);
+                            if (imgtype == "xd_ht") {
+                                ht.splice($.inArray(url, ht), 1);
+                            } else if (imgtype == "xd_kcht") {
+                                kcht.splice($.inArray(url, kcht), 1);
+                            }
+                            div.fadeOut(2000);
+                            div.remove();
+                        }
+                    }
+                });
+
+            });
+
+            //图片放大预览
+            $(document).on('click', '.img', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                var img_url = $(this).attr('src');
+                $('#modal').modal('show');
+                $('#img_show').attr('src', img_url);
+            });
+
+            //点击modal自动隐藏
+            $('#modal').click(function (event) {
+                $(this).modal('hide');
+            });
+        });
+    </script>
+
+</div>
+<include file="Public:customer_footer"/>

@@ -1,0 +1,456 @@
+<style>
+    #send-btn {
+        cursor: pointer;
+        display: block;
+        margin: 10px;
+        width: 120px;
+    }
+		.t-bg {
+		background-color: #f4f4f4;
+		font-weight: bold;
+	}
+	.t-color {
+		border-bottom: 4px solid #4499ee;
+		
+	}
+    .error {
+        color: #ff0000;
+    }
+			.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px
+}
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4
+}
+</style>
+<include file="Public:customer_header" title="担保人基础资料添加"/>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery-1.8.3-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/jquery.metadata.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/CardId.js"></script>
+<script type="text/javascript" src="__PUBLIC__/x_p/dbr.js"></script>
+<script type="text/javascript" src="__PUBLIC__/validate/js/x_p_add.js"></script>
+<script> var handleUrl = '<{:U("Customer/do_add_dbr")}>';</script>
+<script>
+    $(document).ready(function () {
+        var menuParent = $('.menu > .ListTitlePanel > div');//获取menu下的父层的DIV
+        var menuList = $('.menuList');
+		var history = 0;
+		$(menuList[history]).show();
+        $('.menu > .menuParent > .ListTitlePanel > .ListTitle').each(function (i) {//获取列表的大标题并遍历
+            $(this).click(function () {
+                if ($(menuList[i]).css('display') == 'none') {
+                    $(menuList[history]).hide();
+                    $(menuList[i]).slideDown(300);
+					history = i;
+                }
+            });
+        });
+    });
+	function showPO(){
+		var poxx = document.getElementsByName('poxx');
+		for(var i=0;i<poxx.length;i++){
+			poxx[i].style.display='';
+		}
+	}
+	function hidePO(){
+		var poxx = document.getElementsByName('poxx');
+		for(var i=0;i<poxx.length;i++){
+			poxx[i].style.display='none';
+		}
+	}
+</script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/validate/css/register.css"/>
+
+<div class="module_public_main">
+
+
+    <form id="x_p_add_form" action="">
+        <div class="menu">
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>基础信息</b></td>
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="jcxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">客户姓名</td>
+                            <td><input style="width: 200px" type="text" name="x_p_name" class="_input"  onblur="checkname()"
+                                       onkeypress="disButton()"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="namenull"></font></td>
+                            <td width="20%" align="right" class="t-bg">身份证号</td>
+                            <td><input style="width: 200px" type="text" name="x_p_idcard" class="_input"  onblur="checkidcard()"
+                                       onkeypress=" disButton()"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="idcard"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">性别</td>
+                            <td>
+                                <input type="radio" name="x_p_sex" value="0" checked="checked"/><font
+                                    color=green>男</font>&nbsp;
+                                <input type="radio" name="x_p_sex" value="1"/><font color=green>女</font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">民族</td>
+                            <td><input style="width: 200px" type="text" name="x_p_mz" class="_input"   onblur="checkmz()"
+                                       onkeypress="disButton()"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="mz"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">健康状况</td>
+                            <td><input style="width: 200px" type="text" name="x_p_jkzk" class="_input" onblur="checkjkzk()"
+                                       onkeypress="disButton()"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="jkzk"></font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">工作单位</td>
+                            <td><input style="width: 200px" type="text" name="x_p_gzdw" class="_input" onblur="checkgzdw()"
+                                       onkeypress="disButton()"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="gzdw"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">职务</td>
+                            <td><input style="width: 200px" type="text" name="x_p_zw" class="_input"  onblur="checkzw()"
+                                       onkeypress="disButton()"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="zw"></font></td>
+                            <td width="20%" align="right" class="t-bg">户口所在地</td>
+                            <td><input style="width: 200px" type="text" name="x_p_hkzz" class="_input"
+                                       onblur="checkhkzz()"
+                                       onkeypress="disButton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="hkzz"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">身份证所在地</td>
+                            <td><input style="width: 200px" type="text" name="x_p_sfzzz" class="_input"  onblur="checksfzzz()"
+                                       onkeypress="disButton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="sfzzz"></font></td>
+                            <td width="20%" align="right" class="t-bg">实际住址</td>
+                            <td><input style="width: 200px" type="text" name="x_p_sjzz" class="_input"    onblur="checksjzz()"
+                                       onkeypress="disButton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="sjzz"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">联系方式</td>
+                            <td><input style="width: 200px" type="text" name="x_p_lxfs" class="_input"    onblur="checklxfs()"
+                                       onkeypress="disButton()"/>
+                                <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="lxfs"></font></td>
+                            <td width="20%" align="right" class="t-bg">婚姻状况</td>
+                            <td>
+                                <input type="radio" name="x_p_hyzk" value="0" checked="checked"
+                                       onclick="showPO()"/><font
+                                    color=green>已婚</font>&nbsp;
+                                <input type="radio" name="x_p_hyzk" value="1"
+                                       onclick="hidePO()"/><font
+                                    color=green>未婚</font>
+                            </td>
+                        </tr>
+						<tr name="poxx">
+                            <td width="20%" align="right" class="t-bg">配偶姓名</td>
+                            <td><input style="width: 200px" type="text" name="x_p_poxm" class="_input" onblur="checkpoxm()"/> <font
+                                    style="color: red; font-size: 12px;"
+                                    mce_style="color: red; font-size: 12px;"
+                                    id="poxm"></font></td>
+                            <td width="20%" align="right" class="t-bg">配偶身份证号</td>
+                            <td><input style="width: 200px" type="text" name="x_p_posfzh" class="_input"   onblur="checkposfzh()"/> <font
+                                    style="color: red; font-size: 12px;"
+                                    mce_style="color: red; font-size: 12px;"
+                                    id="posfzh"></font></td>
+                        </tr>
+                        <tr name="poxx">
+                            <td width="20%" align="right" class="t-bg">配偶联系方式</td>
+                            <td><input style="width: 200px" type="text" name="x_p_polxfs" class="_input"  onblur="checkpolxfs()"/> <font
+                                    style="color: red; font-size: 12px;"
+                                    mce_style="color: red; font-size: 12px;"
+                                    id="polxfs"></font></td>
+                            <td width="20%" align="right" class="t-bg">配偶年收入</td>
+                            <td><input style="width: 200px" type="text" name="x_p_posr" class="_input"  onblur="checkposr()"/>&nbsp;（元）&nbsp;<font
+                                    style="color: red; font-size: 12px;"
+                                    mce_style="color: red; font-size: 12px;"
+                                    id="posr"></font></td>
+                        </tr>
+                        <tr name="poxx">
+                            <td width="20%" align="right" class="t-bg">配偶工作情况</td>
+                            <td><input style="width: 200px" type="text" name="x_p_pogzqk" class="_input" onblur="checkpogzqk()"/> <font
+                                    style="color: red; font-size: 12px;"
+                                    mce_style="color: red; font-size: 12px;"
+                                    id="pogzqk"></font></td>
+                            <td width="20%" align="right" class="t-bg">配偶职务</td>
+                            <td><input style="width: 200px" type="text" name="x_p_pozw" class="_input" onblur="checkpozw()"/>
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="pozw"></font></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>资产信息</b></td>
+
+
+                            </tr>
+                        </table>
+                        <div class="leftbgbt"></div>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="zcxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">家庭综合收入</td>
+                            <td><input style="width: 200px" type="text" name="x_p_jtzhnsr" class="_input"   onblur="checkjtzhnsr()"
+                                       onkeypress="disButton()"/>&nbsp;（元）&nbsp;
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="jtzhnsr"></font></td>
+                            <td width="20%" align="right" class="t-bg">名下资产</td>
+                            <td><input style="width: 200px" type="text" name="x_p_mxzc" class="_input"/>&nbsp;（元）&nbsp;
+                                <font style="color: red; font-size: 12px;" mce_style="color: red; font-size: 12px;"
+                                      id="mxzc"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">银行存款</td>
+                            <td><input style="width: 200px" type="text" name="x_p_yhck" class="_input"  onblur="checkyhck()"
+                                       onkeypress="disButton()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="yhck"></font></td>
+							<td width="20%" align="right" class="t-bg"></td><td></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">房屋性质</td>
+                            <td>
+                                <input type="radio" name="x_p_fwxz" value="0" checked="checked"/><font
+                                    color=green>自有</font>&nbsp;
+                                <input type="radio" name="x_p_fwxz" value="1"/><font color=green>租赁</font>
+                            </td>
+                            <td width="20%" align="right" class="t-bg">房屋小区价值</td>
+                            <td><input style="width: 200px" type="text" name="x_p_fwxqjz" class="_input"/>&nbsp;（元）&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">车辆型号及价值</td>
+                            <td><input style="width: 200px" type="text" name="x_p_clxhjz" class="_input"   onblur="checkclxhjz()"
+                                       onkeypress="disButton()"/> <font
+                                    style="color: red; font-size: 12px;"
+                                    mce_style="color: red; font-size: 12px;"
+                                    id="clxhjz"></font></td>
+                            <td width="20%" align="right" class="t-bg">家庭其他收入</td>
+                            <td><input style="width: 200px" type="text" name="x_p_jtqtsr" class="_input"/>&nbsp;（元）&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">家庭其他收入备注</td>
+                            <td><input style="width: 200px" type="text" name="x_p_jtqtsrbz" class="_input" 
+                                       onkeypress="disButton()"/>&nbsp;（元）&nbsp;</td>
+							<td width="20%" align="right" class="t-bg"></td><td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="menuParent">
+                <div class="ListTitlePanel">
+                    <div class="ListTitle">
+                        <table align="left">
+                            <tr style="background:url(__PUBLIC__/Images/t-bg.png)">
+                                <td width="20%" align="center"><b>负债信息</b></td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="menuList" style="display: none;">
+                    <table align="left" id="fzxx">
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">信用卡额度</td>
+                            <td><input style="width: 200px" type="text" name="x_p_xyked" class="_input"      onblur="checkxyked()"
+                                       onkeypress="disButton()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="xyked"></font></td>
+                            <td width="20%" align="right" class="t-bg">信用卡负债</td>
+                            <td><input style="width: 200px" type="text" name="x_p_xykfz" class="_input"     onblur="checkxykfz()"
+                                       onkeypress="disButton()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="xykfz"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">银行按揭余额</td>
+                            <td><input style="width: 200px" type="text" name="x_p_yhajdk" class="_input"   onblur="checkyhajdk()"/>&nbsp;（元）&nbsp; <font
+                                    style="color: red; font-size: 12px;"
+                                    mce_style="color: red; font-size: 12px;"
+                                    id="yhajdk"></font></td>
+                            <td width="20%" align="right" class="t-bg">民间借贷余额</td>
+                            <td><input style="width: 200px" type="text" name="x_p_mjjd" class="_input"   onblur="checkmjjd()"
+                                       onkeypress="disButton()"/>&nbsp;（元）&nbsp;
+                                <font
+                                        style="color: red; font-size: 12px;"
+                                        mce_style="color: red; font-size: 12px;"
+                                        id="mjjd"></font></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="right" class="t-bg">对外担保额度</td>
+                            <td><input style="width: 200px" type="text" name="x_p_dwdbqk" class="_input"  onblur="checkdwdbqk()"
+                                       onkeypress="disButton()"/> &nbsp;（元）&nbsp;<font
+                                    style="color: red; font-size: 12px;"
+                                    mce_style="color: red; font-size: 12px;"
+                                    id="dwdbqk"></font></td>
+							<td width="20%" align="right" class="t-bg"></td><td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <table align="left">
+                <tr>
+                    <td align="center">
+                        <button type="button" class="btn btn-primary" value="确定提交" id="send-btn"/>
+                        确定提交
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <!--<script>-->
+    <!--function validate(){-->
+    <!--$("#x_p_add_form").validate({-->
+    <!--submitHandler:function(form){-->
+    <!--alert("submitted");-->
+    <!--}-->
+    <!--});-->
+    <!--}-->
+    <!--</script>-->
+    <script>
+        var urlcanshu = window.location.href.split("/");
+        $('#send-btn').click(function () {
+            var x_p_name = $('input[name = x_p_name]').val();
+            var x_p_idcard = $('input[name = x_p_idcard]').val();
+            var x_p_sex = $('input[name = x_p_sex]').val();
+            var x_p_mz = $('input[name = x_p_mz]').val();
+            var x_p_jkzk = $('input[name = x_p_jkzk]').val();
+            var x_p_gzdw = $('input[name = x_p_gzdw]').val();
+            var x_p_zw = $('input[name = x_p_zw]').val();
+            var x_p_hkzz = $('input[name = x_p_hkzz]').val();
+            var x_p_sfzzz = $('input[name = x_p_sfzzz]').val();
+            var x_p_sjzz = $('input[name = x_p_sjzz]').val();
+            var x_p_lxfs = $('input[name = x_p_lxfs]').val();
+            var x_p_hyzk = $('input[name = x_p_hyzk]:checked').val();
+            var x_p_poxm = $('input[name = x_p_poxm]').val();
+            var x_p_posfzh = $('input[name = x_p_posfzh]').val();
+            var x_p_polxfs = $('input[name = x_p_polxfs]').val();
+            var x_p_posr = $('input[name = x_p_posr]').val();
+            var x_p_pogzqk = $('input[name = x_p_pogzqk]').val();
+            var x_p_pozw = $('input[name = x_p_pozw]').val();
+            var x_p_jtzhnsr = $('input[name = x_p_jtzhnsr]').val();
+            var x_p_mxzc = $('input[name = x_p_mxzc]').val();
+            var x_p_yhck = $('input[name = x_p_yhck]').val();
+            var x_p_fwxz = $('input[name = x_p_fwxz]:checked').val();
+            var x_p_fwxqjz = $('input[name = x_p_fwxqjz]').val();
+            var x_p_clxhjz = $('input[name = x_p_clxhjz]').val();
+            var x_p_jtqtsr = $('input[name = x_p_jtqtsr]').val();
+            var x_p_jtqtsrbz = $('input[name = x_p_jtqtsrbz]').val();
+            var x_p_xyked = $('input[name = x_p_xyked]').val();
+            var x_p_xykfz = $('input[name = x_p_xykfz]').val();
+            var x_p_yhajdk = $('input[name = x_p_yhajdk]').val();
+            var x_p_mjjd = $('input[name = x_p_mjjd]').val();
+            var x_p_dwdbqk = $('input[name = x_p_dwdbqk]').val();
+            if(checkdata()) {
+                document.getElementById('send-btn').disabled = true;
+                $.post(handleUrl, {
+                    x_p_name: x_p_name,
+                    x_p_idcard: x_p_idcard,
+                    x_p_sex: x_p_sex,
+                    x_p_mz: x_p_mz,
+                    x_p_jkzk: x_p_jkzk,
+                    x_p_gzdw: x_p_gzdw,
+                    x_p_zw: x_p_zw,
+                    x_p_hkzz: x_p_hkzz,
+                    x_p_sfzzz: x_p_sfzzz,
+                    x_p_sjzz: x_p_sjzz,
+                    x_p_lxfs: x_p_lxfs,
+                    x_p_hyzk: x_p_hyzk,
+                    x_p_poxm: x_p_poxm,
+                    x_p_posfzh: x_p_posfzh,
+                    x_p_pozw: x_p_pozw,
+                    x_p_polxfs: x_p_polxfs,
+                    x_p_posr: x_p_posr,
+                    x_p_pogzqk: x_p_pogzqk,
+                    x_p_jtzhnsr: x_p_jtzhnsr,
+                    x_p_mxzc: x_p_mxzc,
+                    x_p_yhck: x_p_yhck,
+                    x_p_fwxz: x_p_fwxz,
+                    x_p_fwxqjz: x_p_fwxqjz,
+                    x_p_clxhjz: x_p_clxhjz,
+                    x_p_jtqtsr: x_p_jtqtsr,
+                    x_p_jtqtsrbz: x_p_jtqtsrbz,
+                    x_p_xyked: x_p_xyked,
+                    x_p_xykfz: x_p_xykfz,
+                    x_p_yhajdk: x_p_yhajdk,
+                    x_p_mjjd: x_p_mjjd,
+                    x_p_dwdbqk: x_p_dwdbqk,
+                    idcard: urlcanshu[8]
+                }, function (returndata) {
+                    document.getElementById('send-btn').disabled = false;
+                    if (returndata.status) {
+                        alert('添加成功');
+                        window.close();
+                    } else {
+                        alert('添加失败，错误：' + returndata.error);
+                    }
+                }, 'json');
+            }else{
+                alert('信息不完整或者不正确，请检查！')
+                document.getElementById('send-btn').disabled = false;
+            }
+        })
+    </script>
+</div>
+<include file="Public:customer_footer"/>

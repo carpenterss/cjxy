@@ -1,0 +1,33 @@
+<include file="Public:notice_header" title="已发布公告管理" />
+   <div class="module_public_main">
+      <table>
+       <form action="__URL__/doEdit_notice" method="post">
+       <input type="hidden" name="n_id" value="<{$n_info.n_id}>" />
+        <tr>
+          <td width="12%" align="right">公告标题</td>
+          <td><input type="text" name="n_title" class="_input" value="<{$n_info.n_title}>"/></td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">发布对象</td>
+          <td>
+          <if condition="$n_info.n_target eq '1'">
+          <input type="radio" name="n_target" value="1" checked="true"/>本部门所有员工<br/>
+          <input type="radio" name="n_target" value="2"/>公司内所有员工<br/>
+          <else />
+          <input type="radio" name="n_target" value="1"/>本部门所有员工<br/>
+          <input type="radio" name="n_target" value="2"  checked="true"/>公司内所有员工<br/>
+          </if>
+          </td>
+        </tr>
+        <tr>
+          <td width="12%" align="right">公告内容</td>
+          <td><textarea  name="n_content" class="_input2"><{$n_info.n_content}></textarea></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><input type="submit" value="更新公告" class="_button"/></td>
+        </tr>
+        </form>
+      </table>
+   </div>
+<include file="Public:notice_footer" /> 

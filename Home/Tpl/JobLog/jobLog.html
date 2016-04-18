@@ -1,0 +1,308 @@
+<include file="Public:jobLog_header" title="审核"/>
+<load file="__PUBLIC__/Css/layout.css"/>
+<load file="__PUBLIC__/Js/jquery.js"/>
+<load file="__PUBLIC__/Js/main.js"/>
+<load file="__PUBLIC__/Js/jquery-ui.min.js"/>
+<load file="__PUBLIC__/Js/yanue.pop.js"/>
+<link href="__PUBLIC__/maintable/jq.css" rel="stylesheet">
+<link rel="stylesheet" href="__PUBLIC__/pager/jq.css">
+<link href="__PUBLIC__/pager/prettify.css" rel="stylesheet">
+<script src="__PUBLIC__/pager/prettify.js"></script>
+<script src="__PUBLIC__/pager/docs.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/theme.blue.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.js"></script>
+<script src="__PUBLIC__/pager/jquery.tablesorter.widgets.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jquery.tablesorter.pager.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.pager.js"></script>
+<!-- jQuery: required (tablesorter works with jQuery 1.2.3+) -->
+<!-- Pick a theme, load the plugin & initialize plugin -->
+<link href="__PUBLIC__/maintable/theme.default.min.css" rel="stylesheet">
+<script src="__PUBLIC__/maintable/jquery.tablesorter.min.js"></script>
+<script src="__PUBLIC__/maintable/jquery.tablesorter.widgets.min.js"></script>
+<link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    table.tablesorter tbody tr:hover td {
+        background-color: #f4f5f6;
+    }
+
+    table.tablesorter tbody tr.selected td {
+        background-color: #f4f5f6;
+    }
+    .tablesorter-filter-row{
+        text-align: center;
+    }
+    .tablesorter-filter-row{
+        background-color: #f0f0f0;
+    }
+		.form-control {
+		height: 24px;
+	}
+</style>
+<script>
+    var targetColumn = 4;
+    $(function () {
+        $.tablesorter.themes.bootstrap = {
+            // these classes are added to the table. To see other table classes available,
+            // look here: http://getbootstrap.com/css/#tables
+            table: 'table table-bordered table-striped',
+            caption: 'caption',
+            // header class names
+            header: 'bootstrap-header', // give the header a gradient background (theme.bootstrap_2.css)
+            sortNone: '',
+            sortAsc: '',
+            sortDesc: '',
+            active: '', // applied when column is sorted
+            hover: '', // custom css required - a defined bootstrap style may not override other classes
+            // icon class names
+            icons: '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+            iconSortNone: 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted
+            iconSortAsc: 'glyphicon glyphicon-chevron-up', // class name added to icon when column has ascending sort
+            iconSortDesc: 'glyphicon glyphicon-chevron-down', // class name added to icon when column has descending sort
+            filterRow: '', // filter row class; use widgetOptions.filter_cssFilter for the input/select element
+            footerRow: '',
+            footerCells: '',
+            even: '', // even row zebra striping
+            odd: ''  // odd row zebra striping
+        };
+        $(".tablesorter").tablesorter({
+            theme: "bootstrap",
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: ["normal-row", "alt-row"],
+                filter_reset: ".reset",
+                filter_cssFilter: "form-control",
+                filter_columnFilters: true
+            },
+            initialized: function (xptable) {
+                var opts = $.tablesorter.filter.getOptionSource(xptable, targetColumn);
+				
+                $('.search')
+                        .append('<option>全部</option><option>未审核</option><option>审核已通过</option><option>审核未通过</option>')
+                        .on('change', function () {
+                            var filters = [];
+                            filters[targetColumn] = $(this).find(':selected').map(function () {
+							if(this.value === '全部'){
+								this.value = '';
+							}
+                                return this.value;
+                            }).get().join('|');
+                            $.tablesorter.setFilters(xptable, filters, true);
+                        });
+            }
+        }).tablesorterPager({
+            container: $(".ts-pager1"),
+            cssGoto: ".pagenum",
+            removeRows: false,
+            output: '{page} / {totalPages}'
+        });
+    });
+
+//    $(document).ready(function () {
+//        /* jQuery v1.11.1 */
+//        $("table.tablesorter tbody tr").click(function () {
+//            $(this).toggleClass("selected");
+//        });
+//    });
+
+
+    function selectshzt(fieldname) {
+        var index = $('#shzt option:selected').val();//选中的值
+        $.post("__URL__/getsortdata", {
+            index: index,
+            fieldname: fieldname
+        }, function (returndata) {
+            if (returndata.status) {
+                var data = eval(returndata.data);
+                var tbody = document.getElementById("content");
+                for (var i = tbody.childNodes.length - 1; i >= 0; i--) {
+                    tbody.removeChild(tbody.childNodes[i]);
+                }
+                for (var i = 0; i < dbrinfo.length; i++) {
+                    var tr = document.createElement("tr");
+                    var td = document.createElement("td");
+                    td.innerHTML = '<td align="center" width="15%">data[i].xm</td>';
+                    if (data[i].khtype == 1) {
+                        td.innerHTML += '<td align="center" width="15%">小贷个人</td>';
+                    } else if (data[i].khtype == 2) {
+                        td.innerHTML += '<td align="center" width="15%">小贷企业</td>';
+                    } else if (data[i].khtype == 3) {
+                        td.innerHTML += '<td align="center" width="15%">车贷</td>';
+                    } else if (data[i].khtype == 4) {
+                        td.innerHTML += '<td align="center" width="15%">担保个人</td>';
+                    } else if (data[i].khtype == 5) {
+                        td.innerHTML += '<td align="center" width="15%">担保企业</td>';
+                    }
+                    td.innerHTML += '<td align="center" width="15%">data[i].sfzh</td>';
+                    if (data[i].shzt == 0) {
+                        td.innerHTML += '<td align="center" width="15%">未审核</td>';
+                    } else if (data[i].shzt == 1) {
+                        td.innerHTML += '<td align="center" width="15%">审核已通过</td>';
+                    } else if (data[i].shzt == 2) {
+                        td.innerHTML += '<td align="center" width="15%">审核未通过</td>';
+                    }
+                    td.innerHTML += '<td align="center" width="15%">data[i].shyj</td>';
+                    if (data[i].khtype == 1) {
+                        td.innerHTML += '<td align="center" width="15%"><a href="__ROOT__/index.php/Customer/ywlc_update/id/1"+data[i].id+">业务信息</a></td>';
+                    } else if (data[i].khtype == 2) {
+                        td.innerHTML += '<td align="center" width="15%"><a href="__ROOT__/index.php/Customer/ywlc_update/id/2"+data[i].id+">业务信息</a></td>';
+                    } else if (data[i].khtype == 3) {
+                        td.innerHTML += '<td align="center" width="15%"><a href="__ROOT__/index.php/Customercd/customer_cdyw_update/id/"+data[i].id+"">业务信息</a></td>';
+                    } else if (data[i].khtype == 4) {
+                        td.innerHTML += '<td align="center" width="15%"><a href="__ROOT__/index.php/Customerdb/customer_dbywqr_update/id/"+data[i].id+"">业务信息</a></td>';
+                    } else if (data[i].khtype == 5) {
+                        td.innerHTML += '<td align="center" width="15%"><a href="__ROOT__/index.php/Customerdb/customer_dbywqy_update/id/"+data[i].id+"">业务信息</a></td>';
+                    }
+                    tr.appendChild(td);
+                    tbody.appendChild(tr)
+                }
+            }
+        })
+    }
+</script>
+
+<div class="module_public_main">
+    <table id="data">
+        <if condition="$xdgr[0].x_p_name neq ''">
+            <table class="tablesorter">
+                <thead>
+                <tr>
+                    <th align="center" width="15%" style="text-align: center">职员姓名</th>
+                    <th align="center" width="15%" style="text-align: center">客户名称</th>
+                    <th align="center" width="15%" style="text-align: center">客户类型</th>
+                    <th align="center" width="15%" style="text-align: center">身份证号/组织机构代码证</th>
+                    <th align="center" width="15%" style="text-align: center">审核状态:<select class="search"></select></th>
+                    <th align="center" width="15%" style="text-align: center">审核意见</th>
+                    <th align="center" width="15%" style="text-align: center">操作</th>
+                </tr>
+                </thead>
+                <tbody id="content">
+                <volist name="xdgr" id="vo">
+                    <tr>                        <td align="center" width="15%"><{$vo.c_uid}></td>
+
+                        <td align="center" width="15%"><{$vo.xm}></td>
+                        <td align="center" width="15%">小贷个人</td>
+                        <td align="center" width="15%"><{$vo.sfzh}></td>
+                        <if condition="$vo.shzt eq '0'">
+                            <td align="center" width="15%"><font color="red">未审核</font></td>
+                            <elseif condition="$vo.shzt eq '1'"/>
+                            <td align="center" width="15%"><font color="green">审核已通过</font></td>
+                            <else/>
+                            <td align="center" width="15%"><font color="red">审核未通过</font></td>
+                        </if>
+                        <td align="center" width="15%"><{$vo.shxx}></td>
+                        <td align="center" width="15%"><a href="__ROOT__/index.php/Customer/ywlc_update_by_b_id/id/<{$vo.b_id}>/enter/2">业务信息</a>
+                        </td>
+                    </tr>
+                </volist>
+                <volist name="xdqy" id="vo">
+                    <tr>                        <td align="center" width="15%"><{$vo.c_uid}></td>
+
+                        <td align="center" width="15%"><{$vo.xm}></td>
+                        <td align="center" width="15%">小贷企业</td>
+                        <td align="center" width="15%"><{$vo.sfzh}></td>
+                        <if condition="$vo.shzt eq '0'">
+                            <td align="center" width="15%"><font color="red">未审核</font></td>
+                            <elseif condition="$vo.shzt eq '1'"/>
+                            <td align="center" width="15%"><font color="green">审核已通过</font></td>
+                            <else/>
+                            <td align="center" width="15%"><font color="red">审核未通过</font></td>
+                        </if>
+                        <td align="center" width="15%"><{$vo.shxx}></td>
+                        <td align="center" width="15%"><a href="__ROOT__/index.php/Customer/ywlc_update_by_b_id/id/<{$vo.b_id}>/enter/2">业务信息</a>
+                        </td>
+                    </tr>
+                </volist>
+                <volist name="cd" id="vo">
+                    <tr>                        <td align="center" width="15%"><{$vo.c_uid}></td>
+
+                        <td align="center" width="15%"><{$vo.xm}></td>
+                        <td align="center" width="15%">车贷</td>
+                        <td align="center" width="15%"><{$vo.sfzh}></td>
+                        <if condition="$vo.shzt eq '0'">
+                            <td align="center" width="15%"><font color="red"> 未审核</font></td>
+                            <elseif condition="$vo.shzt eq '1'"/>
+                            <td align="center" width="15%"><font color="green">审核已通过</font></td>
+                            <else/>
+                            <td align="center" width="15%"><font color="red">审核未通过</font></td>
+                        </if>
+                        <td align="center" width="15%"><{$vo.shxx}></td>
+                        <td align="center" width="15%"><a
+                                href="__ROOT__/index.php/Customercd/customer_cdyw_update_by_b_id/id/<{$vo.b_id}>/enter/2">业务信息</a></td>
+                    </tr>
+                </volist>
+                <volist name="dbgr" id="vo">
+                    <tr>                        <td align="center" width="15%"><{$vo.c_uid}></td>
+
+                        <td align="center" width="15%"><{$vo.xm}></td>
+                        <td align="center" width="15%">担保个人</td>
+                        <td align="center" width="15%"><{$vo.sfzh}></td>
+                        <if condition="$vo.shzt eq '0'">
+                            <td align="center" width="15%"><font color="red">未审核</font></td>
+                            <elseif condition="$vo.shzt eq '1'"/>
+                            <td align="center" width="15%"><font color="green">审核已通过</font></td>
+                            <else/>
+                            <td align="center" width="15%"><font color="red">审核未通过</font></td>
+                        </if>
+                        <td align="center" width="15%"><{$vo.shxx}></td>
+                        <td align="center" width="15%"><a
+                                href="__ROOT__/index.php/Customerdb/customer_dbywgr_update_by_b_id/id/<{$vo.b_id}>/enter/2">业务信息</a></td>
+                    </tr>
+                </volist>
+                <volist name="dbqy" id="vo">
+                    <tr>
+                        <td align="center" width="15%"><{$vo.c_uid}></td>
+
+                        <td align="center" width="15%"><{$vo.xm}></td>
+                        <td align="center" width="15%">担保企业</td>
+                        <td align="center" width="15%"><{$vo.sfzh}></td>
+                        <if condition="$vo.shzt eq '0'">
+                            <td align="center" width="15%"><font color="red">未审核</font></td>
+                            <elseif condition="$vo.shzt eq '1'"/>
+                            <td align="center" width="15%"><font color="green">审核已通过</font></td>
+                            <else/>
+                            <td align="center" width="15%"><font color="red">审核未通过</font></td>
+                        </if>
+                        <td align="center" width="15%"><{$vo.shxx}></td>
+                        <td align="center" width="15%"><a
+                                href="__ROOT__/index.php/Customerdb/customer_dbywqy_update_by_b_id/id/<{$vo.b_id}>/enter/2">业务信息</a></td>
+                    </tr>
+                </volist>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="5" class="ts-pager1 form-horizontal">
+                        <button type="button" class="btn first">第一页</button>
+                        <button type="button" class="btn prev">上一页</button>
+                        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+                        <button type="button" class="btn next">下一页</button>
+                        <button type="button" class="btn last">最后一页</button>
+                        <select class="pagesize input-mini" title="Select page size">
+                            <option selected="selected" value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                        </select>
+                        <select class="pagenum input-mini" title="Select page number"></select>
+                    </th>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </if>
+    </table>
+</div>
+<!--<script>-->
+    <!--function search()-->
+    <!--{-->
+        <!--var obj = document.getElementById('search');-->
+        <!--var index = obj.selectedIndex;-->
+        <!--var value = obj.options[index].value;-->
+        <!--var inputobj = $("input[data-column = '3']");-->
+        <!--inputobj.val('fds');-->
+    <!--}-->
+<!--</script>-->
+<include file="Public:jobLog_footer"/>

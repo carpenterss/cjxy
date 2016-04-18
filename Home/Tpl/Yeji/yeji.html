@@ -1,0 +1,252 @@
+<include file="Public:customer_header" title="业绩统计"/>
+<script src="__PUBLIC__/calculator/Scripts/jquery-1.7.2.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/base64.js"></script>
+
+<script language="javascript" type="text/javascript"
+        src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+<link href="__PUBLIC__/maintable/theme.default.min.css" rel="stylesheet">
+<script src="__PUBLIC__/pager/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jq.css">
+<link href="__PUBLIC__/pager/prettify.css" rel="stylesheet">
+<script src="__PUBLIC__/pager/prettify.js"></script>
+<script src="__PUBLIC__/pager/docs.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/theme.blue.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.js"></script>
+<script src="__PUBLIC__/pager/jquery.tablesorter.widgets.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/pager/jquery.tablesorter.pager.css">
+<script src="__PUBLIC__/pager/jquery.tablesorter.pager.js"></script>
+<script language="javascript" type="text/javascript"
+        src="__PUBLIC__/DateSelect/My97DatePicker/WdatePicker.js"></script>
+<script src="__PUBLIC__/jquery.tableToExcel.js" type="text/javascript"></script>
+<link href="__PUBLIC__/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<script>
+    $(function(){
+        $('table').tablesorter({
+            widgets        : ['zebra', 'columns'],
+            usNumberFormat : false,
+            sortReset      : true,
+            sortRestart    : true,
+//            sortList: [[0,0]], // etc.
+//                theme: "bootstrap",
+//                widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+//                widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+//                    zebra: [ "normal-row", "alt-row" ],
+//                    filter_reset: ".reset",
+//                    filter_cssFilter: "form-control"
+            }
+        })
+                .tablesorterPager({
+                    container: $(".ts-pager1"),
+                    cssGoto: ".pagenum",
+                    removeRows: false,
+                    output: '{page} / {totalPages}'
+                });
+    });
+</script>
+<script>
+    var dkjezj = 0;
+    var count = 0;
+</script>
+<div class="module_public_main">
+    <if condition="$dept eq '1'">
+        <table>
+        <tr>
+            <td colspan="8"><strong>请选择查询条件 >></strong></td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <button class="_button" id="u_name">职员姓名</button>
+                
+                <button class="_button" id="fksj">放款时间</button>
+                
+                <button class="_button" id="dqsj">到期时间</button>&nbsp;&nbsp;
+				<button  type="button" id="send-btn" class="_button"  value="导出"
+            onclick="print_btn()"/>
+    导出
+            </td>
+        </tr>
+        </table>
+    </if>
+    <table id="table">
+        <thead>
+        <tr>
+            <td align="center">职员姓名</td>
+            <td align="center">客户姓名</td>
+            <td align="center">贷款金额</td>
+            <!--<td align="center">贷款期限</td>-->
+            <td align="center">放款时间</td>
+            <td align="center">到期时间</td>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="data" id="v" key="k">
+            <tr>
+                <td align="center"><{$v.employeename}></td>
+                <td align="center"><{$v.customername}></td>
+                <td align="center"><{$v.dkje}>元</td>
+                <!--<td align="center"><{$v.dkqx}></td>-->
+                <td align="center"><{$v.fkrq}></td>
+                <td align="center"><{$v.dqsj}></td>
+                <script>dkjezj = dkjezj + <{$v.dkje}></script>
+                <script>count = <{$k}></script>
+            </tr>
+        </volist>
+
+        </tbody>
+        <tfoot>
+		        <tr>
+            <td align="cneter"></td>
+            <td id="countzj" align="cneter" style="text-align: center"></td>
+            <td id="dkjezj" align="cneter" style="text-align: center">贷款金额总计<{$zj}></td>
+            <td align="cneter"></td>
+            <td align="cneter"></td>
+        </tr>
+        <tr style="background-color: #d6e9c6" >
+            <th colspan="4" class="ts-pager1 form-horizontal" style="text-align: center">
+                <button type="button" class="btn first">第一页</button>
+                <button type="button" class="btn prev">上一页</button>
+                <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+                <button type="button" class="btn next">下一页</button>
+                <button type="button" class="btn last">最后一页</button>
+                <select class="pagesize input-mini" title="Select page size">
+                    <option selected="selected" value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+                <select class="pagenum input-mini" title="Select page number"></select>
+            </th>
+            <td></td>
+        </tr>
+        </tfoot>
+    </table>
+
+    
+
+</div>
+<script>
+    window.onload = zj();
+    function zj(){
+        document.getElementById("countzj").innerHTML = "客户数: " + count;
+        document.getElementById("dkjezj").innerHTML = "贷款金额总计: " + dkjezj + "元";
+    }
+
+    function print_btn(){
+        windowopen = window.open('__APP__/Yeji/yeji_print', 'newwindow', 'height=900, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        i = 0;
+        var div_query = $("<input type='button' value='查询' style='width:80px;height:24px;border:1px solid #ccc;margin-left:10px;' id='query_value'/><input type='button' value='取消' style='width:80px;height:24px;border:1px solid #ccc;margin-left:10px;' id='quxiao'/>");
+
+        //客户姓名
+        $("#u_name").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input type='text' class='_input' style='width:100px;height:24px;border:1px solid #ccc;margin-left:10px;' id='value' />");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var v = $("#value").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/yeji_query", {
+                    value: v,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                $("._button").prop("disabled", "");
+                i = 0;
+            });
+        });
+
+        //贷款到期日
+        $("#dqsj").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input id='startdate' class='_input Wdate' readonly type='text' onClick='WdatePicker()' style='height:24px;margin:0 5px;'>-<input id='enddate' class='_input Wdate' readonly type='text' style='height:24px;' onClick='WdatePicker()'>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var s = $("#startdate").val();
+                var e = $("#enddate").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/yeji_query", {
+                    startdate: s,
+                    enddate: e,
+                    date: 1,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $(this).prev().prev().prev().remove();
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                $("._button").prop("disabled", "");
+                i = 0;
+            });
+        });
+
+        //贷款发放日
+        $("#fksj").click(function () {
+            if (i == 0) {
+//                $(this).siblings().attr("disabled", "true");
+                $("._button").attr("disabled", "true");
+                var field_name = $(this).attr("id");
+                var div_name = $("<input id='startdate' class='_input Wdate' readonly type='text' onClick='WdatePicker()' style='height:24px;margin:0 5px;'>-<input id='enddate' class='_input Wdate' readonly type='text' onClick='WdatePicker()' style='height:24px;'>");
+                $(this).after(div_query).after(div_name);
+                i = 1;
+            }
+
+            $('#query_value').click(function () {
+                var s = $("#startdate").val();
+                var e = $("#enddate").val();
+                $("#query_value").attr("disabled","true");
+                $.get("__URL__/yeji_query", {
+                    startdate: s,
+                    enddate: e,
+                    date: 1,
+                    field_name: field_name
+                }, function (data) {
+                    document.write(data);
+                });
+            });
+
+            $("#quxiao").click(function () {
+                $(this).prev().prev().prev().remove();
+                $(this).prev().prev().remove();
+                $(this).prev().remove();
+                $(this).remove();
+//                $("._button").attr("disabled", "");
+                $("._button").prop("disabled", "");
+                i = 0;
+            });
+        });
+    })
+</script>
+
+<include file="Public:customer_footer"/>

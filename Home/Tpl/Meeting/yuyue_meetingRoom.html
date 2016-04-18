@@ -1,0 +1,89 @@
+<include file="Public:meeting_header" title="预约会议室"/>
+     <div class="module_public_main"> 
+       <table>
+       <form action="__URL__/do_yuyue" method="post">
+       <input type="hidden" name="r_id" value="<{$r_id}>" />
+         <tr>
+           <td width="12%" align="right">>>友情提示:</td>
+           <td><font color=red>仅可对本份月进行会议室预约,为了您和他人的宝贵时间,请勿乱对会议室进行预约</font></td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">起始时间:</td>
+           <td>
+           <select name="start_nian">
+              <option><{$year}></option>
+           </select>年&nbsp;
+           <select name="start_yue">
+              <option><{$month}></option>
+           </select>月&nbsp;
+           <select name="start_ri">
+              <if condition="$month_days eq '31'">
+              <for start="1" end="32">
+              <option><{$i}></option>
+              </for>
+              </if>
+           </select>日&nbsp;
+           <select name="start_shi">
+              <for start="0" end="24">
+              <if condition="$i lt 10">
+              <option>0<{$i}></option>
+              <else />
+              <option><{$i}></option>
+              </if>
+              </for>
+           </select>点&nbsp;
+           <select name="start_fen">
+              <for start="1" end="61">
+              	<if condition="$i lt 10">
+              	<option>0<{$i}></option>
+                <else />
+                <option><{$i}></option>
+                </if>
+              </for>
+           </select>分
+           </td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">结束时间:</td>
+           <td>
+           <select name="end_nian">
+              <option><{$year}></option>
+           </select>年&nbsp;
+           <select name="end_yue">
+              <option><{$month}></option>
+           </select>月&nbsp;
+           <select name="end_ri">
+              <if condition="$month_days eq '31'">
+              <for start="1" end="32">
+              <option><{$i}></option>
+              </for>
+              </if>
+           </select>日&nbsp;
+           <select name="end_shi">
+              <for start="0" end="24">
+              <if condition="$i lt 10">
+              <option>0<{$i}></option>
+              <else />
+              <option><{$i}></option>
+              </if>
+              </for>
+           </select>点&nbsp;
+           <select name="end_fen">
+              <for start="1" end="61">
+              	<if condition="$i lt 10">
+              	<option>0<{$i}></option>
+                <else />
+                <option><{$i}></option>
+                </if>
+              </for>
+           </select>分
+           </td>
+         </tr>
+         <tr>
+           <td width="12%" align="right">&nbsp;</td>
+           <td><input type="submit" value="预约会议室" class="_button"/></td>
+         </tr>
+         </form>
+       </table>
+     </div>
+<include file="Public:meeting_footer" />

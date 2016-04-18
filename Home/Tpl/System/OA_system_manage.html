@@ -1,0 +1,124 @@
+<include file="Public:system_header" title="OA平台管理"/>
+<div class="module_public_main">
+    <table id="table_id">
+        <tr>
+            <td width="20%" align="right">当前版本:</td>
+            <td colspan="3"><b style="color:red;">诚金办公管理系统 Beta_0.0824.482</b></td>
+        </tr>
+        <tr>
+            <td width="20%" align="right">(您当前所使用)-PHP版本:</td>
+            <td width="40%"><b style="color:green"><{$PHPversion}>(建议版本：PHP5.4及以上)</b></td>
+        </tr>
+        <tr>
+            <td width="20%" align="right">(您当前所使用)-MYSQL版本:</td>
+            <td><b style="color:green"><{$MYSQLversion}>(建议版本：MYSQL5.5及以上)</b></td>
+        </tr>
+        <tr>
+            <td width="20%" align="right">(您当前所使用)-系统分辨率:</td>
+            <td><b style="color:green"><script>document.write("屏幕分辨率："+screen.width+"*"+screen.height)</script>(建议分辨率1280*720及以上)</b></td>
+        </tr>
+        <tr>
+            <td width="20%" align="right">(您当前所使用)-浏览器及版本:</td>
+            <td><b style="color:green"><script type="text/javascript">
+                var Sys = {};
+                var ua = navigator.userAgent.toLowerCase();
+                if (window.ActiveXObject)
+                    Sys.ie = ua.match(/msie ([\d.]+)/)[1]
+                else if (document.getBoxObjectFor)
+                    Sys.firefox = ua.match(/firefox\/([\d.]+)/)[1]
+                else if (window.MessageEvent && !document.getBoxObjectFor)
+                    Sys.chrome = ua.match(/chrome\/([\d.]+)/)[1]
+                else if (window.opera)
+                    Sys.opera = ua.match(/opera.([\d.]+)/)[1]
+                else if (window.openDatabase)
+                    Sys.safari = ua.match(/version\/([\d.]+)/)[1];
+
+                //以下进行测试
+                if(Sys.ie) document.write('IE: '+Sys.ie);
+                if(Sys.firefox) document.write('Firefox: '+Sys.firefox);
+                if(Sys.chrome) document.write('Chrome: '+Sys.chrome);
+                if(Sys.opera) document.write('Opera: '+Sys.opera);
+                if(Sys.safari) document.write('Safari: '+Sys.safari);
+            </script>(建议使用火狐浏览器)</b></td>
+        </tr>
+        <tr style="background:#F0F0F0;">
+            <td colspan="4">OA-基本设置:<font color=red>&nbsp;&nbsp;</font></td>
+        </tr>
+        <form action="__URL__/do_config" method="post">
+            <input type="hidden" name="c_id" value="<{$config_info.c_id}>"/>
+            <tr>
+                <td width="12%" align="right">是否开启OA平台:</td>
+                <if condition="$config_info.c_switch eq '1'">
+                    <td colspan="3"><input type="radio" name="c_switch" checked="" value="1"/><font
+                            color=green>开启</font>&nbsp;&nbsp;<input type="radio" name="c_switch" value="0"/><font
+                            color=red>关闭</font></td>
+                    <else/>
+                    <td colspan="3"><input type="radio" name="c_switch" value="1"/><font color=green>开启</font>&nbsp;&nbsp;<input
+                            type="radio" name="c_switch" checked="" value="0"/><font color=red>关闭</font></td>
+                </if>
+            </tr>
+            <tr>
+                <td width="12%" align="right">是否限制登陆时段:</td>
+                <if condition="$config_info.c_is_loginTime eq '1'">
+                    <td colspan="3"><input type="radio" name="c_is_loginTime" checked="" value="1"/><font
+                            color=green>限制</font>&nbsp;&nbsp;<input type="radio" name="c_is_loginTime" value="0"/><font
+                            color=red>自由</font>&nbsp;【限制时段:<{$config_info.c_logTime}>】
+                    </td>
+                    <else/>
+                    <td colspan="3"><input type="radio" name="c_is_loginTime" value="1"/><font color=green>限制</font>&nbsp;&nbsp;<input
+                            type="radio" name="c_is_loginTime" checked="" value="0"/><font color=red>自由</font></td>
+                </if>
+            </tr>
+            <tr id="xianzhi_time" style="display:none">
+                <td>&nbsp;</td>
+                <td colspan="3" style="background:#EEEEEE;">
+                    <input type="text" name="c_logTime" class="_input" value="<{$config_info.c_logTime}>"/>&nbsp;<font
+                        color=red>（格式->例如:22:00-08:00 请按照此格式行进限制时间的输入)</font>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td colspan="3"><input type="submit" value="更新配置" class="_button"/></td>
+            </tr>
+        </form>
+    </table>
+</div>
+<script type="text/javascript">
+    $("#add_info").click(function () {
+        var add_name = $("#query_book").val();
+        var arr = add_name.split("|");
+
+        $.get("__URL__/add_quickBooks", {
+            q_name: arr[0],
+            q_department: arr[1],
+            q_position: arr[2],
+            q_phone: arr[3]
+        }, function (data) {
+            if (data == 3) {
+                alert("对不起,该用户已经添加进快速查询通讯簿了");
+            } else if (data == 2) {
+                alert("对不起,添加失败");
+            } else {
+                $("#table_id").append(data);
+            }
+        });
+    });
+
+    //配置的简单验证
+    $("input[name='c_is_loginTime']").click(function () {
+        if (this.value == "1") {
+            $("#xianzhi_time").fadeIn(800);
+        } else {
+            $("#xianzhi_time").hide();
+        }
+    });
+
+    $("input[name='c_is_loginWarning']").click(function () {
+        if (this.value == "1") {
+            $("#warning_num").fadeIn(800);
+        } else {
+            $("#warning_num").hide();
+        }
+    });
+</script>
+<include file="Public:system_footer"/>

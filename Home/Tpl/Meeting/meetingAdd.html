@@ -1,0 +1,24 @@
+<include file="Public:meeting_header" title="会议室添加"/>
+     <div class="module_public_main">
+        <table>
+        <form action="__URL__/do_meetingAdd" method="post">
+          <tr>
+            <td align="right" width="12%">会议室名称:</td>
+            <td><input type="text" name="r_name" class="_input" /></td>
+          </tr>
+          <tr>
+            <td align="right" width="12%">容纳人数:</td>
+            <td><input type="text" name="r_renshu" class="_input" />&nbsp;人</td>
+          </tr>
+          <tr>
+            <td align="right" width="12%">是否开放:</td>
+            <td><input type="radio" name="r_is_open" value="1" /><font color=green>开放</font>&nbsp;&nbsp;<input type="radio" name="r_is_open" value="0" /><font color=red>关闭</font></td>
+          </tr>
+          <tr>
+            <td align="right" width="12%">&nbsp;</td>
+            <td><input type="submit" value="添加会议室" class="_button"/></td>
+          </tr>
+          </form>
+        </table>
+     </div>
+<include file="Public:meeting_footer" />

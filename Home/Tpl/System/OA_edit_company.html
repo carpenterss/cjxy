@@ -1,0 +1,52 @@
+<include file="Public:system_header" title="更新公司基本信息"/>
+     <div class="module_public_main">
+        <table>
+        <tr>
+           <td bgcolor="#F0F0F0" colspan="2"><a href="__URL__/OA_structure">【创建公司部门】</a> <a href="__URL__/OA_company_info">【录入公司基本信息】</a> <a href="__URL__/OA_edit_company">【更改公司基本信息】</a> <a href="__URL__/OA_company_graphics">【公司结构图形】</a></td>
+         </tr>
+        <form action="__URL__/do_edit_companyInfo" method="post">
+        <input type="hidden" name="c_id" value="<{$c_info[0]['c_id']}>" />
+          <tr>
+            <td width="12%" align="right">公司名称:</td>
+            <td><input type="text" name="c_cname" class="_input" value="<{$c_info[0]['c_cname']}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">公司移动电话:</td>
+            <td><input type="text" name="c_cphone" class="_input" value="<{$c_info[0]['c_cphone']}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">公司固定电话:</td>
+            <td><input type="text" name="c_telephone" class="_input" value="<{$c_info[0]['c_telephone']}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">邮箱地址:</td>
+            <td><input type="text" name="c_email" class="_input" value="<{$c_info[0]['c_email']}>"/><font color=red>（会作为管理员做外部邮件配置时候的发送地址,配置外部邮件时,发送地址应当和验证账号相同）</font></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">传真号码:</td>
+            <td><input type="text" name="c_fax" class="_input" value="<{$c_info[0]['c_fax']}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">公司地址:</td>
+            <td><input type="text" name="c_address" class="_input" value="<{$c_info[0]['c_address']}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">所在城市:</td>
+            <td><input type="text" name="c_city" class="_input" value="<{$c_info[0]['c_city']}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">客服QQ:</td>
+            <td><input type="text" name="c_qq" class="_input" value="<{$c_info[0]['c_qq']}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">公司官网:</td>
+            <td><input type="text" name="c_site_url" class="_input" value="<{$c_info[0]['c_site_url']}>"/></td>
+          </tr>
+          <tr>
+            <td width="12%" align="right">&nbsp;</td>
+            <td><input type="submit" value="更新信息" class="_button"/></td>
+          </tr> 
+          </form>
+        </table>
+     </div>
+<include file="Public:system_footer" />

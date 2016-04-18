@@ -1,0 +1,25 @@
+<include file="Public:notice_header" title="已接收的公告通知" />
+   <div class="module_public_main">
+     <table>
+       <tr>
+         <td align="center">编号</td>
+         <td align="center">公告标题</td>
+         <td align="center">发布时间</td>
+         <td align="center">发布人</td>
+         <td align="center">操作</td>
+       </tr>
+       <volist name="n_info" id="v" key="k">
+       <tr>
+         <td align="center"><{$k}></td>
+         <td align="left"><{$v.n_title|substr=0,20}>...</td>
+         <td align="center"><{$v.n_addtime|date="Y-m-d H:m",###}></td>
+         <td align="center"><{$v.n_rname}></td>
+         <td align="center"><a href="__URL__/look_notice/n_id/<{$v.n_id}>">查看详情</a></td>
+       </tr>
+       </volist>
+       <tr>
+         <td colspan="6" align="right"><{$fpage}></td>
+       </tr>
+     </table>
+   </div>
+<include file="Public:notice_footer" />

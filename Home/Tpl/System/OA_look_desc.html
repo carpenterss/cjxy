@@ -1,0 +1,22 @@
+<include file="Public:system_header" title="表结构查看"/>
+     <div class="module_public_main">
+       <table>
+         <tr>
+           <td align="center">字段名</td>
+           <td align="center">数据类型</td>
+           <td align="center">数据约束</td>
+           <td align="center">主键</td>
+           <td align="center">默认值</td>
+           <td align="center">额外属性</td>
+         </tr>
+         <volist name="t_desc" id="v">
+          <tr>
+           <td align="center"><{$v.Field}></td>
+           <td align="center"><{$v.Type}></td>
+           <td align="center"><{$v.Null}></td>
+           <td align="center"><{$v.Key}></td>
+           <td align="center"><{$v.Default}></td>
+           <td align="center"><{$v.Extra}></td>
+         </tr> 
+         </volist>
+       </table>
